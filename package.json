@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "homepage": "https://praveengudivaka.github.io/dev-tools",
+  "homepage": "https://gudivaka.github.io/dev-utilz",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
