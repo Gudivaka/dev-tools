@@ -3,7 +3,7 @@ import {
   Clock, Binary, FileCode2, Database, Terminal, KeyRound, 
   ShieldCheck, Lock, FileJson, FolderTree, GitCompare, 
   Split, Regex, Type, Link, Fingerprint, CalendarClock, Palette, Star, Search,
-  Code, RefreshCcw, Eye
+  Code, RefreshCcw, Eye, Layers
 } from 'lucide-react';
 import { TOOLS, ToolCategory, ToolDefinition } from '../types/tools';
 
@@ -20,7 +20,7 @@ const ICON_MAP: Record<string, React.FC<{ className?: string }>> = {
   Clock, Binary, FileCode2, Database, Terminal, KeyRound, 
   ShieldCheck, Lock, FileJson, FolderTree, GitCompare, 
   Split, Regex, Type, Link, Fingerprint, CalendarClock, Palette,
-  Code, RefreshCcw, Eye
+  Code, RefreshCcw, Eye, Layers
 };
 
 export const Sidebar: React.FC<SidebarProps> = ({

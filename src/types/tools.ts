@@ -37,7 +37,6 @@ export const TOOLS: ToolDefinition[] = [
     category: 'Time & Formatters',
     description: 'Encode/decode special characters to HTML named (&lt;), decimal, and hex entities',
     iconName: 'Code',
-    badge: 'New',
     keywords: ['html', 'entity', 'encode', 'decode', 'escape', 'markup', 'special characters']
   },
   {
@@ -54,7 +53,6 @@ export const TOOLS: ToolDefinition[] = [
     category: 'Time & Formatters',
     description: 'Convert PHP serialized data strings to JSON objects and vice versa',
     iconName: 'RefreshCcw',
-    badge: 'New',
     keywords: ['php', 'serialize', 'unserialize', 'json', 'converter', 'array']
   },
   {
@@ -127,6 +125,15 @@ export const TOOLS: ToolDefinition[] = [
     iconName: 'GitCompare',
     keywords: ['json', 'diff', 'compare', 'delta', 'object', 'match']
   },
+  {
+    id: 'es-query-generator',
+    name: 'ES Query Generator',
+    category: 'JSON Utilities',
+    description: 'Interactively build Elasticsearch bool DSL queries, range filters, and aggregations',
+    iconName: 'Layers',
+    badge: 'New',
+    keywords: ['elasticsearch', 'es', 'query', 'dsl', 'search', 'bool', 'must', 'filter', 'aggs']
+  },
 
   // Diffs & Text
   {
@@ -144,7 +151,6 @@ export const TOOLS: ToolDefinition[] = [
     category: 'Diffs & Text',
     description: 'Escape or unescape backslashes (\\n, \\t, \\"), JSON string literals & regex',
     iconName: 'FileCode2',
-    badge: 'New',
     keywords: ['escape', 'unescape', 'backslash', 'newline', 'quote', 'string', 'json']
   },
   {
@@ -171,7 +177,6 @@ export const TOOLS: ToolDefinition[] = [
     category: 'Generators & Web',
     description: 'Write HTML, CSS, and JavaScript with live rendered sandbox preview in an iframe',
     iconName: 'Eye',
-    badge: 'New',
     keywords: ['html', 'preview', 'css', 'live', 'sandbox', 'editor', 'iframe', 'render']
   },
   {

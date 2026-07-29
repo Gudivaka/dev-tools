@@ -27,6 +27,7 @@ import { HtmlEntityConverter } from './tools/HtmlEntityConverter';
 import { StringEscapeTool } from './tools/StringEscapeTool';
 import { HtmlPreview } from './tools/HtmlPreview';
 import { PhpSerializer } from './tools/PhpSerializer';
+import { EsQueryGenerator } from './tools/EsQueryGenerator';
 
 const TOOL_COMPONENTS: Record<string, React.FC> = {
   'epoch-converter': EpochConverter,
@@ -51,6 +52,7 @@ const TOOL_COMPONENTS: Record<string, React.FC> = {
   'string-escape': StringEscapeTool,
   'html-preview': HtmlPreview,
   'php-serializer': PhpSerializer,
+  'es-query-generator': EsQueryGenerator,
 };
 
 export const App: React.FC = () => {
@@ -92,9 +94,9 @@ export const App: React.FC = () => {
   const [favorites, setFavorites] = useState<string[]>(() => {
     try {
       const saved = localStorage.getItem('devtoolkit_favorites');
-      return saved ? JSON.parse(saved) : ['epoch-converter', 'jwt-decoder', 'json-formatter', 'file-text-diff'];
+      return saved ? JSON.parse(saved) : ['epoch-converter', 'jwt-decoder', 'json-formatter', 'es-query-generator'];
     } catch (e) {
-      return ['epoch-converter', 'jwt-decoder', 'json-formatter', 'file-text-diff'];
+      return ['epoch-converter', 'jwt-decoder', 'json-formatter', 'es-query-generator'];
     }
   });
 
