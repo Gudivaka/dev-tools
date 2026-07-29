@@ -57,8 +57,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
         key={tool.id}
         className={`group relative flex items-center justify-between px-3 py-2 text-xs font-medium rounded-xl cursor-pointer transition-all ${
           isActive
-            ? 'bg-indigo-600/20 text-white border border-indigo-500/40 shadow-sm'
-            : 'text-gray-400 hover:text-gray-200 hover:bg-gray-900/60'
+            ? 'bg-indigo-600/10 dark:bg-indigo-600/20 text-indigo-600 dark:text-white border border-indigo-500/30 dark:border-indigo-500/40 shadow-sm'
+            : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-900/60'
         }`}
         onClick={() => {
           onSelectTool(tool.id);
@@ -66,13 +66,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
         }}
       >
         <div className="flex items-center gap-2.5 min-w-0">
-          <IconComponent className={`w-4 h-4 flex-shrink-0 ${isActive ? 'text-indigo-400' : 'text-gray-500 group-hover:text-gray-300'}`} />
+          <IconComponent className={`w-4 h-4 flex-shrink-0 ${isActive ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-400 dark:text-gray-500 group-hover:text-gray-700 dark:group-hover:text-gray-300'}`} />
           <span className="truncate">{tool.name}</span>
         </div>
 
         <div className="flex items-center gap-1">
           {tool.badge && (
-            <span className="text-[9px] uppercase px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-bold border border-indigo-500/30">
+            <span className="text-[9px] uppercase px-1.5 py-0.5 rounded bg-indigo-500/10 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-300 font-bold border border-indigo-500/30">
               {tool.badge}
             </span>
           )}
@@ -82,7 +82,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               onToggleFavorite(tool.id);
             }}
             className={`p-1 rounded opacity-0 group-hover:opacity-100 transition-opacity ${
-              isFav ? 'opacity-100 text-amber-400' : 'text-gray-600 hover:text-amber-400'
+              isFav ? 'opacity-100 text-amber-500 dark:text-amber-400' : 'text-gray-400 dark:text-gray-600 hover:text-amber-500 dark:hover:text-amber-400'
             }`}
             title={isFav ? 'Remove from favorites' : 'Add to favorites'}
           >
@@ -106,20 +106,20 @@ export const Sidebar: React.FC<SidebarProps> = ({
       )}
 
       <aside
-        className={`fixed md:sticky top-0 md:top-16 left-0 z-40 w-64 h-[calc(100vh)] md:h-[calc(100vh-4rem)] bg-gray-950 border-r border-gray-800/80 flex flex-col transition-transform duration-300 ease-in-out ${
+        className={`fixed md:sticky top-0 md:top-16 left-0 z-40 w-64 h-[calc(100vh)] md:h-[calc(100vh-4rem)] bg-white dark:bg-gray-950 border-r border-gray-200 dark:border-gray-800/80 flex flex-col transition-transform duration-300 ease-in-out ${
           isOpenMobile ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
         }`}
       >
         {/* Search input inside sidebar */}
-        <div className="p-3 border-b border-gray-800/80">
+        <div className="p-3 border-b border-gray-200 dark:border-gray-800/80">
           <div className="relative">
-            <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-gray-500" />
+            <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-gray-400 dark:text-gray-500" />
             <input
               type="text"
               placeholder="Filter tools..."
               value={filterQuery}
               onChange={(e) => setFilterQuery(e.target.value)}
-              className="w-full bg-gray-900 border border-gray-800 text-xs text-gray-200 placeholder-gray-500 pl-8 pr-3 py-1.5 rounded-lg focus:outline-none focus:border-indigo-500"
+              className="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-xs text-gray-900 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 pl-8 pr-3 py-1.5 rounded-lg focus:outline-none focus:border-indigo-500"
             />
           </div>
         </div>
@@ -129,7 +129,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           {/* Favorites Category */}
           {favTools.length > 0 && !filterQuery && (
             <div>
-              <div className="flex items-center gap-1.5 px-2 mb-2 text-[11px] font-bold uppercase tracking-wider text-amber-400/90">
+              <div className="flex items-center gap-1.5 px-2 mb-2 text-[11px] font-bold uppercase tracking-wider text-amber-500 dark:text-amber-400">
                 <Star className="w-3 h-3 fill-current" />
                 <span>Favorites</span>
               </div>
@@ -144,7 +144,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
             return (
               <div key={category}>
-                <div className="px-2 mb-2 text-[10px] font-bold uppercase tracking-wider text-gray-500">
+                <div className="px-2 mb-2 text-[10px] font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500">
                   {category}
                 </div>
                 <div className="space-y-0.5">{catTools.map(renderToolButton)}</div>

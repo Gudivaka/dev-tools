@@ -54,6 +54,31 @@ const TOOL_COMPONENTS: Record<string, React.FC> = {
 };
 
 export const App: React.FC = () => {
+  // Theme state: dark or light
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    try {
+      const saved = localStorage.getItem('devtoolkit_theme');
+      if (saved === 'light' || saved === 'dark') return saved;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'dark';
+    } catch (e) {
+      return 'dark';
+    }
+  });
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+    localStorage.setItem('devtoolkit_theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
   const [activeToolId, setActiveToolId] = useState<string>(() => {
     const hash = window.location.hash.replace('#', '');
     if (hash && TOOLS.some((t) => t.id === hash)) return hash;
@@ -102,9 +127,11 @@ export const App: React.FC = () => {
   const ActiveComponent = TOOL_COMPONENTS[activeToolId] || EpochConverter;
 
   return (
-    <div className="min-h-screen bg-gray-950 text-gray-100 flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 flex flex-col font-sans selection:bg-indigo-500 selection:text-white transition-colors duration-200">
       {/* Top Navigation Bar */}
       <Header
+        theme={theme}
+        onToggleTheme={toggleTheme}
         onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
         onToggleSidebar={() => setIsSidebarOpenMobile((prev) => !prev)}
       />

@@ -33,12 +33,12 @@ export const ToolHeader: React.FC<ToolHeaderProps> = ({
   };
 
   return (
-    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 mb-6 border-b border-gray-800">
+    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 mb-6 border-b border-gray-200 dark:border-gray-800">
       <div>
-        <h1 className="text-2xl font-bold text-white tracking-tight flex items-center gap-2">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight flex items-center gap-2">
           {title}
         </h1>
-        <p className="text-sm text-gray-400 mt-1">{description}</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{description}</p>
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
@@ -47,10 +47,10 @@ export const ToolHeader: React.FC<ToolHeaderProps> = ({
         {onLoadSample && (
           <button
             onClick={onLoadSample}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 transition-all shadow-sm"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-600 dark:text-indigo-300 border border-indigo-500/30 transition-all shadow-sm"
             title="Load sample test data"
           >
-            <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
+            <Sparkles className="w-3.5 h-3.5 text-indigo-500 dark:text-indigo-400" />
             Sample Data
           </button>
         )}
@@ -58,17 +58,17 @@ export const ToolHeader: React.FC<ToolHeaderProps> = ({
         {onCopy && (
           <button
             onClick={handleCopy}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-700 transition-all shadow-sm"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-300 dark:border-gray-700 transition-all shadow-sm"
             title="Copy output to clipboard"
           >
             {copied ? (
               <>
-                <Check className="w-3.5 h-3.5 text-emerald-400" />
-                <span className="text-emerald-400">Copied!</span>
+                <Check className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" />
+                <span className="text-emerald-600 dark:text-emerald-400">Copied!</span>
               </>
             ) : (
               <>
-                <Copy className="w-3.5 h-3.5 text-gray-400" />
+                <Copy className="w-3.5 h-3.5 text-gray-500 dark:text-gray-400" />
                 Copy Result
               </>
             )}
@@ -78,10 +78,10 @@ export const ToolHeader: React.FC<ToolHeaderProps> = ({
         {onDownload && (
           <button
             onClick={onDownload}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-700 transition-all shadow-sm"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-300 dark:border-gray-700 transition-all shadow-sm"
             title={downloadFilename ? `Download ${downloadFilename}` : 'Download output'}
           >
-            <Download className="w-3.5 h-3.5 text-gray-400" />
+            <Download className="w-3.5 h-3.5 text-gray-500 dark:text-gray-400" />
             Download
           </button>
         )}
@@ -89,7 +89,7 @@ export const ToolHeader: React.FC<ToolHeaderProps> = ({
         {onClear && (
           <button
             onClick={onClear}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 transition-all"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-600 dark:text-red-400 border border-red-500/20 transition-all"
             title="Clear all fields"
           >
             <Trash2 className="w-3.5 h-3.5" />
