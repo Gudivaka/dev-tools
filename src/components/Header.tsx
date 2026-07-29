@@ -66,7 +66,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCommandPalette, onToggleSi
         </button>
 
         <a
-          href="https://github.com/Gudivaka/dev-utilz"
+          href="https://github.com/Gudivaka/dev-tools"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-300 bg-gray-900 hover:bg-gray-800 border border-gray-800 rounded-xl transition-all"
