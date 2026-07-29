@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ToolHeader } from '../components/ToolHeader';
 import { Binary, Upload, FileText, Image as ImageIcon } from 'lucide-react';
 
 export const Base64Converter: React.FC = () => {
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const [mode, setMode] = useState<'text' | 'file'>('text');
   const [direction, setDirection] = useState<'encode' | 'decode'>('encode');
   const [urlSafe, setUrlSafe] = useState(false);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   // Text state
   const [inputText, setInputText] = useState('Hello DevToolkit Studio! 🚀');
@@ -158,6 +163,8 @@ export const Base64Converter: React.FC = () => {
               Input Text ({direction === 'encode' ? 'Plain Text' : 'Base64 Encoded'})
             </label>
             <textarea
+              ref={inputRef}
+              autoFocus
               rows={12}
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}

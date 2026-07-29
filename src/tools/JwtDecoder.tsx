@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ToolHeader } from '../components/ToolHeader';
 import { KeyRound, ShieldAlert, ShieldCheck, Clock, CheckCircle2, XCircle } from 'lucide-react';
 import CryptoJS from 'crypto-js';
@@ -6,8 +6,13 @@ import CryptoJS from 'crypto-js';
 const SAMPLE_JWT = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFsaWNlIERldmVsb3BlciIsImFkbWluIjp0cnVlLCJpYXQiOjE1MTYyMzkwMjIsImV4cCI6MjUyNDYwODAwMH0.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c`;
 
 export const JwtDecoder: React.FC = () => {
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const [token, setToken] = useState<string>(SAMPLE_JWT);
   const [secretKey, setSecretKey] = useState<string>('your-256-bit-secret');
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   const decodeJwt = (jwt: string) => {
     const parts = jwt.trim().split('.');
@@ -108,6 +113,8 @@ export const JwtDecoder: React.FC = () => {
               <KeyRound className="w-4 h-4 text-indigo-400" /> Enter Encoded JWT Token
             </label>
             <textarea
+              ref={inputRef}
+              autoFocus
               rows={8}
               value={token}
               onChange={(e) => setToken(e.target.value)}

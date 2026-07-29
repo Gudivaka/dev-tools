@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ToolHeader } from '../components/ToolHeader';
 import { Link, Plus, Trash2, Globe } from 'lucide-react';
 
 const SAMPLE_URL = `https://api.github.com/search/repositories?q=dev-tools+language:typescript&sort=stars&order=desc&page=1`;
 
 export const UrlEncoder: React.FC = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [urlInput, setUrlInput] = useState(SAMPLE_URL);
   const [encodeMode, setEncodeMode] = useState<'component' | 'uri'>('component');
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   // Parse URL components and Query Params
   const parseUrl = (raw: string) => {
@@ -105,6 +110,8 @@ export const UrlEncoder: React.FC = () => {
         </label>
         <div className="flex gap-2">
           <input
+            ref={inputRef}
+            autoFocus
             type="text"
             value={urlInput}
             onChange={(e) => setUrlInput(e.target.value)}

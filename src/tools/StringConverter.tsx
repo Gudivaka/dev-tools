@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ToolHeader } from '../components/ToolHeader';
 import { Type, FileText } from 'lucide-react';
 
 export const StringConverter: React.FC = () => {
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const [inputText, setInputText] = useState('Hello World Developer Tools Studio');
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   // Metrics
   const charCount = inputText.length;
@@ -76,6 +81,8 @@ export const StringConverter: React.FC = () => {
           <Type className="w-4 h-4 text-indigo-400" /> Enter Text String
         </label>
         <textarea
+          ref={inputRef}
+          autoFocus
           rows={4}
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}

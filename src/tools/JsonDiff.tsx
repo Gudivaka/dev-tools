@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ToolHeader } from '../components/ToolHeader';
 import { GitCompare, Plus, Minus, Edit3 } from 'lucide-react';
 
@@ -29,8 +29,13 @@ const JSON_B = `{
 }`;
 
 export const JsonDiff: React.FC = () => {
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const [leftJson, setLeftJson] = useState(JSON_A);
   const [rightJson, setRightJson] = useState(JSON_B);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   // Compute Object Diff
   const computeDiff = () => {
@@ -100,6 +105,8 @@ export const JsonDiff: React.FC = () => {
         <div className="space-y-2">
           <label className="block text-xs font-semibold text-gray-300">Original JSON (Left / Base)</label>
           <textarea
+            ref={inputRef}
+            autoFocus
             rows={12}
             value={leftJson}
             onChange={(e) => setLeftJson(e.target.value)}

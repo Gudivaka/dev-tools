@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ToolHeader } from '../components/ToolHeader';
 import { ShieldCheck, Copy, Check, Upload, Key } from 'lucide-react';
 import CryptoJS from 'crypto-js';
 
 export const HashGenerator: React.FC = () => {
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const [inputText, setInputText] = useState('Hello DevToolkit!');
   const [secretKey, setSecretKey] = useState('');
   const [copiedHash, setCopiedHash] = useState<string | null>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   // File hash state
   const [fileName, setFileName] = useState('');
@@ -82,6 +87,8 @@ export const HashGenerator: React.FC = () => {
         <div className="md:col-span-2 space-y-2">
           <label className="block text-xs font-semibold text-gray-300">Input Text String</label>
           <textarea
+            ref={inputRef}
+            autoFocus
             rows={4}
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}

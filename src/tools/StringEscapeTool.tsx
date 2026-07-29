@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ToolHeader } from '../components/ToolHeader';
 
 const SAMPLE_ESCAPE_TEXT = `Line 1 with "double quotes" & 'single quotes'.\nLine 2 with \t tabs & \\ backslashes.`;
 
 export const StringEscapeTool: React.FC = () => {
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const [inputText, setInputText] = useState(SAMPLE_ESCAPE_TEXT);
   const [direction, setDirection] = useState<'escape' | 'unescape'>('escape');
   const [mode, setMode] = useState<'backslash' | 'json' | 'regex'>('backslash');
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   const escapeString = (str: string) => {
     if (!str) return '';
@@ -110,6 +115,8 @@ export const StringEscapeTool: React.FC = () => {
             Input ({direction === 'escape' ? 'Raw String' : 'Escaped String'})
           </label>
           <textarea
+            ref={inputRef}
+            autoFocus
             rows={14}
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}

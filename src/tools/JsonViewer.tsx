@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ToolHeader } from '../components/ToolHeader';
 import { ChevronRight, ChevronDown, Copy, Check, Search, FolderTree } from 'lucide-react';
 
@@ -110,8 +110,13 @@ const TreeNode: React.FC<{
 };
 
 export const JsonViewer: React.FC = () => {
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const [jsonInput, setJsonInput] = useState<string>(SAMPLE_TREE_JSON);
   const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   let parsed: any = null;
   let parseError: string | null = null;
@@ -135,6 +140,8 @@ export const JsonViewer: React.FC = () => {
         <div className="lg:col-span-5 space-y-2">
           <label className="block text-xs font-semibold text-gray-300">Raw JSON Input</label>
           <textarea
+            ref={inputRef}
+            autoFocus
             rows={18}
             value={jsonInput}
             onChange={(e) => setJsonInput(e.target.value)}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ToolHeader } from '../components/ToolHeader';
 import { Code, ArrowRightLeft } from 'lucide-react';
 
@@ -8,9 +8,14 @@ const SAMPLE_HTML = `<div class="container" id="main">
 </div>`;
 
 export const HtmlEntityConverter: React.FC = () => {
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const [inputText, setInputText] = useState(SAMPLE_HTML);
   const [direction, setDirection] = useState<'encode' | 'decode'>('encode');
   const [mode, setMode] = useState<'named' | 'decimal' | 'hex'>('named');
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   // Encode HTML Entities
   const encodeHtml = (text: string) => {
@@ -102,6 +107,8 @@ export const HtmlEntityConverter: React.FC = () => {
             Input ({direction === 'encode' ? 'Raw Text / HTML' : 'HTML Entities'})
           </label>
           <textarea
+            ref={inputRef}
+            autoFocus
             rows={14}
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}

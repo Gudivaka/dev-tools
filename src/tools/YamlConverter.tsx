@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ToolHeader } from '../components/ToolHeader';
 import { FileCode2, ArrowRightLeft } from 'lucide-react';
 import YAML from 'yaml';
@@ -18,8 +18,13 @@ database:
     - primary`;
 
 export const YamlConverter: React.FC = () => {
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const [inputContent, setInputContent] = useState(SAMPLE_YAML);
   const [mode, setMode] = useState<'yaml2json' | 'json2yaml'>('yaml2json');
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   const convert = () => {
     if (!inputContent.trim()) return { result: '', error: null };
@@ -81,6 +86,8 @@ export const YamlConverter: React.FC = () => {
             Input ({mode === 'yaml2json' ? 'YAML Format' : 'JSON Format'})
           </label>
           <textarea
+            ref={inputRef}
+            autoFocus
             rows={16}
             value={inputContent}
             onChange={(e) => setInputContent(e.target.value)}

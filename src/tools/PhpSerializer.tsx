@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ToolHeader } from '../components/ToolHeader';
 import { RefreshCcw } from 'lucide-react';
 
 const SAMPLE_PHP_SERIALIZED = `a:3:{s:2:"id";i:101;s:4:"name";s:15:"Alice Developer";s:5:"roles";a:2:{i:0;s:5:"admin";i:1;s:3:"dev";}}`;
 
 export const PhpSerializer: React.FC = () => {
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const [inputText, setInputText] = useState(SAMPLE_PHP_SERIALIZED);
   const [direction, setDirection] = useState<'unserialize' | 'serialize'>('unserialize');
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   // Simple PHP Unserializer
   const phpUnserialize = (str: string) => {
@@ -157,6 +162,8 @@ export const PhpSerializer: React.FC = () => {
             Input ({direction === 'unserialize' ? 'PHP Serialized String' : 'JSON Object'})
           </label>
           <textarea
+            ref={inputRef}
+            autoFocus
             rows={14}
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}

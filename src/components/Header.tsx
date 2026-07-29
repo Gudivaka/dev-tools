@@ -64,24 +64,7 @@ export const Header: React.FC<HeaderProps> = ({
           <PrivacyBadge />
         </div>
 
-        {/* Light / Dark Mode Toggle Button */}
-        <button
-          onClick={onToggleTheme}
-          className="p-2 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-800 transition-all flex items-center gap-1.5 text-xs font-semibold"
-          title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
-        >
-          {theme === 'dark' ? (
-            <>
-              <Sun className="w-4 h-4 text-amber-400 fill-current" />
-              <span className="hidden sm:inline">Light</span>
-            </>
-          ) : (
-            <>
-              <Moon className="w-4 h-4 text-indigo-600 fill-current" />
-              <span className="hidden sm:inline">Dark</span>
-            </>
-          )}
-        </button>
+        {/* Light / Dark Mode Toggle Button (Hidden for now) */}
 
         <button
           onClick={onOpenCommandPalette}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ToolHeader } from '../components/ToolHeader';
 import { Play, Eye, Code } from 'lucide-react';
 
@@ -51,7 +51,12 @@ const SAMPLE_HTML_CODE = `<!DOCTYPE html>
 </html>`;
 
 export const HtmlPreview: React.FC = () => {
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const [htmlCode, setHtmlCode] = useState(SAMPLE_HTML_CODE);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   return (
     <div className="space-y-6">
@@ -70,6 +75,8 @@ export const HtmlPreview: React.FC = () => {
             <Code className="w-4 h-4 text-indigo-400" /> HTML / CSS / JS Code Editor
           </label>
           <textarea
+            ref={inputRef}
+            autoFocus
             rows={18}
             value={htmlCode}
             onChange={(e) => setHtmlCode(e.target.value)}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ToolHeader } from '../components/ToolHeader';
 import { FileJson, Code, AlertTriangle, CheckCircle2, Wand2 } from 'lucide-react';
 
@@ -16,9 +16,14 @@ const SAMPLE_JSON = `{
 }`;
 
 export const JsonFormatter: React.FC = () => {
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const [jsonInput, setJsonInput] = useState<string>(SAMPLE_JSON);
   const [indentSize, setIndentSize] = useState<number | 'tab' | 'compact'>(2);
   const [targetType, setTargetType] = useState<'none' | 'typescript' | 'go' | 'python'>('none');
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   // Format & Validate JSON
   const processJson = () => {
@@ -200,6 +205,8 @@ export const JsonFormatter: React.FC = () => {
           </div>
 
           <textarea
+            ref={inputRef}
+            autoFocus
             rows={18}
             value={jsonInput}
             onChange={(e) => setJsonInput(e.target.value)}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ToolHeader } from '../components/ToolHeader';
 import { Database, Wand2 } from 'lucide-react';
 import { format as formatSql } from 'sql-formatter';
@@ -6,9 +6,14 @@ import { format as formatSql } from 'sql-formatter';
 const SAMPLE_SQL = `select u.id, u.username, u.email, count(o.id) as total_orders, sum(o.amount) as total_spent from users u left join orders o on u.id = o.user_id where u.created_at >= '2024-01-01' and u.status = 'active' group by u.id, u.username, u.email having count(o.id) > 2 order by total_spent desc limit 50;`;
 
 export const SqlFormatter: React.FC = () => {
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const [sqlInput, setSqlInput] = useState(SAMPLE_SQL);
   const [language, setLanguage] = useState<any>('postgresql');
   const [uppercase, setUppercase] = useState(true);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   const formatQuery = () => {
     if (!sqlInput.trim()) return '';
@@ -70,6 +75,8 @@ export const SqlFormatter: React.FC = () => {
         <div className="space-y-2">
           <label className="block text-xs font-semibold text-gray-300">Unformatted SQL</label>
           <textarea
+            ref={inputRef}
+            autoFocus
             rows={16}
             value={sqlInput}
             onChange={(e) => setSqlInput(e.target.value)}

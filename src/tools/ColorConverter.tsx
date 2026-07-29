@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ToolHeader } from '../components/ToolHeader';
 import { Palette, CheckCircle2, XCircle } from 'lucide-react';
 
 export const ColorConverter: React.FC = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [hexColor, setHexColor] = useState('#6366F1');
   const [bgColor, setBgColor] = useState('#0F172A');
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   // Convert Hex to RGB
   const hexToRgb = (hex: string) => {
@@ -112,6 +117,8 @@ export const ColorConverter: React.FC = () => {
             <div className="flex-1">
               <label className="block text-xs text-gray-400 mb-1">HEX Color Code</label>
               <input
+                ref={inputRef}
+                autoFocus
                 type="text"
                 value={hexColor}
                 onChange={(e) => setHexColor(e.target.value)}

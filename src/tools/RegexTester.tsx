@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ToolHeader } from '../components/ToolHeader';
 import { Regex, CheckCircle2, AlertCircle } from 'lucide-react';
 
@@ -7,9 +7,14 @@ const SAMPLE_TEST_TEXT = `Reach out to support@example.com or john.doe123@dev-to
 Invalid emails: plainaddress, @missinguser.com, user@.com`;
 
 export const RegexTester: React.FC = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [pattern, setPattern] = useState(SAMPLE_REGEX);
   const [testText, setTestText] = useState(SAMPLE_TEST_TEXT);
   const [flags, setFlags] = useState({ g: true, i: true, m: false, s: false });
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   // Compute Regex Matches
   const testRegex = () => {
@@ -77,6 +82,8 @@ export const RegexTester: React.FC = () => {
           <div className="relative flex-1">
             <span className="absolute left-3 top-2.5 text-gray-500 font-mono text-sm">/</span>
             <input
+              ref={inputRef}
+              autoFocus
               type="text"
               value={pattern}
               onChange={(e) => setPattern(e.target.value)}

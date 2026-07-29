@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ToolHeader } from '../components/ToolHeader';
 import { CalendarClock, Calendar, Clock, AlertCircle } from 'lucide-react';
 import cronstrue from 'cronstrue';
 
 export const CronParser: React.FC = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [cronExpr, setCronExpr] = useState('*/15 * * * *');
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   // Parse English Description
   let description = '';
@@ -58,6 +63,8 @@ export const CronParser: React.FC = () => {
               <CalendarClock className="w-4 h-4 text-indigo-400" /> Enter Cron Expression (5 or 6 fields)
             </label>
             <input
+              ref={inputRef}
+              autoFocus
               type="text"
               value={cronExpr}
               onChange={(e) => setCronExpr(e.target.value)}

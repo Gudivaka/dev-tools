@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ToolHeader } from '../components/ToolHeader';
 import { Clock, RefreshCw, Calendar, Globe } from 'lucide-react';
 
 export const EpochConverter: React.FC = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [now, setNow] = useState(new Date());
   const [epochInput, setEpochInput] = useState<string>(Math.floor(Date.now() / 1000).toString());
   const [dateInput, setDateInput] = useState<string>(new Date().toISOString().slice(0, 16));
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   // Live Clock Update
   useEffect(() => {
@@ -127,6 +132,8 @@ export const EpochConverter: React.FC = () => {
             <label className="block text-xs font-medium text-gray-400 mb-1">Enter Timestamp (Seconds or Milliseconds)</label>
             <div className="flex gap-2">
               <input
+                ref={inputRef}
+                autoFocus
                 type="text"
                 value={epochInput}
                 onChange={(e) => setEpochInput(e.target.value)}

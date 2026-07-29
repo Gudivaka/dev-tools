@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ToolHeader } from '../components/ToolHeader';
 import { Split, Upload, Plus, Minus } from 'lucide-react';
 import * as diff from 'diff';
@@ -19,10 +19,15 @@ const TEXT_MODIFIED = `function calculateTotal(items) {
 }`;
 
 export const FileTextDiff: React.FC = () => {
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const [leftText, setLeftText] = useState(TEXT_ORIGINAL);
   const [rightText, setRightText] = useState(TEXT_MODIFIED);
   const [viewMode, setViewMode] = useState<'split' | 'unified'>('split');
   const [ignoreWhitespace, setIgnoreWhitespace] = useState(false);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   // Compute Line Diff using `diff` library
   const changes = ignoreWhitespace
@@ -116,6 +121,8 @@ export const FileTextDiff: React.FC = () => {
             <input type="file" id="file-left" className="hidden" onChange={(e) => handleFileUpload(e, 'left')} />
           </div>
           <textarea
+            ref={inputRef}
+            autoFocus
             rows={10}
             value={leftText}
             onChange={(e) => setLeftText(e.target.value)}

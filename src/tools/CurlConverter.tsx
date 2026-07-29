@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ToolHeader } from '../components/ToolHeader';
 import { Terminal, Code2 } from 'lucide-react';
 
@@ -8,8 +8,13 @@ const SAMPLE_CURL = `curl -X POST https://api.example.com/v1/auth/login \\
   -d '{"email": "user@example.com", "password": "secretpassword"}'`;
 
 export const CurlConverter: React.FC = () => {
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const [curlInput, setCurlInput] = useState(SAMPLE_CURL);
   const [targetLang, setTargetLang] = useState<'js-fetch' | 'axios' | 'python' | 'go' | 'rust'>('js-fetch');
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   // Simple cURL parser
   const parseCurl = (cmd: string) => {
@@ -218,6 +223,8 @@ async fn main() -> Result<(), Box<dyn std.error.Error>> {
             <Terminal className="w-4 h-4 text-indigo-400" /> Paste cURL Command
           </label>
           <textarea
+            ref={inputRef}
+            autoFocus
             rows={16}
             value={curlInput}
             onChange={(e) => setCurlInput(e.target.value)}
