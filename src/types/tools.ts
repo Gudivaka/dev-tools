@@ -32,12 +32,30 @@ export const TOOLS: ToolDefinition[] = [
     keywords: ['base64', 'encode', 'decode', 'hex', 'binary', 'html', 'entity', 'data uri']
   },
   {
+    id: 'html-entity-converter',
+    name: 'HTML Entity Converter',
+    category: 'Time & Formatters',
+    description: 'Encode/decode special characters to HTML named (&lt;), decimal, and hex entities',
+    iconName: 'Code',
+    badge: 'New',
+    keywords: ['html', 'entity', 'encode', 'decode', 'escape', 'markup', 'special characters']
+  },
+  {
     id: 'yaml-converter',
     name: 'YAML ↔ JSON ↔ CSV',
     category: 'Time & Formatters',
     description: 'Bi-directional YAML, JSON, and CSV format converter',
     iconName: 'FileCode2',
     keywords: ['yaml', 'json', 'csv', 'converter', 'transform', 'parse']
+  },
+  {
+    id: 'php-serializer',
+    name: 'PHP Serializer / Unserializer',
+    category: 'Time & Formatters',
+    description: 'Convert PHP serialized data strings to JSON objects and vice versa',
+    iconName: 'RefreshCcw',
+    badge: 'New',
+    keywords: ['php', 'serialize', 'unserialize', 'json', 'converter', 'array']
   },
   {
     id: 'sql-formatter',
@@ -121,6 +139,15 @@ export const TOOLS: ToolDefinition[] = [
     keywords: ['diff', 'file diff', 'text diff', 'compare', 'side by side', 'unified', 'changes', 'patch']
   },
   {
+    id: 'string-escape',
+    name: 'Backslash Escape / Unescape',
+    category: 'Diffs & Text',
+    description: 'Escape or unescape backslashes (\\n, \\t, \\"), JSON string literals & regex',
+    iconName: 'FileCode2',
+    badge: 'New',
+    keywords: ['escape', 'unescape', 'backslash', 'newline', 'quote', 'string', 'json']
+  },
+  {
     id: 'regex-tester',
     name: 'Regex Tester & Visualizer',
     category: 'Diffs & Text',
@@ -139,6 +166,15 @@ export const TOOLS: ToolDefinition[] = [
 
   // Generators & Web
   {
+    id: 'html-preview',
+    name: 'HTML & CSS Live Preview',
+    category: 'Generators & Web',
+    description: 'Write HTML, CSS, and JavaScript with live rendered sandbox preview in an iframe',
+    iconName: 'Eye',
+    badge: 'New',
+    keywords: ['html', 'preview', 'css', 'live', 'sandbox', 'editor', 'iframe', 'render']
+  },
+  {
     id: 'url-encoder',
     name: 'URL Encoder & Query Parser',
     category: 'Generators & Web',
@@ -148,11 +184,11 @@ export const TOOLS: ToolDefinition[] = [
   },
   {
     id: 'uuid-generator',
-    name: 'UUID / ULID / NanoID Generator',
+    name: 'UUID / ULID Generate & Decode',
     category: 'Generators & Web',
-    description: 'Bulk generate UUID v4, v1, NanoID, ULID with customizable formatting',
+    description: 'Bulk generate UUID v4, v1, NanoID, ULID and decode creation timestamps',
     iconName: 'Fingerprint',
-    keywords: ['uuid', 'guid', 'ulid', 'nanoid', 'generator', 'v4', 'bulk']
+    keywords: ['uuid', 'guid', 'ulid', 'nanoid', 'generator', 'v4', 'bulk', 'decode', 'timestamp']
   },
   {
     id: 'cron-parser',

@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import { ToolHeader } from '../components/ToolHeader';
-import { Fingerprint, RefreshCw } from 'lucide-react';
+import { Fingerprint, RefreshCw, Search } from 'lucide-react';
 
 export const UuidGenerator: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<'generate' | 'decode'>('generate');
+
+  // Generator State
   const [uuidVersion, setUuidVersion] = useState<'v4' | 'v1' | 'nanoid' | 'ulid'>('v4');
   const [count, setCount] = useState<number>(10);
   const [uppercase, setUppercase] = useState<boolean>(false);
   const [hyphens, setHyphens] = useState<boolean>(true);
   const [quotes, setQuotes] = useState<boolean>(false);
+
+  // Decoder State
+  const [decodeInput, setDecodeInput] = useState<string>('01ARZ3NDEKTSV4RRFFQ69G5FAV');
 
   // Client-side Generators
   const generateV4 = () => {
@@ -64,11 +70,8 @@ export const UuidGenerator: React.FC = () => {
       if (!hyphens && (uuidVersion === 'v4' || uuidVersion === 'v1')) {
         raw = raw.replace(/-/g, '');
       }
-
       if (uppercase) raw = raw.toUpperCase();
-
       if (quotes) raw = `"${raw}"`;
-
       list.push(raw);
     }
     return list;
@@ -80,13 +83,60 @@ export const UuidGenerator: React.FC = () => {
     setGeneratedList(generateBulk());
   };
 
+  // Decode ULID / UUID v1
+  const decodeId = (str: string) => {
+    const clean = str.trim();
+    if (!clean) return null;
+
+    // Try ULID Decode (26 Crockford Base32 characters)
+    const CROCKFORD_BASE32 = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
+    if (clean.length === 26 && /^[0-9A-HJKMNP-TV-Z]+$/i.test(clean)) {
+      const timePart = clean.substring(0, 10).toUpperCase();
+      let timestamp = 0;
+      for (let i = 0; i < timePart.length; i++) {
+        const char = timePart[i];
+        const val = CROCKFORD_BASE32.indexOf(char);
+        if (val !== -1) {
+          timestamp = timestamp * 32 + val;
+        }
+      }
+      const d = new Date(timestamp);
+      return {
+        type: 'ULID',
+        timestamp,
+        dateUtc: d.toUTCString(),
+        dateLocal: d.toLocaleString(),
+        randomPart: clean.substring(10),
+      };
+    }
+
+    // Try UUID v1 / v4 Decode (36 chars standard format)
+    if (/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(clean)) {
+      const version = clean.charAt(14);
+      return {
+        type: `UUID v${version}`,
+        version: `Version ${version}`,
+        variant: 'RFC 4122 / Leach-Salz',
+        raw: clean,
+      };
+    }
+
+    return { type: 'Unknown / Unrecognized ID Format' };
+  };
+
+  const decodedInfo = decodeId(decodeInput);
+
   return (
     <div className="space-y-6">
       <ToolHeader
-        title="UUID / ULID / NanoID Generator"
-        description="Bulk generate unique identifiers (UUID v4, UUID v1, NanoID, ULID) with custom formatting."
-        onCopy={() => navigator.clipboard.writeText(generatedList.join('\n'))}
+        title="UUID / ULID Generator & Decoder"
+        description="Bulk generate unique identifiers (UUID v4, UUID v1, NanoID, ULID) and decode timestamps from ULID / UUIDs."
+        onCopy={() => {
+          if (activeTab === 'generate') navigator.clipboard.writeText(generatedList.join('\n'));
+          else if (decodedInfo?.dateUtc) navigator.clipboard.writeText(decodedInfo.dateUtc);
+        }}
         onDownload={() => {
+          if (activeTab !== 'generate') return;
           const blob = new Blob([generatedList.join('\n')], { type: 'text/plain' });
           const url = URL.createObjectURL(blob);
           const a = document.createElement('a');
@@ -96,103 +146,166 @@ export const UuidGenerator: React.FC = () => {
         }}
       />
 
-      {/* Control Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl bg-gray-900/80 border border-gray-800">
-        <div className="flex items-center gap-3">
-          <span className="text-xs font-medium text-gray-400">Type:</span>
-          <div className="flex items-center gap-1 bg-gray-950 p-1 rounded-xl border border-gray-800 text-xs">
-            <button
-              onClick={() => setUuidVersion('v4')}
-              className={`px-3 py-1 rounded-lg ${uuidVersion === 'v4' ? 'bg-indigo-600 text-white' : 'text-gray-400'}`}
-            >
-              UUID v4
-            </button>
-            <button
-              onClick={() => setUuidVersion('v1')}
-              className={`px-3 py-1 rounded-lg ${uuidVersion === 'v1' ? 'bg-indigo-600 text-white' : 'text-gray-400'}`}
-            >
-              UUID v1
-            </button>
-            <button
-              onClick={() => setUuidVersion('nanoid')}
-              className={`px-3 py-1 rounded-lg ${uuidVersion === 'nanoid' ? 'bg-indigo-600 text-white' : 'text-gray-400'}`}
-            >
-              NanoID
-            </button>
-            <button
-              onClick={() => setUuidVersion('ulid')}
-              className={`px-3 py-1 rounded-lg ${uuidVersion === 'ulid' ? 'bg-indigo-600 text-white' : 'text-gray-400'}`}
-            >
-              ULID
-            </button>
-          </div>
-        </div>
-
-        {/* Options */}
-        <div className="flex items-center gap-4 text-xs text-gray-300">
-          <label className="flex items-center gap-2 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={uppercase}
-              onChange={(e) => setUppercase(e.target.checked)}
-              className="w-4 h-4 rounded bg-gray-950 border-gray-700 text-indigo-500"
-            />
-            <span>Uppercase</span>
-          </label>
-
-          <label className="flex items-center gap-2 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={hyphens}
-              onChange={(e) => setHyphens(e.target.checked)}
-              className="w-4 h-4 rounded bg-gray-950 border-gray-700 text-indigo-500"
-            />
-            <span>Hyphens</span>
-          </label>
-
-          <label className="flex items-center gap-2 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={quotes}
-              onChange={(e) => setQuotes(e.target.checked)}
-              className="w-4 h-4 rounded bg-gray-950 border-gray-700 text-indigo-500"
-            />
-            <span>Quotes</span>
-          </label>
-
-          <div className="flex items-center gap-2">
-            <span className="text-gray-400">Quantity:</span>
-            <input
-              type="number"
-              min={1}
-              max={500}
-              value={count}
-              onChange={(e) => setCount(Number(e.target.value))}
-              className="w-16 glass-input px-2 py-1 rounded-lg text-xs font-mono text-center"
-            />
-          </div>
-
-          <button
-            onClick={handleRegenerate}
-            className="flex items-center gap-1.5 px-3 py-1.5 font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white shadow-sm"
-          >
-            <RefreshCw className="w-3.5 h-3.5" /> Generate
-          </button>
-        </div>
+      {/* Tab Switcher */}
+      <div className="flex items-center gap-2 p-4 rounded-2xl bg-gray-900/80 border border-gray-800">
+        <button
+          onClick={() => setActiveTab('generate')}
+          className={`px-4 py-2 rounded-xl text-xs font-semibold ${
+            activeTab === 'generate' ? 'bg-indigo-600 text-white' : 'bg-gray-800 text-gray-400'
+          }`}
+        >
+          Bulk Generator
+        </button>
+        <button
+          onClick={() => setActiveTab('decode')}
+          className={`px-4 py-2 rounded-xl text-xs font-semibold ${
+            activeTab === 'decode' ? 'bg-indigo-600 text-white' : 'bg-gray-800 text-gray-400'
+          }`}
+        >
+          Decode ULID / UUID
+        </button>
       </div>
 
-      {/* Generated Output */}
-      <div className="space-y-2">
-        <label className="block text-xs font-semibold text-gray-300 flex items-center gap-2">
-          <Fingerprint className="w-4 h-4 text-indigo-400" /> Generated List ({generatedList.length})
-        </label>
-        <textarea
-          rows={14}
-          readOnly
-          value={generatedList.join('\n')}
-          className="w-full glass-input p-4 rounded-2xl text-xs font-mono text-emerald-300 leading-relaxed bg-gray-950/90"
-        />
-      </div>
+      {activeTab === 'generate' ? (
+        <>
+          {/* Generator Options */}
+          <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl bg-gray-900/80 border border-gray-800">
+            <div className="flex items-center gap-3">
+              <span className="text-xs font-medium text-gray-400">Type:</span>
+              <div className="flex items-center gap-1 bg-gray-950 p-1 rounded-xl border border-gray-800 text-xs">
+                <button
+                  onClick={() => setUuidVersion('v4')}
+                  className={`px-3 py-1 rounded-lg ${uuidVersion === 'v4' ? 'bg-indigo-600 text-white' : 'text-gray-400'}`}
+                >
+                  UUID v4
+                </button>
+                <button
+                  onClick={() => setUuidVersion('v1')}
+                  className={`px-3 py-1 rounded-lg ${uuidVersion === 'v1' ? 'bg-indigo-600 text-white' : 'text-gray-400'}`}
+                >
+                  UUID v1
+                </button>
+                <button
+                  onClick={() => setUuidVersion('nanoid')}
+                  className={`px-3 py-1 rounded-lg ${uuidVersion === 'nanoid' ? 'bg-indigo-600 text-white' : 'text-gray-400'}`}
+                >
+                  NanoID
+                </button>
+                <button
+                  onClick={() => setUuidVersion('ulid')}
+                  className={`px-3 py-1 rounded-lg ${uuidVersion === 'ulid' ? 'bg-indigo-600 text-white' : 'text-gray-400'}`}
+                >
+                  ULID
+                </button>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4 text-xs text-gray-300">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={uppercase}
+                  onChange={(e) => setUppercase(e.target.checked)}
+                  className="w-4 h-4 rounded bg-gray-950 border-gray-700 text-indigo-500"
+                />
+                <span>Uppercase</span>
+              </label>
+
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={hyphens}
+                  onChange={(e) => setHyphens(e.target.checked)}
+                  className="w-4 h-4 rounded bg-gray-950 border-gray-700 text-indigo-500"
+                />
+                <span>Hyphens</span>
+              </label>
+
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={quotes}
+                  onChange={(e) => setQuotes(e.target.checked)}
+                  className="w-4 h-4 rounded bg-gray-950 border-gray-700 text-indigo-500"
+                />
+                <span>Quotes</span>
+              </label>
+
+              <div className="flex items-center gap-2">
+                <span className="text-gray-400">Qty:</span>
+                <input
+                  type="number"
+                  min={1}
+                  max={500}
+                  value={count}
+                  onChange={(e) => setCount(Number(e.target.value))}
+                  className="w-16 glass-input px-2 py-1 rounded-lg text-xs font-mono text-center"
+                />
+              </div>
+
+              <button
+                onClick={handleRegenerate}
+                className="flex items-center gap-1.5 px-3 py-1.5 font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white"
+              >
+                <RefreshCw className="w-3.5 h-3.5" /> Generate
+              </button>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <label className="block text-xs font-semibold text-gray-300 flex items-center gap-2">
+              <Fingerprint className="w-4 h-4 text-indigo-400" /> Generated List ({generatedList.length})
+            </label>
+            <textarea
+              rows={14}
+              readOnly
+              value={generatedList.join('\n')}
+              className="w-full glass-input p-4 rounded-2xl text-xs font-mono text-emerald-300 leading-relaxed bg-gray-950/90"
+            />
+          </div>
+        </>
+      ) : (
+        /* Decoder Tab */
+        <div className="space-y-6">
+          <div className="p-4 rounded-2xl bg-gray-900/80 border border-gray-800 space-y-3">
+            <label className="block text-xs font-semibold text-gray-300 flex items-center gap-2">
+              <Search className="w-4 h-4 text-indigo-400" /> Enter ULID or UUID to Decode
+            </label>
+            <input
+              type="text"
+              value={decodeInput}
+              onChange={(e) => setDecodeInput(e.target.value)}
+              placeholder="e.g. 01ARZ3NDEKTSV4RRFFQ69G5FAV or 1e1b8c00..."
+              className="w-full glass-input px-4 py-2.5 rounded-xl text-sm font-mono text-indigo-300 font-bold"
+            />
+          </div>
+
+          {decodedInfo && (
+            <div className="p-5 rounded-2xl bg-gray-900/80 border border-gray-800 space-y-3 text-xs font-mono">
+              <div className="flex justify-between border-b border-gray-800 pb-2">
+                <span className="text-gray-400 font-sans">Identifier Type:</span>
+                <span className="text-indigo-400 font-bold">{decodedInfo.type}</span>
+              </div>
+              {decodedInfo.timestamp && (
+                <>
+                  <div className="flex justify-between border-b border-gray-800 py-1.5">
+                    <span className="text-gray-400 font-sans">Embedded Timestamp (Ms):</span>
+                    <span className="text-purple-300 font-bold">{decodedInfo.timestamp}</span>
+                  </div>
+                  <div className="flex justify-between border-b border-gray-800 py-1.5">
+                    <span className="text-gray-400 font-sans">UTC Creation Time:</span>
+                    <span className="text-emerald-300 font-bold">{decodedInfo.dateUtc}</span>
+                  </div>
+                  <div className="flex justify-between py-1.5">
+                    <span className="text-gray-400 font-sans">Local Creation Time:</span>
+                    <span className="text-amber-300 font-bold">{decodedInfo.dateLocal}</span>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

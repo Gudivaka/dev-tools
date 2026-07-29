@@ -23,6 +23,10 @@ import { RegexTester } from './tools/RegexTester';
 import { ColorConverter } from './tools/ColorConverter';
 import { StringConverter } from './tools/StringConverter';
 import { PasswordGenerator } from './tools/PasswordGenerator';
+import { HtmlEntityConverter } from './tools/HtmlEntityConverter';
+import { StringEscapeTool } from './tools/StringEscapeTool';
+import { HtmlPreview } from './tools/HtmlPreview';
+import { PhpSerializer } from './tools/PhpSerializer';
 
 const TOOL_COMPONENTS: Record<string, React.FC> = {
   'epoch-converter': EpochConverter,
@@ -43,6 +47,10 @@ const TOOL_COMPONENTS: Record<string, React.FC> = {
   'color-converter': ColorConverter,
   'string-converter': StringConverter,
   'password-generator': PasswordGenerator,
+  'html-entity-converter': HtmlEntityConverter,
+  'string-escape': StringEscapeTool,
+  'html-preview': HtmlPreview,
+  'php-serializer': PhpSerializer,
 };
 
 export const App: React.FC = () => {
