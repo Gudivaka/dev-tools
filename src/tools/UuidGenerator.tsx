@@ -147,19 +147,19 @@ export const UuidGenerator: React.FC = () => {
       />
 
       {/* Tab Switcher */}
-      <div className="flex items-center gap-2 p-4 rounded-2xl bg-gray-900/80 border border-gray-800">
+      <div className="flex items-center gap-2 p-4 rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-slate-200/80 dark:border-gray-800 shadow-sm">
         <button
           onClick={() => setActiveTab('generate')}
-          className={`px-4 py-2 rounded-xl text-xs font-semibold ${
-            activeTab === 'generate' ? 'bg-indigo-600 text-white' : 'bg-gray-800 text-gray-400'
+          className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
+            activeTab === 'generate' ? 'bg-indigo-600 text-white shadow-sm' : 'bg-slate-100 dark:bg-gray-800 text-slate-600 dark:text-gray-400'
           }`}
         >
           Bulk Generator
         </button>
         <button
           onClick={() => setActiveTab('decode')}
-          className={`px-4 py-2 rounded-xl text-xs font-semibold ${
-            activeTab === 'decode' ? 'bg-indigo-600 text-white' : 'bg-gray-800 text-gray-400'
+          className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
+            activeTab === 'decode' ? 'bg-indigo-600 text-white shadow-sm' : 'bg-slate-100 dark:bg-gray-800 text-slate-600 dark:text-gray-400'
           }`}
         >
           Decode ULID / UUID
@@ -169,70 +169,70 @@ export const UuidGenerator: React.FC = () => {
       {activeTab === 'generate' ? (
         <>
           {/* Generator Options */}
-          <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl bg-gray-900/80 border border-gray-800">
+          <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-slate-200/80 dark:border-gray-800 shadow-sm">
             <div className="flex items-center gap-3">
-              <span className="text-xs font-medium text-gray-400">Type:</span>
-              <div className="flex items-center gap-1 bg-gray-950 p-1 rounded-xl border border-gray-800 text-xs">
+              <span className="text-xs font-medium text-slate-500 dark:text-gray-400">Type:</span>
+              <div className="flex items-center gap-1 bg-slate-100 dark:bg-gray-950 p-1 rounded-xl border border-slate-200 dark:border-gray-800 text-xs">
                 <button
                   onClick={() => setUuidVersion('v4')}
-                  className={`px-3 py-1 rounded-lg ${uuidVersion === 'v4' ? 'bg-indigo-600 text-white' : 'text-gray-400'}`}
+                  className={`px-3 py-1 rounded-lg transition-all ${uuidVersion === 'v4' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-gray-400'}`}
                 >
                   UUID v4
                 </button>
                 <button
                   onClick={() => setUuidVersion('v1')}
-                  className={`px-3 py-1 rounded-lg ${uuidVersion === 'v1' ? 'bg-indigo-600 text-white' : 'text-gray-400'}`}
+                  className={`px-3 py-1 rounded-lg transition-all ${uuidVersion === 'v1' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-gray-400'}`}
                 >
                   UUID v1
                 </button>
                 <button
                   onClick={() => setUuidVersion('nanoid')}
-                  className={`px-3 py-1 rounded-lg ${uuidVersion === 'nanoid' ? 'bg-indigo-600 text-white' : 'text-gray-400'}`}
+                  className={`px-3 py-1 rounded-lg transition-all ${uuidVersion === 'nanoid' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-gray-400'}`}
                 >
                   NanoID
                 </button>
                 <button
                   onClick={() => setUuidVersion('ulid')}
-                  className={`px-3 py-1 rounded-lg ${uuidVersion === 'ulid' ? 'bg-indigo-600 text-white' : 'text-gray-400'}`}
+                  className={`px-3 py-1 rounded-lg transition-all ${uuidVersion === 'ulid' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-gray-400'}`}
                 >
                   ULID
                 </button>
               </div>
             </div>
 
-            <div className="flex items-center gap-4 text-xs text-gray-300">
-              <label className="flex items-center gap-2 cursor-pointer">
+            <div className="flex items-center gap-4 text-xs text-slate-700 dark:text-gray-300">
+              <label className="flex items-center gap-2 cursor-pointer select-none">
                 <input
                   type="checkbox"
                   checked={uppercase}
                   onChange={(e) => setUppercase(e.target.checked)}
-                  className="w-4 h-4 rounded bg-gray-950 border-gray-700 text-indigo-500"
+                  className="w-4 h-4 rounded bg-slate-100 dark:bg-gray-950 border-slate-300 dark:border-gray-700 text-indigo-600"
                 />
                 <span>Uppercase</span>
               </label>
 
-              <label className="flex items-center gap-2 cursor-pointer">
+              <label className="flex items-center gap-2 cursor-pointer select-none">
                 <input
                   type="checkbox"
                   checked={hyphens}
                   onChange={(e) => setHyphens(e.target.checked)}
-                  className="w-4 h-4 rounded bg-gray-950 border-gray-700 text-indigo-500"
+                  className="w-4 h-4 rounded bg-slate-100 dark:bg-gray-950 border-slate-300 dark:border-gray-700 text-indigo-600"
                 />
                 <span>Hyphens</span>
               </label>
 
-              <label className="flex items-center gap-2 cursor-pointer">
+              <label className="flex items-center gap-2 cursor-pointer select-none">
                 <input
                   type="checkbox"
                   checked={quotes}
                   onChange={(e) => setQuotes(e.target.checked)}
-                  className="w-4 h-4 rounded bg-gray-950 border-gray-700 text-indigo-500"
+                  className="w-4 h-4 rounded bg-slate-100 dark:bg-gray-950 border-slate-300 dark:border-gray-700 text-indigo-600"
                 />
                 <span>Quotes</span>
               </label>
 
               <div className="flex items-center gap-2">
-                <span className="text-gray-400">Qty:</span>
+                <span className="text-slate-500 dark:text-gray-400">Qty:</span>
                 <input
                   type="number"
                   min={1}
@@ -245,7 +245,7 @@ export const UuidGenerator: React.FC = () => {
 
               <button
                 onClick={handleRegenerate}
-                className="flex items-center gap-1.5 px-3 py-1.5 font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white"
+                className="flex items-center gap-1.5 px-3 py-1.5 font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white shadow-sm"
               >
                 <RefreshCw className="w-3.5 h-3.5" /> Generate
               </button>
@@ -253,52 +253,52 @@ export const UuidGenerator: React.FC = () => {
           </div>
 
           <div className="space-y-2">
-            <label className="block text-xs font-semibold text-gray-300 flex items-center gap-2">
-              <Fingerprint className="w-4 h-4 text-indigo-400" /> Generated List ({generatedList.length})
+            <label className="block text-xs font-semibold text-slate-800 dark:text-gray-300 flex items-center gap-2">
+              <Fingerprint className="w-4 h-4 text-indigo-600 dark:text-indigo-400" /> Generated List ({generatedList.length})
             </label>
             <textarea
               rows={14}
               readOnly
               value={generatedList.join('\n')}
-              className="w-full glass-input p-4 rounded-2xl text-xs font-mono text-emerald-300 leading-relaxed bg-gray-950/90"
+              className="w-full glass-input p-4 rounded-2xl text-xs font-mono text-emerald-700 dark:text-emerald-300 leading-relaxed bg-slate-50/90 dark:bg-gray-950/90 shadow-sm"
             />
           </div>
         </>
       ) : (
         /* Decoder Tab */
         <div className="space-y-6">
-          <div className="p-4 rounded-2xl bg-gray-900/80 border border-gray-800 space-y-3">
-            <label className="block text-xs font-semibold text-gray-300 flex items-center gap-2">
-              <Search className="w-4 h-4 text-indigo-400" /> Enter ULID or UUID to Decode
+          <div className="p-4 rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-slate-200/80 dark:border-gray-800 space-y-3 shadow-sm">
+            <label className="block text-xs font-semibold text-slate-800 dark:text-gray-300 flex items-center gap-2">
+              <Search className="w-4 h-4 text-indigo-600 dark:text-indigo-400" /> Enter ULID or UUID to Decode
             </label>
             <input
               type="text"
               value={decodeInput}
               onChange={(e) => setDecodeInput(e.target.value)}
               placeholder="e.g. 01ARZ3NDEKTSV4RRFFQ69G5FAV or 1e1b8c00..."
-              className="w-full glass-input px-4 py-2.5 rounded-xl text-sm font-mono text-indigo-300 font-bold"
+              className="w-full glass-input px-4 py-2.5 rounded-xl text-sm font-mono text-indigo-700 dark:text-indigo-300 font-bold"
             />
           </div>
 
           {decodedInfo && (
-            <div className="p-5 rounded-2xl bg-gray-900/80 border border-gray-800 space-y-3 text-xs font-mono">
-              <div className="flex justify-between border-b border-gray-800 pb-2">
-                <span className="text-gray-400 font-sans">Identifier Type:</span>
-                <span className="text-indigo-400 font-bold">{decodedInfo.type}</span>
+            <div className="p-5 rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-slate-200/80 dark:border-gray-800 space-y-3 text-xs font-mono shadow-sm">
+              <div className="flex justify-between border-b border-slate-200 dark:border-gray-800 pb-2">
+                <span className="text-slate-500 dark:text-gray-400 font-sans">Identifier Type:</span>
+                <span className="text-indigo-600 dark:text-indigo-400 font-bold">{decodedInfo.type}</span>
               </div>
               {decodedInfo.timestamp && (
                 <>
-                  <div className="flex justify-between border-b border-gray-800 py-1.5">
-                    <span className="text-gray-400 font-sans">Embedded Timestamp (Ms):</span>
-                    <span className="text-purple-300 font-bold">{decodedInfo.timestamp}</span>
+                  <div className="flex justify-between border-b border-slate-200 dark:border-gray-800 py-1.5">
+                    <span className="text-slate-500 dark:text-gray-400 font-sans">Embedded Timestamp (Ms):</span>
+                    <span className="text-purple-600 dark:text-purple-300 font-bold">{decodedInfo.timestamp}</span>
                   </div>
-                  <div className="flex justify-between border-b border-gray-800 py-1.5">
-                    <span className="text-gray-400 font-sans">UTC Creation Time:</span>
-                    <span className="text-emerald-300 font-bold">{decodedInfo.dateUtc}</span>
+                  <div className="flex justify-between border-b border-slate-200 dark:border-gray-800 py-1.5">
+                    <span className="text-slate-500 dark:text-gray-400 font-sans">UTC Creation Time:</span>
+                    <span className="text-emerald-600 dark:text-emerald-300 font-bold">{decodedInfo.dateUtc}</span>
                   </div>
                   <div className="flex justify-between py-1.5">
-                    <span className="text-gray-400 font-sans">Local Creation Time:</span>
-                    <span className="text-amber-300 font-bold">{decodedInfo.dateLocal}</span>
+                    <span className="text-slate-500 dark:text-gray-400 font-sans">Local Creation Time:</span>
+                    <span className="text-amber-600 dark:text-amber-300 font-bold">{decodedInfo.dateLocal}</span>
                   </div>
                 </>
               )}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ToolHeader } from '../components/ToolHeader';
-import { GitCompare, Plus, Minus, Edit3 } from 'lucide-react';
+import { LineNumberedTextarea } from '../components/LineNumberedTextarea';
+import { GitCompare, Plus, Minus, Edit3, AlertTriangle } from 'lucide-react';
 
 const JSON_A = `{
   "service": "user-service",
@@ -28,6 +29,18 @@ const JSON_B = `{
   "replicas": 3
 }`;
 
+const getErrorLineNumber = (errorMsg: string, text: string): number | null => {
+  if (!errorMsg || !text) return null;
+  const lineMatch = errorMsg.match(/line\s+(\d+)/i);
+  if (lineMatch) return parseInt(lineMatch[1], 10);
+  const posMatch = errorMsg.match(/position\s+(\d+)/i);
+  if (posMatch) {
+    const pos = parseInt(posMatch[1], 10);
+    return text.slice(0, pos).split('\n').length;
+  }
+  return null;
+};
+
 export const JsonDiff: React.FC = () => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [leftJson, setLeftJson] = useState(JSON_A);
@@ -39,47 +52,65 @@ export const JsonDiff: React.FC = () => {
 
   // Compute Object Diff
   const computeDiff = () => {
+    let leftError: string | null = null;
+    let rightError: string | null = null;
+    let leftErrorLine: number | null = null;
+    let rightErrorLine: number | null = null;
+    let objA: any = null;
+    let objB: any = null;
+
     try {
-      const objA = JSON.parse(leftJson);
-      const objB = JSON.parse(rightJson);
-
-      const diffs: { type: 'added' | 'removed' | 'modified' | 'equal'; path: string; valA?: any; valB?: any }[] = [];
-
-      const walk = (a: any, b: any, path: string) => {
-        if (a === b) {
-          diffs.push({ type: 'equal', path, valA: a, valB: b });
-          return;
-        }
-
-        if (typeof a !== typeof b || a === null || b === null || typeof a !== 'object') {
-          diffs.push({ type: 'modified', path, valA: a, valB: b });
-          return;
-        }
-
-        const keysA = Object.keys(a);
-        const keysB = Object.keys(b);
-        const allKeys = Array.from(new Set([...keysA, ...keysB]));
-
-        for (const k of allKeys) {
-          const currentPath = path ? `${path}.${k}` : k;
-          if (!(k in b)) {
-            diffs.push({ type: 'removed', path: currentPath, valA: a[k] });
-          } else if (!(k in a)) {
-            diffs.push({ type: 'added', path: currentPath, valB: b[k] });
-          } else {
-            walk(a[k], b[k], currentPath);
-          }
-        }
-      };
-
-      walk(objA, objB, '');
-      return { diffs, error: null };
+      objA = JSON.parse(leftJson);
     } catch (err: any) {
-      return { diffs: [], error: 'Invalid JSON syntax: ' + err.message };
+      leftError = err.message;
+      leftErrorLine = getErrorLineNumber(err.message, leftJson);
     }
+
+    try {
+      objB = JSON.parse(rightJson);
+    } catch (err: any) {
+      rightError = err.message;
+      rightErrorLine = getErrorLineNumber(err.message, rightJson);
+    }
+
+    if (leftError || rightError) {
+      return { diffs: [], leftError, rightError, leftErrorLine, rightErrorLine };
+    }
+
+    const diffs: { type: 'added' | 'removed' | 'modified' | 'equal'; path: string; valA?: any; valB?: any }[] = [];
+
+    const walk = (a: any, b: any, path: string) => {
+      if (a === b) {
+        diffs.push({ type: 'equal', path, valA: a, valB: b });
+        return;
+      }
+
+      if (typeof a !== typeof b || a === null || b === null || typeof a !== 'object') {
+        diffs.push({ type: 'modified', path, valA: a, valB: b });
+        return;
+      }
+
+      const keysA = Object.keys(a);
+      const keysB = Object.keys(b);
+      const allKeys = Array.from(new Set([...keysA, ...keysB]));
+
+      for (const k of allKeys) {
+        const currentPath = path ? `${path}.${k}` : k;
+        if (!(k in b)) {
+          diffs.push({ type: 'removed', path: currentPath, valA: a[k] });
+        } else if (!(k in a)) {
+          diffs.push({ type: 'added', path: currentPath, valB: b[k] });
+        } else {
+          walk(a[k], b[k], currentPath);
+        }
+      }
+    };
+
+    walk(objA, objB, '');
+    return { diffs, leftError: null, rightError: null, leftErrorLine: null, rightErrorLine: null };
   };
 
-  const { diffs, error } = computeDiff();
+  const { diffs, leftError, rightError, leftErrorLine, rightErrorLine } = computeDiff();
 
   const addedCount = diffs.filter((d) => d.type === 'added').length;
   const removedCount = diffs.filter((d) => d.type === 'removed').length;
@@ -89,7 +120,7 @@ export const JsonDiff: React.FC = () => {
     <div className="space-y-6">
       <ToolHeader
         title="JSON Object Diff & Comparator"
-        description="Compare two JSON objects and highlight structural differences, added keys, and modified values."
+        description="Compare two JSON objects with line numbers and structural diff highlighting."
         onLoadSample={() => {
           setLeftJson(JSON_A);
           setRightJson(JSON_B);
@@ -103,27 +134,51 @@ export const JsonDiff: React.FC = () => {
       {/* Input JSONs */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
-          <label className="block text-xs font-semibold text-gray-300">Original JSON (Left / Base)</label>
-          <textarea
-            ref={inputRef}
+          <div className="flex items-center justify-between">
+            <label className="block text-xs font-semibold text-gray-300">Original JSON (Left / Base)</label>
+            {leftError && (
+              <span className="flex items-center gap-1 text-[11px] text-red-400 font-bold">
+                <AlertTriangle className="w-3.5 h-3.5" /> Error {leftErrorLine ? `(Line ${leftErrorLine})` : ''}
+              </span>
+            )}
+          </div>
+          <LineNumberedTextarea
+            inputRef={inputRef}
             autoFocus
             rows={12}
             value={leftJson}
             onChange={(e) => setLeftJson(e.target.value)}
             placeholder="Paste base JSON here..."
-            className="w-full glass-input p-4 rounded-2xl text-xs font-mono leading-relaxed"
+            errorLine={leftErrorLine}
           />
+          {leftError && (
+            <div className="p-2.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-mono">
+              Left JSON Error: {leftError} {leftErrorLine && `(Line ${leftErrorLine})`}
+            </div>
+          )}
         </div>
 
         <div className="space-y-2">
-          <label className="block text-xs font-semibold text-gray-300">Target JSON (Right / Modified)</label>
-          <textarea
+          <div className="flex items-center justify-between">
+            <label className="block text-xs font-semibold text-gray-300">Target JSON (Right / Modified)</label>
+            {rightError && (
+              <span className="flex items-center gap-1 text-[11px] text-red-400 font-bold">
+                <AlertTriangle className="w-3.5 h-3.5" /> Error {rightErrorLine ? `(Line ${rightErrorLine})` : ''}
+              </span>
+            )}
+          </div>
+          <LineNumberedTextarea
             rows={12}
             value={rightJson}
             onChange={(e) => setRightJson(e.target.value)}
             placeholder="Paste modified JSON here..."
-            className="w-full glass-input p-4 rounded-2xl text-xs font-mono leading-relaxed"
+            errorLine={rightErrorLine}
           />
+          {rightError && (
+            <div className="p-2.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-mono">
+              Right JSON Error: {rightError} {rightErrorLine && `(Line ${rightErrorLine})`}
+            </div>
+          )}
         </div>
       </div>
 
@@ -147,8 +202,10 @@ export const JsonDiff: React.FC = () => {
           </div>
         </div>
 
-        {error ? (
-          <div className="p-4 rounded-xl bg-red-500/10 text-red-400 text-xs font-mono">{error}</div>
+        {leftError || rightError ? (
+          <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-mono">
+            Fix JSON syntax errors above to compute structural diff comparison.
+          </div>
         ) : (
           <div className="p-4 rounded-2xl bg-gray-950 border border-gray-800 divide-y divide-gray-800/60 max-h-[450px] overflow-y-auto">
             {diffs

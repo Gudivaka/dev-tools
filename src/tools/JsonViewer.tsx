@@ -44,39 +44,39 @@ const TreeNode: React.FC<{
   };
 
   const renderValue = () => {
-    if (value === null) return <span className="text-gray-500 font-italic">null</span>;
-    if (typeof value === 'boolean') return <span className="text-amber-400 font-semibold">{value ? 'true' : 'false'}</span>;
-    if (typeof value === 'number') return <span className="text-purple-400 font-semibold">{value}</span>;
-    if (typeof value === 'string') return <span className="text-emerald-300">"{value}"</span>;
+    if (value === null) return <span className="text-slate-400 dark:text-gray-500 font-italic">null</span>;
+    if (typeof value === 'boolean') return <span className="text-amber-600 dark:text-amber-400 font-semibold">{value ? 'true' : 'false'}</span>;
+    if (typeof value === 'number') return <span className="text-purple-600 dark:text-purple-400 font-semibold">{value}</span>;
+    if (typeof value === 'string') return <span className="text-emerald-600 dark:text-emerald-300">"{value}"</span>;
     return null;
   };
 
   return (
     <div className="text-xs font-mono py-0.5 select-none">
       <div
-        className={`flex items-center gap-1.5 py-1 px-2 rounded-lg hover:bg-gray-800/80 cursor-pointer group ${
-          matchesSearch(name || '') || matchesSearch(String(value)) ? 'bg-indigo-600/20' : ''
+        className={`flex items-center gap-1.5 py-1 px-2 rounded-lg hover:bg-slate-100 dark:hover:bg-gray-800/80 cursor-pointer group ${
+          matchesSearch(name || '') || matchesSearch(String(value)) ? 'bg-indigo-50 dark:bg-indigo-600/20' : ''
         }`}
         onClick={() => isObject && setExpanded(!expanded)}
       >
         {isObject ? (
           expanded ? (
-            <ChevronDown className="w-3.5 h-3.5 text-gray-400" />
+            <ChevronDown className="w-3.5 h-3.5 text-slate-400 dark:text-gray-400" />
           ) : (
-            <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
+            <ChevronRight className="w-3.5 h-3.5 text-slate-400 dark:text-gray-400" />
           )
         ) : (
           <span className="w-3.5" />
         )}
 
         {name && (
-          <span className="text-indigo-300 font-semibold">
+          <span className="text-indigo-600 dark:text-indigo-300 font-semibold">
             {name}:
           </span>
         )}
 
         {isObject ? (
-          <span className="text-gray-400">
+          <span className="text-slate-500 dark:text-gray-400">
             {isArray ? `Array[${value.length}]` : `Object{${keys.length}}`}
           </span>
         ) : (
@@ -85,15 +85,15 @@ const TreeNode: React.FC<{
 
         <button
           onClick={copyPath}
-          className="ml-auto opacity-0 group-hover:opacity-100 px-1.5 py-0.5 text-[10px] rounded bg-gray-800 text-gray-400 hover:text-white transition-opacity"
+          className="ml-auto opacity-0 group-hover:opacity-100 px-1.5 py-0.5 text-[10px] rounded bg-slate-200 dark:bg-gray-800 text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white transition-opacity"
           title={`Copy path: ${path}`}
         >
-          {copied ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+          {copied ? <Check className="w-3 h-3 text-emerald-600 dark:text-emerald-400" /> : <Copy className="w-3 h-3" />}
         </button>
       </div>
 
       {isObject && expanded && (
-        <div className="pl-4 border-l border-gray-800/80 ml-2 space-y-0.5">
+        <div className="pl-4 border-l border-slate-200 dark:border-gray-800/80 ml-2 space-y-0.5">
           {keys.map((k) => (
             <TreeNode
               key={k}
@@ -138,7 +138,7 @@ export const JsonViewer: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Input */}
         <div className="lg:col-span-5 space-y-2">
-          <label className="block text-xs font-semibold text-gray-300">Raw JSON Input</label>
+          <label className="block text-xs font-semibold text-slate-800 dark:text-gray-300">Raw JSON Input</label>
           <textarea
             ref={inputRef}
             autoFocus
@@ -146,19 +146,19 @@ export const JsonViewer: React.FC = () => {
             value={jsonInput}
             onChange={(e) => setJsonInput(e.target.value)}
             placeholder="Paste JSON string here..."
-            className="w-full glass-input p-4 rounded-2xl text-xs font-mono leading-relaxed"
+            className="w-full glass-input p-4 rounded-2xl text-xs font-mono leading-relaxed shadow-sm"
           />
         </div>
 
         {/* Tree View Output */}
         <div className="lg:col-span-7 space-y-3">
           <div className="flex items-center justify-between">
-            <label className="block text-xs font-semibold text-gray-300 flex items-center gap-2">
-              <FolderTree className="w-4 h-4 text-indigo-400" /> Interactive Tree View
+            <label className="block text-xs font-semibold text-slate-800 dark:text-gray-300 flex items-center gap-2">
+              <FolderTree className="w-4 h-4 text-indigo-600 dark:text-indigo-400" /> Interactive Tree View
             </label>
 
             <div className="relative w-48">
-              <Search className="w-3.5 h-3.5 absolute left-2.5 top-2 text-gray-500" />
+              <Search className="w-3.5 h-3.5 absolute left-2.5 top-2 text-slate-400 dark:text-gray-500" />
               <input
                 type="text"
                 placeholder="Search keys/values..."
@@ -169,15 +169,15 @@ export const JsonViewer: React.FC = () => {
             </div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-gray-950 border border-gray-800 min-h-[400px] max-h-[550px] overflow-y-auto">
+          <div className="p-4 rounded-2xl bg-white/90 dark:bg-gray-950 border border-slate-200/80 dark:border-gray-800 min-h-[400px] max-h-[550px] overflow-y-auto shadow-sm">
             {parseError ? (
-              <div className="p-4 rounded-xl bg-red-500/10 text-red-400 text-xs font-mono">
+              <div className="p-4 rounded-xl bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 text-xs font-mono">
                 Invalid JSON: {parseError}
               </div>
             ) : parsed !== null ? (
               <TreeNode value={parsed} path="root" search={search} />
             ) : (
-              <div className="text-gray-500 text-xs text-center py-12">
+              <div className="text-slate-400 dark:text-gray-500 text-xs text-center py-12">
                 Enter JSON on the left to display tree
               </div>
             )}

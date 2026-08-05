@@ -58,9 +58,9 @@ export const CronParser: React.FC = () => {
       {/* Input & Presets */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-2 space-y-4">
-          <div className="p-4 rounded-2xl bg-gray-900/80 border border-gray-800 space-y-3">
-            <label className="block text-xs font-semibold text-gray-300 flex items-center gap-2">
-              <CalendarClock className="w-4 h-4 text-indigo-400" /> Enter Cron Expression (5 or 6 fields)
+          <div className="p-4 rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-slate-200/80 dark:border-gray-800 space-y-3 shadow-sm">
+            <label className="block text-xs font-semibold text-slate-800 dark:text-gray-300 flex items-center gap-2">
+              <CalendarClock className="w-4 h-4 text-indigo-600 dark:text-indigo-400" /> Enter Cron Expression (5 or 6 fields)
             </label>
             <input
               ref={inputRef}
@@ -69,30 +69,30 @@ export const CronParser: React.FC = () => {
               value={cronExpr}
               onChange={(e) => setCronExpr(e.target.value)}
               placeholder="e.g. */15 * * * *"
-              className="w-full glass-input px-4 py-3 rounded-xl text-base font-mono text-indigo-300 font-bold"
+              className="w-full glass-input px-4 py-3 rounded-xl text-base font-mono text-indigo-700 dark:text-indigo-300 font-bold"
             />
-            <p className="text-[11px] text-gray-400">
-              Format: <span className="font-mono text-gray-300">minute hour day-of-month month day-of-week</span>
+            <p className="text-[11px] text-slate-500 dark:text-gray-400">
+              Format: <span className="font-mono text-slate-700 dark:text-gray-300">minute hour day-of-month month day-of-week</span>
             </p>
           </div>
 
           {/* Explanation Card */}
           {parseError ? (
-            <div className="p-4 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs flex items-center gap-2">
+            <div className="p-4 rounded-2xl bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 text-red-600 dark:text-red-400 text-xs flex items-center gap-2 shadow-sm">
               <AlertCircle className="w-4 h-4 flex-shrink-0" />
               <span>{parseError}</span>
             </div>
           ) : (
-            <div className="p-5 rounded-2xl bg-indigo-950/40 border border-indigo-500/30 text-indigo-200 space-y-2">
-              <div className="text-xs font-bold uppercase tracking-wider text-indigo-400">Human Readable Description</div>
-              <div className="text-lg font-semibold text-white">{description}</div>
+            <div className="p-5 rounded-2xl bg-indigo-50/80 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-500/30 text-indigo-900 dark:text-indigo-200 space-y-2 shadow-sm">
+              <div className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Human Readable Description</div>
+              <div className="text-lg font-semibold text-indigo-950 dark:text-white">{description}</div>
             </div>
           )}
         </div>
 
         {/* Presets Column */}
-        <div className="p-4 rounded-2xl bg-gray-900/80 border border-gray-800 space-y-3">
-          <h3 className="text-xs font-semibold text-gray-300">Common Presets</h3>
+        <div className="p-4 rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-slate-200/80 dark:border-gray-800 space-y-3 shadow-sm">
+          <h3 className="text-xs font-semibold text-slate-800 dark:text-gray-300">Common Presets</h3>
           <div className="space-y-2">
             {[
               { label: 'Every minute', expr: '* * * * *' },
@@ -106,10 +106,10 @@ export const CronParser: React.FC = () => {
               <button
                 key={preset.expr}
                 onClick={() => setCronExpr(preset.expr)}
-                className="w-full text-left px-3 py-2 rounded-xl bg-gray-950 hover:bg-gray-800 border border-gray-800/80 flex items-center justify-between text-xs transition-all"
+                className="w-full text-left px-3 py-2 rounded-xl bg-slate-50 dark:bg-gray-950 hover:bg-slate-100 dark:hover:bg-gray-800 border border-slate-200 dark:border-gray-800/80 flex items-center justify-between text-xs transition-all"
               >
-                <span className="text-gray-300 font-medium">{preset.label}</span>
-                <span className="font-mono text-indigo-400 text-[11px]">{preset.expr}</span>
+                <span className="text-slate-700 dark:text-gray-300 font-medium">{preset.label}</span>
+                <span className="font-mono text-indigo-600 dark:text-indigo-400 text-[11px]">{preset.expr}</span>
               </button>
             ))}
           </div>
@@ -118,16 +118,16 @@ export const CronParser: React.FC = () => {
 
       {/* Forecasted Executions Schedule */}
       {!parseError && nextExecutions.length > 0 && (
-        <div className="p-5 rounded-2xl bg-gray-900/80 border border-gray-800 space-y-3">
-          <h3 className="text-xs font-semibold text-gray-200 flex items-center gap-2">
-            <Clock className="w-4 h-4 text-emerald-400" /> Upcoming Execution Schedule Forecast
+        <div className="p-5 rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-slate-200/80 dark:border-gray-800 space-y-3 shadow-sm">
+          <h3 className="text-xs font-semibold text-slate-800 dark:text-gray-200 flex items-center gap-2">
+            <Clock className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> Upcoming Execution Schedule Forecast
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 font-mono text-xs">
             {nextExecutions.map((date, idx) => (
-              <div key={idx} className="p-3 rounded-xl bg-gray-950 border border-gray-800/80 text-emerald-300">
-                <div className="text-[10px] text-gray-500 font-sans font-semibold">Run #{idx + 1}</div>
+              <div key={idx} className="p-3 rounded-xl bg-slate-50 dark:bg-gray-950 border border-slate-200 dark:border-gray-800/80 text-emerald-700 dark:text-emerald-300">
+                <div className="text-[10px] text-slate-400 dark:text-gray-500 font-sans font-semibold">Run #{idx + 1}</div>
                 <div className="mt-1 font-bold">{date.toLocaleTimeString()}</div>
-                <div className="text-[10px] text-gray-400">{date.toLocaleDateString()}</div>
+                <div className="text-[10px] text-slate-500 dark:text-gray-400">{date.toLocaleDateString()}</div>
               </div>
             ))}
           </div>

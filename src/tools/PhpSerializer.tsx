@@ -136,19 +136,19 @@ export const PhpSerializer: React.FC = () => {
       />
 
       {/* Control Bar */}
-      <div className="flex items-center gap-2 p-4 rounded-2xl bg-gray-900/80 border border-gray-800">
+      <div className="flex items-center gap-2 p-4 rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-slate-200/80 dark:border-gray-800 shadow-sm">
         <button
           onClick={() => setDirection('unserialize')}
-          className={`px-4 py-2 rounded-xl text-xs font-semibold ${
-            direction === 'unserialize' ? 'bg-indigo-600 text-white' : 'bg-gray-800 text-gray-400'
+          className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
+            direction === 'unserialize' ? 'bg-indigo-600 text-white shadow-sm' : 'bg-slate-100 dark:bg-gray-800 text-slate-600 dark:text-gray-400'
           }`}
         >
           PHP Serialized ➔ JSON
         </button>
         <button
           onClick={() => setDirection('serialize')}
-          className={`px-4 py-2 rounded-xl text-xs font-semibold ${
-            direction === 'serialize' ? 'bg-indigo-600 text-white' : 'bg-gray-800 text-gray-400'
+          className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
+            direction === 'serialize' ? 'bg-indigo-600 text-white shadow-sm' : 'bg-slate-100 dark:bg-gray-800 text-slate-600 dark:text-gray-400'
           }`}
         >
           JSON ➔ PHP Serialized
@@ -158,7 +158,7 @@ export const PhpSerializer: React.FC = () => {
       {/* Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
-          <label className="block text-xs font-semibold text-gray-300">
+          <label className="block text-xs font-semibold text-slate-800 dark:text-gray-300">
             Input ({direction === 'unserialize' ? 'PHP Serialized String' : 'JSON Object'})
           </label>
           <textarea
@@ -168,12 +168,12 @@ export const PhpSerializer: React.FC = () => {
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             placeholder="Paste serialized string e.g. a:2:{...}"
-            className="w-full glass-input p-4 rounded-2xl text-xs font-mono leading-relaxed"
+            className="w-full glass-input p-4 rounded-2xl text-xs font-mono leading-relaxed shadow-sm"
           />
         </div>
 
         <div className="space-y-2">
-          <label className="block text-xs font-semibold text-gray-300">
+          <label className="block text-xs font-semibold text-slate-800 dark:text-gray-300">
             Converted Result ({direction === 'unserialize' ? 'Formatted JSON' : 'PHP Serialized Result'})
           </label>
           <textarea
@@ -181,7 +181,7 @@ export const PhpSerializer: React.FC = () => {
             readOnly
             value={resultText}
             placeholder="Result will appear here..."
-            className="w-full glass-input p-4 rounded-2xl text-xs font-mono text-emerald-300 leading-relaxed bg-gray-950/90"
+            className="w-full glass-input p-4 rounded-2xl text-xs font-mono text-emerald-700 dark:text-emerald-300 leading-relaxed bg-slate-50/90 dark:bg-gray-950/90 shadow-sm"
           />
         </div>
       </div>

@@ -210,14 +210,14 @@ export const EsQueryGenerator: React.FC = () => {
       />
 
       {/* Index & Pagination Controls */}
-      <div className="p-4 rounded-2xl bg-gray-900/80 border border-gray-800 space-y-4">
-        <h3 className="text-xs font-semibold text-gray-200 flex items-center gap-2">
-          <Database className="w-4 h-4 text-indigo-400" /> Target Index & Pagination
+      <div className="p-4 rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-slate-200/80 dark:border-gray-800 space-y-4 shadow-sm">
+        <h3 className="text-xs font-semibold text-slate-800 dark:text-gray-200 flex items-center gap-2">
+          <Database className="w-4 h-4 text-indigo-600 dark:text-indigo-400" /> Target Index & Pagination
         </h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
           <div>
-            <label className="block text-gray-400 mb-1 font-medium">Index Name / Pattern</label>
+            <label className="block text-slate-500 dark:text-gray-400 mb-1 font-medium">Index Name / Pattern</label>
             <input
               ref={inputRef}
               autoFocus
@@ -230,7 +230,7 @@ export const EsQueryGenerator: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-gray-400 mb-1 font-medium">Size (Limit)</label>
+            <label className="block text-slate-500 dark:text-gray-400 mb-1 font-medium">Size (Limit)</label>
             <input
               type="number"
               value={size}
@@ -240,7 +240,7 @@ export const EsQueryGenerator: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-gray-400 mb-1 font-medium">Sort Field</label>
+            <label className="block text-slate-500 dark:text-gray-400 mb-1 font-medium">Sort Field</label>
             <input
               type="text"
               value={sortField}
@@ -251,11 +251,11 @@ export const EsQueryGenerator: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-gray-400 mb-1 font-medium">Sort Order</label>
+            <label className="block text-slate-500 dark:text-gray-400 mb-1 font-medium">Sort Order</label>
             <select
               value={sortOrder}
               onChange={(e: any) => setSortOrder(e.target.value)}
-              className="w-full glass-input px-3 py-1.5 rounded-xl font-medium"
+              className="w-full glass-input px-3 py-1.5 rounded-xl font-medium text-slate-700 dark:text-gray-300"
             >
               <option value="desc">DESC (Descending)</option>
               <option value="asc">ASC (Ascending)</option>
@@ -265,14 +265,14 @@ export const EsQueryGenerator: React.FC = () => {
       </div>
 
       {/* Query Clauses Builder */}
-      <div className="p-5 rounded-2xl bg-gray-900/80 border border-gray-800 space-y-4">
+      <div className="p-5 rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-slate-200/80 dark:border-gray-800 space-y-4 shadow-sm">
         <div className="flex items-center justify-between">
-          <h3 className="text-xs font-semibold text-gray-200 flex items-center gap-2">
-            <Layers className="w-4 h-4 text-purple-400" /> Bool Query Conditions ({clauses.length})
+          <h3 className="text-xs font-semibold text-slate-800 dark:text-gray-200 flex items-center gap-2">
+            <Layers className="w-4 h-4 text-purple-600 dark:text-purple-400" /> Bool Query Conditions ({clauses.length})
           </h3>
           <button
             onClick={addClause}
-            className="flex items-center gap-1 px-3 py-1 text-xs font-medium rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white transition-all"
+            className="flex items-center gap-1 px-3 py-1 text-xs font-medium rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white transition-all shadow-sm"
           >
             <Plus className="w-3.5 h-3.5" /> Add Condition
           </button>
@@ -280,19 +280,19 @@ export const EsQueryGenerator: React.FC = () => {
 
         <div className="space-y-3">
           {clauses.map((c) => (
-            <div key={c.id} className="p-3 rounded-xl bg-gray-950 border border-gray-800 flex flex-wrap items-center gap-3 text-xs">
+            <div key={c.id} className="p-3 rounded-xl bg-slate-50 dark:bg-gray-950 border border-slate-200 dark:border-gray-800 flex flex-wrap items-center gap-3 text-xs">
               {/* Bool Type Selector */}
               <select
                 value={c.boolType}
                 onChange={(e: any) => updateClause(c.id, 'boolType', e.target.value)}
                 className={`px-2.5 py-1.5 rounded-lg font-bold uppercase tracking-wider text-[11px] ${
                   c.boolType === 'must'
-                    ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                    ? 'bg-emerald-50 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-500/30'
                     : c.boolType === 'filter'
-                    ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30'
+                    ? 'bg-indigo-50 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-500/30'
                     : c.boolType === 'should'
-                    ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                    : 'bg-red-500/20 text-red-300 border border-red-500/30'
+                    ? 'bg-amber-50 dark:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-500/30'
+                    : 'bg-red-50 dark:bg-red-500/20 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-500/30'
                 }`}
               >
                 <option value="must">MUST (AND)</option>
@@ -305,7 +305,7 @@ export const EsQueryGenerator: React.FC = () => {
               <select
                 value={c.queryType}
                 onChange={(e: any) => updateClause(c.id, 'queryType', e.target.value)}
-                className="glass-input px-2.5 py-1.5 rounded-lg font-mono text-gray-300"
+                className="glass-input px-2.5 py-1.5 rounded-lg font-mono text-slate-700 dark:text-gray-300"
               >
                 <option value="match">match</option>
                 <option value="match_phrase">match_phrase</option>
@@ -322,7 +322,7 @@ export const EsQueryGenerator: React.FC = () => {
                 placeholder="Field name (e.g. status)"
                 value={c.field}
                 onChange={(e) => updateClause(c.id, 'field', e.target.value)}
-                className="glass-input px-3 py-1.5 rounded-lg font-mono text-indigo-300 w-44"
+                className="glass-input px-3 py-1.5 rounded-lg font-mono text-indigo-700 dark:text-indigo-300 w-44"
               />
 
               {/* Value / Range inputs */}
@@ -333,15 +333,15 @@ export const EsQueryGenerator: React.FC = () => {
                     placeholder="GTE (e.g. now-24h)"
                     value={c.rangeGte || ''}
                     onChange={(e) => updateClause(c.id, 'rangeGte', e.target.value)}
-                    className="glass-input px-2.5 py-1.5 rounded-lg font-mono text-emerald-300 w-36"
+                    className="glass-input px-2.5 py-1.5 rounded-lg font-mono text-emerald-700 dark:text-emerald-300 w-36"
                   />
-                  <span className="text-gray-500">to</span>
+                  <span className="text-slate-400 dark:text-gray-500">to</span>
                   <input
                     type="text"
                     placeholder="LTE (e.g. now)"
                     value={c.rangeLte || ''}
                     onChange={(e) => updateClause(c.id, 'rangeLte', e.target.value)}
-                    className="glass-input px-2.5 py-1.5 rounded-lg font-mono text-emerald-300 w-36"
+                    className="glass-input px-2.5 py-1.5 rounded-lg font-mono text-emerald-700 dark:text-emerald-300 w-36"
                   />
                 </div>
               ) : c.queryType !== 'exists' ? (
@@ -350,14 +350,14 @@ export const EsQueryGenerator: React.FC = () => {
                   placeholder="Value to match"
                   value={c.value}
                   onChange={(e) => updateClause(c.id, 'value', e.target.value)}
-                  className="glass-input px-3 py-1.5 rounded-lg font-mono text-emerald-300 flex-1 min-w-[180px]"
+                  className="glass-input px-3 py-1.5 rounded-lg font-mono text-emerald-700 dark:text-emerald-300 flex-1 min-w-[180px]"
                 />
               ) : null}
 
               {/* Delete */}
               <button
                 onClick={() => removeClause(c.id)}
-                className="p-1.5 text-red-400 hover:bg-red-500/20 rounded-lg ml-auto"
+                className="p-1.5 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-500/20 rounded-lg ml-auto transition-all"
                 title="Remove clause"
               >
                 <Trash2 className="w-4 h-4" />
@@ -366,7 +366,7 @@ export const EsQueryGenerator: React.FC = () => {
           ))}
 
           {clauses.length === 0 && (
-            <div className="py-8 text-center text-gray-500 text-xs">
+            <div className="py-8 text-center text-slate-400 dark:text-gray-500 text-xs">
               No conditions added. Click "+ Add Condition" to build your query.
             </div>
           )}
@@ -374,14 +374,14 @@ export const EsQueryGenerator: React.FC = () => {
       </div>
 
       {/* Aggregation Control */}
-      <div className="p-4 rounded-2xl bg-gray-900/80 border border-gray-800 space-y-3">
+      <div className="p-4 rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-slate-200/80 dark:border-gray-800 space-y-3 shadow-sm">
         <div className="flex items-center justify-between">
-          <label className="flex items-center gap-2 text-xs font-semibold text-gray-200 cursor-pointer">
+          <label className="flex items-center gap-2 text-xs font-semibold text-slate-800 dark:text-gray-200 cursor-pointer select-none">
             <input
               type="checkbox"
               checked={enableAgg}
               onChange={(e) => setEnableAgg(e.target.checked)}
-              className="w-4 h-4 rounded bg-gray-950 border-gray-700 text-indigo-500"
+              className="w-4 h-4 rounded bg-slate-100 dark:bg-gray-950 border-slate-300 dark:border-gray-700 text-indigo-600 focus:ring-0"
             />
             <span>Include Aggregations (aggs)</span>
           </label>
@@ -390,20 +390,20 @@ export const EsQueryGenerator: React.FC = () => {
         {enableAgg && (
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
             <div>
-              <label className="block text-gray-400 mb-1">Agg Name</label>
+              <label className="block text-slate-500 dark:text-gray-400 mb-1">Agg Name</label>
               <input
                 type="text"
                 value={aggName}
                 onChange={(e) => setAggName(e.target.value)}
-                className="w-full glass-input px-3 py-1.5 rounded-xl font-mono text-purple-300"
+                className="w-full glass-input px-3 py-1.5 rounded-xl font-mono text-purple-700 dark:text-purple-300"
               />
             </div>
             <div>
-              <label className="block text-gray-400 mb-1">Agg Type</label>
+              <label className="block text-slate-500 dark:text-gray-400 mb-1">Agg Type</label>
               <select
                 value={aggType}
                 onChange={(e: any) => setAggType(e.target.value)}
-                className="w-full glass-input px-3 py-1.5 rounded-xl font-medium"
+                className="w-full glass-input px-3 py-1.5 rounded-xl font-medium text-slate-700 dark:text-gray-300"
               >
                 <option value="terms">Terms (Group By Field)</option>
                 <option value="date_histogram">Date Histogram (Time Buckets)</option>
@@ -411,12 +411,12 @@ export const EsQueryGenerator: React.FC = () => {
               </select>
             </div>
             <div>
-              <label className="block text-gray-400 mb-1">Target Field</label>
+              <label className="block text-slate-500 dark:text-gray-400 mb-1">Target Field</label>
               <input
                 type="text"
                 value={aggField}
                 onChange={(e) => setAggField(e.target.value)}
-                className="w-full glass-input px-3 py-1.5 rounded-xl font-mono text-indigo-300"
+                className="w-full glass-input px-3 py-1.5 rounded-xl font-mono text-indigo-700 dark:text-indigo-300"
               />
             </div>
           </div>
@@ -427,12 +427,12 @@ export const EsQueryGenerator: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <label className="block text-xs font-semibold text-gray-300 flex items-center gap-2">
-              <Code2 className="w-4 h-4 text-emerald-400" /> Generated ES Query DSL (JSON)
+            <label className="block text-xs font-semibold text-slate-800 dark:text-gray-300 flex items-center gap-2">
+              <Code2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> Generated ES Query DSL (JSON)
             </label>
             <button
               onClick={() => navigator.clipboard.writeText(dslResult)}
-              className="text-[11px] text-indigo-400 hover:underline font-mono"
+              className="text-[11px] text-indigo-600 dark:text-indigo-400 hover:underline font-mono"
             >
               Copy JSON
             </button>
@@ -441,18 +441,18 @@ export const EsQueryGenerator: React.FC = () => {
             rows={16}
             readOnly
             value={dslResult}
-            className="w-full glass-input p-4 rounded-2xl text-xs font-mono text-emerald-300 leading-relaxed bg-gray-950/90"
+            className="w-full glass-input p-4 rounded-2xl text-xs font-mono text-emerald-700 dark:text-emerald-300 leading-relaxed bg-slate-50/90 dark:bg-gray-950/90 shadow-sm"
           />
         </div>
 
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <label className="block text-xs font-semibold text-gray-300 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-indigo-400" /> Equivalent cURL Request Command
+            <label className="block text-xs font-semibold text-slate-800 dark:text-gray-300 flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-indigo-600 dark:text-indigo-400" /> Equivalent cURL Request Command
             </label>
             <button
               onClick={() => navigator.clipboard.writeText(generateCurl())}
-              className="text-[11px] text-indigo-400 hover:underline font-mono"
+              className="text-[11px] text-indigo-600 dark:text-indigo-400 hover:underline font-mono"
             >
               Copy cURL
             </button>
@@ -461,7 +461,7 @@ export const EsQueryGenerator: React.FC = () => {
             rows={16}
             readOnly
             value={generateCurl()}
-            className="w-full glass-input p-4 rounded-2xl text-xs font-mono text-indigo-300 leading-relaxed bg-gray-950/90"
+            className="w-full glass-input p-4 rounded-2xl text-xs font-mono text-indigo-700 dark:text-indigo-300 leading-relaxed bg-slate-50/90 dark:bg-gray-950/90 shadow-sm"
           />
         </div>
       </div>

@@ -41,15 +41,15 @@ export const SqlFormatter: React.FC = () => {
       />
 
       {/* Control Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl bg-gray-900/80 border border-gray-800">
+      <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-slate-200/80 dark:border-gray-800 shadow-sm">
         <div className="flex items-center gap-3">
-          <label className="text-xs font-semibold text-gray-300 flex items-center gap-2">
-            <Database className="w-4 h-4 text-indigo-400" /> SQL Dialect:
+          <label className="text-xs font-semibold text-slate-800 dark:text-gray-300 flex items-center gap-2">
+            <Database className="w-4 h-4 text-indigo-600 dark:text-indigo-400" /> SQL Dialect:
           </label>
           <select
             value={language}
             onChange={(e) => setLanguage(e.target.value)}
-            className="glass-input px-3 py-1.5 rounded-xl text-xs font-medium text-gray-300"
+            className="glass-input px-3 py-1.5 rounded-xl text-xs font-medium text-slate-700 dark:text-gray-300"
           >
             <option value="postgresql">PostgreSQL</option>
             <option value="mysql">MySQL</option>
@@ -59,12 +59,12 @@ export const SqlFormatter: React.FC = () => {
           </select>
         </div>
 
-        <label className="flex items-center gap-2 text-xs text-gray-300 cursor-pointer select-none">
+        <label className="flex items-center gap-2 text-xs text-slate-700 dark:text-gray-300 cursor-pointer select-none">
           <input
             type="checkbox"
             checked={uppercase}
             onChange={(e) => setUppercase(e.target.checked)}
-            className="w-4 h-4 rounded bg-gray-950 border-gray-700 text-indigo-500"
+            className="w-4 h-4 rounded bg-slate-100 dark:bg-gray-950 border-slate-300 dark:border-gray-700 text-indigo-600"
           />
           <span>UPPERCASE Keywords</span>
         </label>
@@ -73,7 +73,7 @@ export const SqlFormatter: React.FC = () => {
       {/* Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
-          <label className="block text-xs font-semibold text-gray-300">Unformatted SQL</label>
+          <label className="block text-xs font-semibold text-slate-800 dark:text-gray-300">Unformatted SQL</label>
           <textarea
             ref={inputRef}
             autoFocus
@@ -81,20 +81,20 @@ export const SqlFormatter: React.FC = () => {
             value={sqlInput}
             onChange={(e) => setSqlInput(e.target.value)}
             placeholder="Paste raw unformatted SQL query here..."
-            className="w-full glass-input p-4 rounded-2xl text-xs font-mono leading-relaxed"
+            className="w-full glass-input p-4 rounded-2xl text-xs font-mono leading-relaxed shadow-sm"
           />
         </div>
 
         <div className="space-y-2">
-          <label className="block text-xs font-semibold text-gray-300 flex items-center gap-1.5">
-            <Wand2 className="w-3.5 h-3.5 text-emerald-400" /> Formatted SQL Output
+          <label className="block text-xs font-semibold text-slate-800 dark:text-gray-300 flex items-center gap-1.5">
+            <Wand2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> Formatted SQL Output
           </label>
           <textarea
             rows={16}
             readOnly
             value={formattedResult}
             placeholder="Formatted SQL query will appear here..."
-            className="w-full glass-input p-4 rounded-2xl text-xs font-mono text-emerald-300 leading-relaxed bg-gray-950/90"
+            className="w-full glass-input p-4 rounded-2xl text-xs font-mono text-emerald-700 dark:text-emerald-300 leading-relaxed bg-slate-50/90 dark:bg-gray-950/90 shadow-sm"
           />
         </div>
       </div>

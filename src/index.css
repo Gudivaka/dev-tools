@@ -41,14 +41,16 @@
 
 /* Glassmorphic & Panel styling */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.85);
+  background: #ffffff;
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(226, 232, 240, 0.9);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 20px -2px rgba(148, 163, 184, 0.12);
 }
 
 .dark .glass-panel {
   background: rgba(17, 24, 39, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.3);
 }
 
 .glass-input {
@@ -69,3 +71,19 @@
   outline: none;
   box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25);
 }
+
+/* Tool card container helper */
+.tool-card {
+  background-color: #ffffff;
+  border-width: 1px;
+  border-color: #e2e8f0;
+  border-radius: 1rem;
+  box-shadow: 0 4px 15px -3px rgba(148, 163, 184, 0.1), 0 2px 6px -2px rgba(148, 163, 184, 0.05);
+}
+
+.dark .tool-card {
+  background-color: rgba(17, 24, 39, 0.8);
+  border-color: rgba(31, 41, 55, 0.8);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+}
+

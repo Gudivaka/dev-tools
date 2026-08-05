@@ -79,10 +79,10 @@ export const PasswordGenerator: React.FC = () => {
       />
 
       {/* Output Display Card */}
-      <div className="p-6 rounded-2xl bg-gray-900/80 border border-gray-800 space-y-4">
+      <div className="p-6 rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-slate-200/80 dark:border-gray-800 space-y-4 shadow-sm">
         <div className="flex items-center justify-between">
-          <label className="text-xs font-semibold text-gray-300 flex items-center gap-2">
-            <Lock className="w-4 h-4 text-indigo-400" /> Generated Secure Key / Password
+          <label className="text-xs font-semibold text-slate-800 dark:text-gray-300 flex items-center gap-2">
+            <Lock className="w-4 h-4 text-indigo-600 dark:text-indigo-400" /> Generated Secure Key / Password
           </label>
           <button
             onClick={handleRegenerate}
@@ -92,7 +92,7 @@ export const PasswordGenerator: React.FC = () => {
           </button>
         </div>
 
-        <div className="p-4 rounded-xl bg-gray-950 border border-gray-800 text-lg font-mono text-emerald-300 break-all select-all font-bold">
+        <div className="p-4 rounded-xl bg-slate-50 dark:bg-gray-950 border border-slate-200 dark:border-gray-800 text-lg font-mono text-emerald-700 dark:text-emerald-300 break-all select-all font-bold">
           {password || 'Select at least one character set'}
         </div>
 
@@ -100,10 +100,10 @@ export const PasswordGenerator: React.FC = () => {
         <div className="flex items-center justify-between text-xs pt-1">
           <div className="flex items-center gap-2">
             <ShieldCheck className={`w-4 h-4 ${strength.color}`} />
-            <span className="text-gray-400">Strength Rating:</span>
+            <span className="text-slate-500 dark:text-gray-400">Strength Rating:</span>
             <span className={`font-bold ${strength.color}`}>{strength.label} ({entropy} bits entropy)</span>
           </div>
-          <div className="w-36 h-2 rounded-full bg-gray-800 overflow-hidden">
+          <div className="w-36 h-2 rounded-full bg-slate-200 dark:bg-gray-800 overflow-hidden">
             <div
               className={`h-full transition-all ${strength.bg}`}
               style={{ width: `${Math.min(100, (entropy / 120) * 100)}%` }}
@@ -113,14 +113,14 @@ export const PasswordGenerator: React.FC = () => {
       </div>
 
       {/* Options Panel */}
-      <div className="p-6 rounded-2xl bg-gray-900/80 border border-gray-800 space-y-6">
-        <h3 className="text-xs font-semibold text-gray-200">Generator Configuration</h3>
+      <div className="p-6 rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-slate-200/80 dark:border-gray-800 space-y-6 shadow-sm">
+        <h3 className="text-xs font-semibold text-slate-800 dark:text-gray-200">Generator Configuration</h3>
 
         {/* Length Slider */}
         <div className="space-y-2">
           <div className="flex justify-between text-xs">
-            <span className="text-gray-400">Password Length:</span>
-            <span className="font-mono text-indigo-400 font-bold">{length} characters</span>
+            <span className="text-slate-500 dark:text-gray-400">Password Length:</span>
+            <span className="font-mono text-indigo-600 dark:text-indigo-400 font-bold">{length} characters</span>
           </div>
           <input
             type="range"
@@ -131,13 +131,13 @@ export const PasswordGenerator: React.FC = () => {
               setLength(Number(e.target.value));
               setPassword(generatePassword());
             }}
-            className="w-full h-2 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-indigo-500"
+            className="w-full h-2 bg-slate-200 dark:bg-gray-800 rounded-lg appearance-none cursor-pointer accent-indigo-600"
           />
         </div>
 
         {/* Checkboxes */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs text-gray-300">
-          <label className="flex items-center gap-2.5 p-3 rounded-xl bg-gray-950 border border-gray-800 cursor-pointer">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs text-slate-700 dark:text-gray-300">
+          <label className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 dark:bg-gray-950 border border-slate-200 dark:border-gray-800 cursor-pointer select-none">
             <input
               type="checkbox"
               checked={useUpper}
@@ -145,12 +145,12 @@ export const PasswordGenerator: React.FC = () => {
                 setUseUpper(e.target.checked);
                 setPassword(generatePassword());
               }}
-              className="w-4 h-4 rounded bg-gray-900 border-gray-700 text-indigo-500"
+              className="w-4 h-4 rounded bg-slate-200 dark:bg-gray-900 border-slate-300 dark:border-gray-700 text-indigo-600 focus:ring-0"
             />
             <span>Uppercase Letters (A-Z)</span>
           </label>
 
-          <label className="flex items-center gap-2.5 p-3 rounded-xl bg-gray-950 border border-gray-800 cursor-pointer">
+          <label className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 dark:bg-gray-950 border border-slate-200 dark:border-gray-800 cursor-pointer select-none">
             <input
               type="checkbox"
               checked={useLower}
@@ -158,12 +158,12 @@ export const PasswordGenerator: React.FC = () => {
                 setUseLower(e.target.checked);
                 setPassword(generatePassword());
               }}
-              className="w-4 h-4 rounded bg-gray-900 border-gray-700 text-indigo-500"
+              className="w-4 h-4 rounded bg-slate-200 dark:bg-gray-900 border-slate-300 dark:border-gray-700 text-indigo-600 focus:ring-0"
             />
             <span>Lowercase Letters (a-z)</span>
           </label>
 
-          <label className="flex items-center gap-2.5 p-3 rounded-xl bg-gray-950 border border-gray-800 cursor-pointer">
+          <label className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 dark:bg-gray-950 border border-slate-200 dark:border-gray-800 cursor-pointer select-none">
             <input
               type="checkbox"
               checked={useNumbers}
@@ -171,12 +171,12 @@ export const PasswordGenerator: React.FC = () => {
                 setUseNumbers(e.target.checked);
                 setPassword(generatePassword());
               }}
-              className="w-4 h-4 rounded bg-gray-900 border-gray-700 text-indigo-500"
+              className="w-4 h-4 rounded bg-slate-200 dark:bg-gray-900 border-slate-300 dark:border-gray-700 text-indigo-600 focus:ring-0"
             />
             <span>Digits (0-9)</span>
           </label>
 
-          <label className="flex items-center gap-2.5 p-3 rounded-xl bg-gray-950 border border-gray-800 cursor-pointer">
+          <label className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 dark:bg-gray-950 border border-slate-200 dark:border-gray-800 cursor-pointer select-none">
             <input
               type="checkbox"
               checked={useSymbols}
@@ -184,12 +184,12 @@ export const PasswordGenerator: React.FC = () => {
                 setUseSymbols(e.target.checked);
                 setPassword(generatePassword());
               }}
-              className="w-4 h-4 rounded bg-gray-900 border-gray-700 text-indigo-500"
+              className="w-4 h-4 rounded bg-slate-200 dark:bg-gray-900 border-slate-300 dark:border-gray-700 text-indigo-600 focus:ring-0"
             />
             <span>Symbols (!@#$%^&*)</span>
           </label>
 
-          <label className="flex items-center gap-2.5 p-3 rounded-xl bg-gray-950 border border-gray-800 cursor-pointer col-span-1 sm:col-span-2">
+          <label className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 dark:bg-gray-950 border border-slate-200 dark:border-gray-800 cursor-pointer select-none col-span-1 sm:col-span-2">
             <input
               type="checkbox"
               checked={avoidAmbiguous}
@@ -197,7 +197,7 @@ export const PasswordGenerator: React.FC = () => {
                 setAvoidAmbiguous(e.target.checked);
                 setPassword(generatePassword());
               }}
-              className="w-4 h-4 rounded bg-gray-900 border-gray-700 text-indigo-500"
+              className="w-4 h-4 rounded bg-slate-200 dark:bg-gray-900 border-slate-300 dark:border-gray-700 text-indigo-600 focus:ring-0"
             />
             <span>Avoid Ambiguous Characters (e.g. 1, l, O, 0)</span>
           </label>

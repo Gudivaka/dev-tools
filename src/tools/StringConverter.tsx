@@ -77,8 +77,8 @@ export const StringConverter: React.FC = () => {
 
       {/* Input */}
       <div className="space-y-2">
-        <label className="block text-xs font-semibold text-gray-300 flex items-center gap-2">
-          <Type className="w-4 h-4 text-indigo-400" /> Enter Text String
+        <label className="block text-xs font-semibold text-slate-800 dark:text-gray-300 flex items-center gap-2">
+          <Type className="w-4 h-4 text-indigo-600 dark:text-indigo-400" /> Enter Text String
         </label>
         <textarea
           ref={inputRef}
@@ -87,42 +87,42 @@ export const StringConverter: React.FC = () => {
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
           placeholder="Type or paste string..."
-          className="w-full glass-input p-4 rounded-2xl text-xs font-mono leading-relaxed"
+          className="w-full glass-input p-4 rounded-2xl text-xs font-mono leading-relaxed shadow-sm"
         />
       </div>
 
       {/* Metrics Banner */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="p-3.5 rounded-xl bg-gray-900 border border-gray-800 text-center">
-          <div className="text-[10px] text-gray-400 font-medium uppercase tracking-wider">Characters</div>
-          <div className="text-xl font-bold font-mono text-indigo-400 mt-1">{charCount}</div>
+        <div className="p-3.5 rounded-xl bg-white/90 dark:bg-gray-900 border border-slate-200/80 dark:border-gray-800 text-center shadow-sm">
+          <div className="text-[10px] text-slate-500 dark:text-gray-400 font-medium uppercase tracking-wider">Characters</div>
+          <div className="text-xl font-bold font-mono text-indigo-600 dark:text-indigo-400 mt-1">{charCount}</div>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-gray-900 border border-gray-800 text-center">
-          <div className="text-[10px] text-gray-400 font-medium uppercase tracking-wider">Without Spaces</div>
-          <div className="text-xl font-bold font-mono text-purple-400 mt-1">{charNoSpaces}</div>
+        <div className="p-3.5 rounded-xl bg-white/90 dark:bg-gray-900 border border-slate-200/80 dark:border-gray-800 text-center shadow-sm">
+          <div className="text-[10px] text-slate-500 dark:text-gray-400 font-medium uppercase tracking-wider">Without Spaces</div>
+          <div className="text-xl font-bold font-mono text-purple-600 dark:text-purple-400 mt-1">{charNoSpaces}</div>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-gray-900 border border-gray-800 text-center">
-          <div className="text-[10px] text-gray-400 font-medium uppercase tracking-wider">Words</div>
-          <div className="text-xl font-bold font-mono text-emerald-400 mt-1">{wordCount}</div>
+        <div className="p-3.5 rounded-xl bg-white/90 dark:bg-gray-900 border border-slate-200/80 dark:border-gray-800 text-center shadow-sm">
+          <div className="text-[10px] text-slate-500 dark:text-gray-400 font-medium uppercase tracking-wider">Words</div>
+          <div className="text-xl font-bold font-mono text-emerald-600 dark:text-emerald-400 mt-1">{wordCount}</div>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-gray-900 border border-gray-800 text-center">
-          <div className="text-[10px] text-gray-400 font-medium uppercase tracking-wider">Lines</div>
-          <div className="text-xl font-bold font-mono text-amber-400 mt-1">{lineCount}</div>
+        <div className="p-3.5 rounded-xl bg-white/90 dark:bg-gray-900 border border-slate-200/80 dark:border-gray-800 text-center shadow-sm">
+          <div className="text-[10px] text-slate-500 dark:text-gray-400 font-medium uppercase tracking-wider">Lines</div>
+          <div className="text-xl font-bold font-mono text-amber-600 dark:text-amber-400 mt-1">{lineCount}</div>
         </div>
       </div>
 
       {/* Transformed Case Outputs Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {caseTransformations.map((trans) => (
-          <div key={trans.label} className="p-4 rounded-2xl bg-gray-900/80 border border-gray-800 space-y-2">
+          <div key={trans.label} className="p-4 rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-slate-200/80 dark:border-gray-800 space-y-2 shadow-sm">
             <div className="flex items-center justify-between text-xs">
-              <span className="font-semibold text-indigo-300">{trans.label}</span>
+              <span className="font-semibold text-indigo-600 dark:text-indigo-300">{trans.label}</span>
               <button
                 onClick={() => navigator.clipboard.writeText(trans.value)}
-                className="text-[10px] px-2 py-0.5 rounded bg-gray-800 hover:bg-gray-700 text-gray-300"
+                className="text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-gray-800 hover:bg-slate-200 dark:hover:bg-gray-700 text-slate-700 dark:text-gray-300 border border-slate-200 dark:border-gray-700 transition-all"
               >
                 Copy
               </button>
@@ -131,7 +131,7 @@ export const StringConverter: React.FC = () => {
               type="text"
               readOnly
               value={trans.value}
-              className="w-full glass-input px-3 py-1.5 rounded-xl text-xs font-mono text-emerald-300 bg-gray-950"
+              className="w-full glass-input px-3 py-1.5 rounded-xl text-xs font-mono text-emerald-700 dark:text-emerald-300 bg-slate-50 dark:bg-gray-950"
             />
           </div>
         ))}

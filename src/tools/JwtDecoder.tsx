@@ -108,9 +108,9 @@ export const JwtDecoder: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Input Column */}
         <div className="lg:col-span-5 space-y-4">
-          <div className="p-4 rounded-2xl bg-gray-900/80 border border-gray-800 space-y-3">
-            <label className="block text-xs font-semibold text-gray-300 flex items-center gap-2">
-              <KeyRound className="w-4 h-4 text-indigo-400" /> Enter Encoded JWT Token
+          <div className="p-4 rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-slate-200/80 dark:border-gray-800 space-y-3 shadow-sm">
+            <label className="block text-xs font-semibold text-slate-800 dark:text-gray-300 flex items-center gap-2">
+              <KeyRound className="w-4 h-4 text-indigo-600 dark:text-indigo-400" /> Enter Encoded JWT Token
             </label>
             <textarea
               ref={inputRef}
@@ -119,17 +119,17 @@ export const JwtDecoder: React.FC = () => {
               value={token}
               onChange={(e) => setToken(e.target.value)}
               placeholder="Paste your JWT token (e.g. eyJhbGciOi...)"
-              className="w-full glass-input p-3 rounded-xl text-xs font-mono text-indigo-300 leading-relaxed resize-y focus:ring-2 focus:ring-indigo-500"
+              className="w-full glass-input p-3 rounded-xl text-xs font-mono text-indigo-700 dark:text-indigo-300 leading-relaxed resize-y focus:ring-2 focus:ring-indigo-500"
             />
           </div>
 
           {/* Expiration Banner */}
           {expInfo.status !== 'none' && (
             <div
-              className={`p-4 rounded-2xl border flex items-center justify-between ${
+              className={`p-4 rounded-2xl border flex items-center justify-between shadow-sm ${
                 expInfo.isExpired
-                  ? 'bg-red-500/10 border-red-500/30 text-red-400'
-                  : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
+                  ? 'bg-red-50 dark:bg-red-500/10 border-red-200 dark:border-red-500/30 text-red-700 dark:text-red-400'
+                  : 'bg-emerald-50 dark:bg-emerald-500/10 border-emerald-200 dark:border-emerald-500/30 text-emerald-700 dark:text-emerald-400'
               }`}
             >
               <div className="flex items-center gap-3">
@@ -152,10 +152,10 @@ export const JwtDecoder: React.FC = () => {
           )}
 
           {/* Signature Verification Card */}
-          <div className="p-4 rounded-2xl bg-gray-900/80 border border-gray-800 space-y-3">
-            <h3 className="text-xs font-semibold text-gray-300">HMAC-SHA256 Signature Verifier</h3>
+          <div className="p-4 rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-slate-200/80 dark:border-gray-800 space-y-3 shadow-sm">
+            <h3 className="text-xs font-semibold text-slate-800 dark:text-gray-300">HMAC-SHA256 Signature Verifier</h3>
             <div>
-              <label className="block text-[11px] text-gray-400 mb-1">Secret Key (for HS256)</label>
+              <label className="block text-[11px] text-slate-500 dark:text-gray-400 mb-1">Secret Key (for HS256)</label>
               <input
                 type="text"
                 value={secretKey}
@@ -166,11 +166,11 @@ export const JwtDecoder: React.FC = () => {
             {sigVerified !== null && (
               <div className="flex items-center gap-2 text-xs pt-1">
                 {sigVerified ? (
-                  <span className="flex items-center gap-1.5 text-emerald-400 font-semibold">
+                  <span className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-semibold">
                     <CheckCircle2 className="w-4 h-4" /> Signature Verified Successfully!
                   </span>
                 ) : (
-                  <span className="flex items-center gap-1.5 text-red-400 font-semibold">
+                  <span className="flex items-center gap-1.5 text-red-600 dark:text-red-400 font-semibold">
                     <XCircle className="w-4 h-4" /> Signature Invalid / Mismatched Secret
                   </span>
                 )}
@@ -182,40 +182,40 @@ export const JwtDecoder: React.FC = () => {
         {/* Output Decoded Columns */}
         <div className="lg:col-span-7 space-y-4">
           {decoded.error ? (
-            <div className="p-6 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
+            <div className="p-6 rounded-2xl bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/30 text-red-600 dark:text-red-400 text-sm shadow-sm">
               {decoded.error}
             </div>
           ) : (
             <>
               {/* Header Box */}
-              <div className="p-4 rounded-2xl bg-gray-900/80 border border-gray-800 space-y-2">
-                <div className="flex items-center justify-between text-xs font-semibold text-red-400 border-b border-gray-800 pb-2">
+              <div className="p-4 rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-slate-200/80 dark:border-gray-800 space-y-2 shadow-sm">
+                <div className="flex items-center justify-between text-xs font-semibold text-red-600 dark:text-red-400 border-b border-slate-200 dark:border-gray-800 pb-2">
                   <span>HEADER: ALGORITHM & TOKEN TYPE</span>
-                  <span className="font-mono text-[10px] text-gray-500">JSON</span>
+                  <span className="font-mono text-[10px] text-slate-400 dark:text-gray-500">JSON</span>
                 </div>
-                <pre className="p-3 rounded-xl bg-gray-950/80 border border-gray-800 text-xs font-mono text-red-300 overflow-x-auto">
+                <pre className="p-3 rounded-xl bg-slate-50 dark:bg-gray-950/80 border border-slate-200/80 dark:border-gray-800 text-xs font-mono text-red-700 dark:text-red-300 overflow-x-auto">
                   {JSON.stringify(decoded.header, null, 2)}
                 </pre>
               </div>
 
               {/* Payload Box */}
-              <div className="p-4 rounded-2xl bg-gray-900/80 border border-gray-800 space-y-2">
-                <div className="flex items-center justify-between text-xs font-semibold text-purple-400 border-b border-gray-800 pb-2">
+              <div className="p-4 rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-slate-200/80 dark:border-gray-800 space-y-2 shadow-sm">
+                <div className="flex items-center justify-between text-xs font-semibold text-purple-600 dark:text-purple-400 border-b border-slate-200 dark:border-gray-800 pb-2">
                   <span>PAYLOAD: DATA CLAIMS</span>
-                  <span className="font-mono text-[10px] text-gray-500">JSON</span>
+                  <span className="font-mono text-[10px] text-slate-400 dark:text-gray-500">JSON</span>
                 </div>
-                <pre className="p-3 rounded-xl bg-gray-950/80 border border-gray-800 text-xs font-mono text-purple-200 overflow-x-auto">
+                <pre className="p-3 rounded-xl bg-slate-50 dark:bg-gray-950/80 border border-slate-200/80 dark:border-gray-800 text-xs font-mono text-purple-800 dark:text-purple-200 overflow-x-auto">
                   {JSON.stringify(decoded.payload, null, 2)}
                 </pre>
               </div>
 
               {/* Signature Box */}
-              <div className="p-4 rounded-2xl bg-gray-900/80 border border-gray-800 space-y-2">
-                <div className="flex items-center justify-between text-xs font-semibold text-indigo-400 border-b border-gray-800 pb-2">
+              <div className="p-4 rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-slate-200/80 dark:border-gray-800 space-y-2 shadow-sm">
+                <div className="flex items-center justify-between text-xs font-semibold text-indigo-600 dark:text-indigo-400 border-b border-slate-200 dark:border-gray-800 pb-2">
                   <span>VERIFY SIGNATURE</span>
-                  <span className="font-mono text-[10px] text-gray-500">BASE64URL</span>
+                  <span className="font-mono text-[10px] text-slate-400 dark:text-gray-500">BASE64URL</span>
                 </div>
-                <div className="p-3 rounded-xl bg-gray-950/80 border border-gray-800 text-xs font-mono text-indigo-300 break-all">
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-gray-950/80 border border-slate-200/80 dark:border-gray-800 text-xs font-mono text-indigo-700 dark:text-indigo-300 break-all">
                   HMACSHA256( base64UrlEncode(header) + "." + base64UrlEncode(payload), secret )
                 </div>
               </div>

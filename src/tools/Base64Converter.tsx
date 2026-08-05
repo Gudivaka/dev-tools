@@ -101,12 +101,12 @@ export const Base64Converter: React.FC = () => {
       />
 
       {/* Mode & Toggle Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl bg-gray-900/80 border border-gray-800">
+      <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-slate-200/80 dark:border-gray-800 shadow-sm">
         <div className="flex items-center gap-2">
           <button
             onClick={() => setMode('text')}
             className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
-              mode === 'text' ? 'bg-indigo-600 text-white' : 'bg-gray-800 text-gray-400 hover:text-white'
+              mode === 'text' ? 'bg-indigo-600 text-white' : 'bg-slate-100 dark:bg-gray-800 text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
             <FileText className="w-4 h-4" /> Text Base64
@@ -114,7 +114,7 @@ export const Base64Converter: React.FC = () => {
           <button
             onClick={() => setMode('file')}
             className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
-              mode === 'file' ? 'bg-indigo-600 text-white' : 'bg-gray-800 text-gray-400 hover:text-white'
+              mode === 'file' ? 'bg-indigo-600 text-white' : 'bg-slate-100 dark:bg-gray-800 text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
             <ImageIcon className="w-4 h-4" /> File to Base64 Data URI
@@ -123,31 +123,31 @@ export const Base64Converter: React.FC = () => {
 
         {mode === 'text' && (
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-1.5 bg-gray-950 p-1 rounded-xl border border-gray-800">
+            <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-gray-950 p-1 rounded-xl border border-slate-200 dark:border-gray-800">
               <button
                 onClick={() => setDirection('encode')}
-                className={`px-3 py-1 rounded-lg text-xs font-medium ${
-                  direction === 'encode' ? 'bg-indigo-500 text-white' : 'text-gray-400'
+                className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${
+                  direction === 'encode' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-gray-400'
                 }`}
               >
                 Encode
               </button>
               <button
                 onClick={() => setDirection('decode')}
-                className={`px-3 py-1 rounded-lg text-xs font-medium ${
-                  direction === 'decode' ? 'bg-indigo-500 text-white' : 'text-gray-400'
+                className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${
+                  direction === 'decode' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-gray-400'
                 }`}
               >
                 Decode
               </button>
             </div>
 
-            <label className="flex items-center gap-2 text-xs text-gray-300 cursor-pointer select-none">
+            <label className="flex items-center gap-2 text-xs text-slate-700 dark:text-gray-300 cursor-pointer select-none">
               <input
                 type="checkbox"
                 checked={urlSafe}
                 onChange={(e) => setUrlSafe(e.target.checked)}
-                className="w-4 h-4 rounded bg-gray-950 border-gray-700 text-indigo-500 focus:ring-0"
+                className="w-4 h-4 rounded bg-slate-100 dark:bg-gray-950 border-slate-300 dark:border-gray-700 text-indigo-600 focus:ring-0"
               />
               <span>URL-Safe Base64</span>
             </label>
@@ -159,7 +159,7 @@ export const Base64Converter: React.FC = () => {
       {mode === 'text' && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
-            <label className="block text-xs font-semibold text-gray-300">
+            <label className="block text-xs font-semibold text-slate-800 dark:text-gray-300">
               Input Text ({direction === 'encode' ? 'Plain Text' : 'Base64 Encoded'})
             </label>
             <textarea
@@ -174,7 +174,7 @@ export const Base64Converter: React.FC = () => {
           </div>
 
           <div className="space-y-2">
-            <label className="block text-xs font-semibold text-gray-300">
+            <label className="block text-xs font-semibold text-slate-800 dark:text-gray-300">
               Converted Output ({direction === 'encode' ? 'Base64 Result' : 'Decoded Text'})
             </label>
             <textarea
@@ -182,7 +182,7 @@ export const Base64Converter: React.FC = () => {
               readOnly
               value={outputText}
               placeholder="Output will appear here..."
-              className="w-full glass-input p-4 rounded-2xl text-xs font-mono text-emerald-300 leading-relaxed bg-gray-950/90"
+              className="w-full glass-input p-4 rounded-2xl text-xs font-mono text-emerald-700 dark:text-emerald-300 leading-relaxed bg-slate-50/90 dark:bg-gray-950/90"
             />
           </div>
         </div>
@@ -191,7 +191,7 @@ export const Base64Converter: React.FC = () => {
       {/* Mode 2: File to Data URI */}
       {mode === 'file' && (
         <div className="space-y-6">
-          <div className="p-8 rounded-2xl border-2 border-dashed border-gray-800 hover:border-indigo-500/50 bg-gray-900/40 text-center transition-all">
+          <div className="p-8 rounded-2xl border-2 border-dashed border-slate-300 hover:border-indigo-500/50 dark:border-gray-800 bg-white/50 dark:bg-gray-900/40 text-center transition-all shadow-sm">
             <input
               type="file"
               id="file-input"
@@ -199,41 +199,41 @@ export const Base64Converter: React.FC = () => {
               className="hidden"
             />
             <label htmlFor="file-input" className="cursor-pointer flex flex-col items-center gap-3">
-              <div className="p-4 rounded-2xl bg-indigo-500/10 text-indigo-400">
+              <div className="p-4 rounded-2xl bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
                 <Upload className="w-8 h-8" />
               </div>
               <div>
-                <span className="text-sm font-semibold text-white">Click or drag a file to convert to Base64 Data URI</span>
-                <p className="text-xs text-gray-400 mt-1">Supports Images, PDFs, SVGs, Audio, and text files</p>
+                <span className="text-sm font-semibold text-slate-900 dark:text-white">Click or drag a file to convert to Base64 Data URI</span>
+                <p className="text-xs text-slate-500 dark:text-gray-400 mt-1">Supports Images, PDFs, SVGs, Audio, and text files</p>
               </div>
             </label>
           </div>
 
           {fileDataUri && (
-            <div className="p-5 rounded-2xl bg-gray-900/80 border border-gray-800 space-y-4">
-              <div className="flex items-center justify-between text-xs text-gray-300 border-b border-gray-800 pb-3">
+            <div className="p-5 rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-slate-200/80 dark:border-gray-800 space-y-4 shadow-sm">
+              <div className="flex items-center justify-between text-xs text-slate-700 dark:text-gray-300 border-b border-slate-200 dark:border-gray-800 pb-3">
                 <div className="flex items-center gap-2">
-                  <Binary className="w-4 h-4 text-indigo-400" />
+                  <Binary className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                   <span className="font-semibold">{fileName}</span>
-                  <span className="text-gray-500">({(fileSize / 1024).toFixed(1)} KB)</span>
+                  <span className="text-slate-400 dark:text-gray-500">({(fileSize / 1024).toFixed(1)} KB)</span>
                 </div>
-                <span className="font-mono text-purple-300">{fileType}</span>
+                <span className="font-mono text-purple-600 dark:text-purple-300">{fileType}</span>
               </div>
 
               {/* Preview image if file is image */}
               {fileType.startsWith('image/') && (
-                <div className="p-4 rounded-xl bg-gray-950 border border-gray-800 flex justify-center">
+                <div className="p-4 rounded-xl bg-slate-50 dark:bg-gray-950 border border-slate-200 dark:border-gray-800 flex justify-center">
                   <img src={fileDataUri} alt="Preview" className="max-h-48 object-contain rounded-lg" />
                 </div>
               )}
 
               <div>
-                <label className="block text-xs font-semibold text-gray-300 mb-2">Base64 Data URI String</label>
+                <label className="block text-xs font-semibold text-slate-800 dark:text-gray-300 mb-2">Base64 Data URI String</label>
                 <textarea
                   rows={8}
                   readOnly
                   value={fileDataUri}
-                  className="w-full glass-input p-3 rounded-xl text-xs font-mono text-emerald-300 leading-relaxed bg-gray-950"
+                  className="w-full glass-input p-3 rounded-xl text-xs font-mono text-emerald-700 dark:text-emerald-300 leading-relaxed bg-slate-50 dark:bg-gray-950"
                 />
               </div>
             </div>

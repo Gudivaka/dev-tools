@@ -56,20 +56,20 @@ export const HtmlEntityConverter: React.FC = () => {
       />
 
       {/* Control Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl bg-gray-900/80 border border-gray-800">
+      <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-slate-200/80 dark:border-gray-800 shadow-sm">
         <div className="flex items-center gap-2">
           <button
             onClick={() => setDirection('encode')}
-            className={`px-4 py-2 rounded-xl text-xs font-semibold ${
-              direction === 'encode' ? 'bg-indigo-600 text-white' : 'bg-gray-800 text-gray-400'
+            className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
+              direction === 'encode' ? 'bg-indigo-600 text-white shadow-sm' : 'bg-slate-100 dark:bg-gray-800 text-slate-600 dark:text-gray-400'
             }`}
           >
             Encode to Entities
           </button>
           <button
             onClick={() => setDirection('decode')}
-            className={`px-4 py-2 rounded-xl text-xs font-semibold ${
-              direction === 'decode' ? 'bg-indigo-600 text-white' : 'bg-gray-800 text-gray-400'
+            className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
+              direction === 'decode' ? 'bg-indigo-600 text-white shadow-sm' : 'bg-slate-100 dark:bg-gray-800 text-slate-600 dark:text-gray-400'
             }`}
           >
             Decode Entities
@@ -77,22 +77,22 @@ export const HtmlEntityConverter: React.FC = () => {
         </div>
 
         {direction === 'encode' && (
-          <div className="flex items-center gap-2 bg-gray-950 p-1 rounded-xl border border-gray-800 text-xs">
+          <div className="flex items-center gap-2 bg-slate-100 dark:bg-gray-950 p-1 rounded-xl border border-slate-200 dark:border-gray-800 text-xs">
             <button
               onClick={() => setMode('named')}
-              className={`px-3 py-1 rounded-lg ${mode === 'named' ? 'bg-indigo-600 text-white' : 'text-gray-400'}`}
+              className={`px-3 py-1 rounded-lg transition-all ${mode === 'named' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-gray-400'}`}
             >
               Named (&amp;)
             </button>
             <button
               onClick={() => setMode('decimal')}
-              className={`px-3 py-1 rounded-lg ${mode === 'decimal' ? 'bg-indigo-600 text-white' : 'text-gray-400'}`}
+              className={`px-3 py-1 rounded-lg transition-all ${mode === 'decimal' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-gray-400'}`}
             >
               Decimal (&#38;)
             </button>
             <button
               onClick={() => setMode('hex')}
-              className={`px-3 py-1 rounded-lg ${mode === 'hex' ? 'bg-indigo-600 text-white' : 'text-gray-400'}`}
+              className={`px-3 py-1 rounded-lg transition-all ${mode === 'hex' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-gray-400'}`}
             >
               Hex (&#x26;)
             </button>
@@ -103,7 +103,7 @@ export const HtmlEntityConverter: React.FC = () => {
       {/* Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
-          <label className="block text-xs font-semibold text-gray-300">
+          <label className="block text-xs font-semibold text-slate-800 dark:text-gray-300">
             Input ({direction === 'encode' ? 'Raw Text / HTML' : 'HTML Entities'})
           </label>
           <textarea
@@ -113,12 +113,12 @@ export const HtmlEntityConverter: React.FC = () => {
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             placeholder="Enter text to convert..."
-            className="w-full glass-input p-4 rounded-2xl text-xs font-mono leading-relaxed"
+            className="w-full glass-input p-4 rounded-2xl text-xs font-mono leading-relaxed shadow-sm"
           />
         </div>
 
         <div className="space-y-2">
-          <label className="block text-xs font-semibold text-gray-300">
+          <label className="block text-xs font-semibold text-slate-800 dark:text-gray-300">
             Converted Result ({direction === 'encode' ? 'HTML Entities' : 'Decoded Text'})
           </label>
           <textarea
@@ -126,7 +126,7 @@ export const HtmlEntityConverter: React.FC = () => {
             readOnly
             value={outputText}
             placeholder="Result will appear here..."
-            className="w-full glass-input p-4 rounded-2xl text-xs font-mono text-emerald-300 leading-relaxed bg-gray-950/90"
+            className="w-full glass-input p-4 rounded-2xl text-xs font-mono text-emerald-700 dark:text-emerald-300 leading-relaxed bg-slate-50/90 dark:bg-gray-950/90 shadow-sm"
           />
         </div>
       </div>

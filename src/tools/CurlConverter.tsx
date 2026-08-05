@@ -177,38 +177,38 @@ async fn main() -> Result<(), Box<dyn std.error.Error>> {
       />
 
       {/* Selector */}
-      <div className="flex items-center justify-between p-4 rounded-2xl bg-gray-900/80 border border-gray-800">
+      <div className="flex items-center justify-between p-4 rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-slate-200/80 dark:border-gray-800 shadow-sm">
         <div className="flex items-center gap-3">
-          <Code2 className="w-4 h-4 text-indigo-400" />
-          <span className="text-xs font-semibold text-gray-300">Target Language:</span>
-          <div className="flex flex-wrap gap-1 bg-gray-950 p-1 rounded-xl border border-gray-800 text-xs">
+          <Code2 className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+          <span className="text-xs font-semibold text-slate-800 dark:text-gray-300">Target Language:</span>
+          <div className="flex flex-wrap gap-1 bg-slate-100 dark:bg-gray-950 p-1 rounded-xl border border-slate-200 dark:border-gray-800 text-xs">
             <button
               onClick={() => setTargetLang('js-fetch')}
-              className={`px-3 py-1 rounded-lg ${targetLang === 'js-fetch' ? 'bg-indigo-600 text-white' : 'text-gray-400'}`}
+              className={`px-3 py-1 rounded-lg transition-all ${targetLang === 'js-fetch' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-gray-400'}`}
             >
               JS Fetch
             </button>
             <button
               onClick={() => setTargetLang('axios')}
-              className={`px-3 py-1 rounded-lg ${targetLang === 'axios' ? 'bg-indigo-600 text-white' : 'text-gray-400'}`}
+              className={`px-3 py-1 rounded-lg transition-all ${targetLang === 'axios' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-gray-400'}`}
             >
               Axios
             </button>
             <button
               onClick={() => setTargetLang('python')}
-              className={`px-3 py-1 rounded-lg ${targetLang === 'python' ? 'bg-indigo-600 text-white' : 'text-gray-400'}`}
+              className={`px-3 py-1 rounded-lg transition-all ${targetLang === 'python' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-gray-400'}`}
             >
               Python
             </button>
             <button
               onClick={() => setTargetLang('go')}
-              className={`px-3 py-1 rounded-lg ${targetLang === 'go' ? 'bg-indigo-600 text-white' : 'text-gray-400'}`}
+              className={`px-3 py-1 rounded-lg transition-all ${targetLang === 'go' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-gray-400'}`}
             >
               Go
             </button>
             <button
               onClick={() => setTargetLang('rust')}
-              className={`px-3 py-1 rounded-lg ${targetLang === 'rust' ? 'bg-indigo-600 text-white' : 'text-gray-400'}`}
+              className={`px-3 py-1 rounded-lg transition-all ${targetLang === 'rust' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-gray-400'}`}
             >
               Rust
             </button>
@@ -219,8 +219,8 @@ async fn main() -> Result<(), Box<dyn std.error.Error>> {
       {/* Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
-          <label className="block text-xs font-semibold text-gray-300 flex items-center gap-2">
-            <Terminal className="w-4 h-4 text-indigo-400" /> Paste cURL Command
+          <label className="block text-xs font-semibold text-slate-800 dark:text-gray-300 flex items-center gap-2">
+            <Terminal className="w-4 h-4 text-indigo-600 dark:text-indigo-400" /> Paste cURL Command
           </label>
           <textarea
             ref={inputRef}
@@ -229,17 +229,17 @@ async fn main() -> Result<(), Box<dyn std.error.Error>> {
             value={curlInput}
             onChange={(e) => setCurlInput(e.target.value)}
             placeholder="curl -X POST https://..."
-            className="w-full glass-input p-4 rounded-2xl text-xs font-mono leading-relaxed"
+            className="w-full glass-input p-4 rounded-2xl text-xs font-mono leading-relaxed shadow-sm"
           />
         </div>
 
         <div className="space-y-2">
-          <label className="block text-xs font-semibold text-gray-300">Generated Code Snippet</label>
+          <label className="block text-xs font-semibold text-slate-800 dark:text-gray-300">Generated Code Snippet</label>
           <textarea
             rows={16}
             readOnly
             value={generatedCode}
-            className="w-full glass-input p-4 rounded-2xl text-xs font-mono text-emerald-300 leading-relaxed bg-gray-950/90"
+            className="w-full glass-input p-4 rounded-2xl text-xs font-mono text-emerald-700 dark:text-emerald-300 leading-relaxed bg-slate-50/90 dark:bg-gray-950/90 shadow-sm"
           />
         </div>
       </div>

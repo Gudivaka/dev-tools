@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ToolHeader } from '../components/ToolHeader';
+import { LineNumberedTextarea } from '../components/LineNumberedTextarea';
 import { FileJson, Code, AlertTriangle, CheckCircle2, Wand2 } from 'lucide-react';
 
 const SAMPLE_JSON = `{
@@ -15,6 +16,25 @@ const SAMPLE_JSON = `{
   "metadata": null
 }`;
 
+// Helper to extract line number from JSON parse error message or character position
+const getErrorLineNumber = (errorMsg: string, text: string): number | null => {
+  if (!errorMsg || !text) return null;
+
+  // Pattern 1: "at line X column Y" or "line X"
+  const lineMatch = errorMsg.match(/line\s+(\d+)/i);
+  if (lineMatch) return parseInt(lineMatch[1], 10);
+
+  // Pattern 2: "at position X" or "column X"
+  const posMatch = errorMsg.match(/position\s+(\d+)/i);
+  if (posMatch) {
+    const pos = parseInt(posMatch[1], 10);
+    const textUpToPos = text.slice(0, pos);
+    return textUpToPos.split('\n').length;
+  }
+
+  return null;
+};
+
 export const JsonFormatter: React.FC = () => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [jsonInput, setJsonInput] = useState<string>(SAMPLE_JSON);
@@ -27,7 +47,7 @@ export const JsonFormatter: React.FC = () => {
 
   // Format & Validate JSON
   const processJson = () => {
-    if (!jsonInput.trim()) return { formatted: '', error: null, isValid: false };
+    if (!jsonInput.trim()) return { formatted: '', error: null, isValid: false, errorLine: null };
 
     try {
       const parsed = JSON.parse(jsonInput);
@@ -41,13 +61,15 @@ export const JsonFormatter: React.FC = () => {
         formatted = JSON.stringify(parsed, null, indentSize);
       }
 
-      return { formatted, error: null, isValid: true, parsed };
+      return { formatted, error: null, isValid: true, parsed, errorLine: null };
     } catch (err: any) {
-      return { formatted: '', error: err.message, isValid: false, parsed: null };
+      const errorMsg = err.message || 'Invalid JSON';
+      const errorLine = getErrorLineNumber(errorMsg, jsonInput);
+      return { formatted: '', error: errorMsg, isValid: false, parsed: null, errorLine };
     }
   };
 
-  const { formatted, error, isValid, parsed } = processJson();
+  const { formatted, error, isValid, parsed, errorLine } = processJson();
 
   // Smart repair common loose JSON syntax (single quotes, trailing commas)
   const handleAutoRepair = () => {
@@ -117,7 +139,7 @@ export const JsonFormatter: React.FC = () => {
     <div className="space-y-6">
       <ToolHeader
         title="JSON Formatter, Beautifier & Validator"
-        description="Format, validate, repair JSON payloads and generate TypeScript or Go type interfaces."
+        description="Format, validate, repair JSON payloads with line-numbered line highlighting and generate TypeScript or Go type interfaces."
         onLoadSample={() => setJsonInput(SAMPLE_JSON)}
         onClear={() => setJsonInput('')}
         onCopy={() => {
@@ -194,29 +216,29 @@ export const JsonFormatter: React.FC = () => {
           <div className="flex items-center justify-between">
             <label className="block text-xs font-semibold text-gray-300">Input JSON</label>
             {error ? (
-              <span className="flex items-center gap-1 text-[11px] text-red-400 font-medium">
-                <AlertTriangle className="w-3.5 h-3.5" /> Invalid JSON Syntax
+              <span className="flex items-center gap-1 text-[11px] text-red-400 font-bold">
+                <AlertTriangle className="w-3.5 h-3.5" /> Invalid JSON {errorLine ? `(Line ${errorLine})` : ''}
               </span>
             ) : isValid ? (
               <span className="flex items-center gap-1 text-[11px] text-emerald-400 font-medium">
-                <CheckCircle2 className="w-3.5 h-3.5" /> Valid JSON
+                <CheckCircle2 className="w-3.5 h-3.5" /> Valid JSON Syntax
               </span>
             ) : null}
           </div>
 
-          <textarea
-            ref={inputRef}
+          <LineNumberedTextarea
+            inputRef={inputRef}
             autoFocus
             rows={18}
             value={jsonInput}
             onChange={(e) => setJsonInput(e.target.value)}
             placeholder="Paste raw or unformatted JSON here..."
-            className="w-full glass-input p-4 rounded-2xl text-xs font-mono leading-relaxed"
+            errorLine={errorLine}
           />
 
           {error && (
             <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-mono">
-              Error details: {error}
+              <span className="font-bold">Syntax Error:</span> {error} {errorLine && `(Highighted at line ${errorLine})`}
             </div>
           )}
         </div>
@@ -227,12 +249,11 @@ export const JsonFormatter: React.FC = () => {
             {targetType === 'none' ? 'Formatted Result' : `${targetType.toUpperCase()} Type Definition`}
           </label>
 
-          <textarea
+          <LineNumberedTextarea
             rows={18}
             readOnly
             value={targetType !== 'none' ? renderGeneratedType() : formatted}
             placeholder="Formatted output will appear here..."
-            className="w-full glass-input p-4 rounded-2xl text-xs font-mono text-emerald-300 leading-relaxed bg-gray-950/90"
           />
         </div>
       </div>

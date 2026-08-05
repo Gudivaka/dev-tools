@@ -64,7 +64,19 @@ export const Header: React.FC<HeaderProps> = ({
           <PrivacyBadge />
         </div>
 
-        {/* Light / Dark Mode Toggle Button (Hidden for now) */}
+        {/* Light / Dark Mode Toggle Button */}
+        <button
+          onClick={onToggleTheme}
+          className="p-2 text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white rounded-xl bg-slate-100/80 dark:bg-gray-800/80 hover:bg-slate-200/80 dark:hover:bg-gray-700/80 border border-slate-200 dark:border-gray-700/80 transition-all shadow-sm flex items-center justify-center"
+          title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+          aria-label="Toggle theme"
+        >
+          {theme === 'dark' ? (
+            <Sun className="w-4 h-4 text-amber-400" />
+          ) : (
+            <Moon className="w-4 h-4 text-indigo-600" />
+          )}
+        </button>
 
         <button
           onClick={onOpenCommandPalette}
@@ -78,9 +90,9 @@ export const Header: React.FC<HeaderProps> = ({
           href="https://github.com/Gudivaka/dev-tools"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-800 rounded-xl transition-all"
+          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-700 dark:text-gray-300 bg-slate-100/80 dark:bg-gray-900 hover:bg-slate-200/80 dark:hover:bg-gray-800 border border-slate-200 dark:border-gray-800 rounded-xl transition-all shadow-sm"
         >
-          <Github className="w-4 h-4 text-gray-900 dark:text-white" />
+          <Github className="w-4 h-4 text-slate-900 dark:text-white" />
           <span className="hidden sm:inline">GitHub</span>
         </a>
       </div>

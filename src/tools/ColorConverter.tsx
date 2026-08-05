@@ -102,9 +102,9 @@ export const ColorConverter: React.FC = () => {
       {/* Main Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Left: Color Inputs & Swatch */}
-        <div className="p-5 rounded-2xl bg-gray-900/80 border border-gray-800 space-y-4">
-          <h2 className="text-xs font-semibold text-gray-300 flex items-center gap-2">
-            <Palette className="w-4 h-4 text-indigo-400" /> Foreground & Color Inspector
+        <div className="p-5 rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-slate-200/80 dark:border-gray-800 space-y-4 shadow-sm">
+          <h2 className="text-xs font-semibold text-slate-800 dark:text-gray-300 flex items-center gap-2">
+            <Palette className="w-4 h-4 text-indigo-600 dark:text-indigo-400" /> Foreground & Color Inspector
           </h2>
 
           <div className="flex items-center gap-4">
@@ -115,41 +115,41 @@ export const ColorConverter: React.FC = () => {
               className="w-14 h-14 rounded-2xl cursor-pointer bg-transparent border-0"
             />
             <div className="flex-1">
-              <label className="block text-xs text-gray-400 mb-1">HEX Color Code</label>
+              <label className="block text-xs text-slate-500 dark:text-gray-400 mb-1">HEX Color Code</label>
               <input
                 ref={inputRef}
                 autoFocus
                 type="text"
                 value={hexColor}
                 onChange={(e) => setHexColor(e.target.value)}
-                className="w-full glass-input px-3.5 py-2 rounded-xl text-sm font-mono text-white font-bold"
+                className="w-full glass-input px-3.5 py-2 rounded-xl text-sm font-mono text-slate-900 dark:text-white font-bold"
               />
             </div>
           </div>
 
           {/* Formats Output */}
-          <div className="p-4 rounded-xl bg-gray-950 border border-gray-800 space-y-2 text-xs font-mono">
-            <div className="flex justify-between py-1 border-b border-gray-800">
-              <span className="text-gray-400">RGB:</span>
-              <span className="text-indigo-300">rgb({rgb.r}, {rgb.g}, {rgb.b})</span>
+          <div className="p-4 rounded-xl bg-slate-50 dark:bg-gray-950 border border-slate-200 dark:border-gray-800 space-y-2 text-xs font-mono">
+            <div className="flex justify-between py-1 border-b border-slate-200 dark:border-gray-800">
+              <span className="text-slate-500 dark:text-gray-400">RGB:</span>
+              <span className="text-indigo-600 dark:text-indigo-300 font-semibold">rgb({rgb.r}, {rgb.g}, {rgb.b})</span>
             </div>
-            <div className="flex justify-between py-1 border-b border-gray-800">
-              <span className="text-gray-400">HSL:</span>
-              <span className="text-purple-300">hsl({hsl.h}, {hsl.s}%, {hsl.l}%)</span>
+            <div className="flex justify-between py-1 border-b border-slate-200 dark:border-gray-800">
+              <span className="text-slate-500 dark:text-gray-400">HSL:</span>
+              <span className="text-purple-600 dark:text-purple-300 font-semibold">hsl({hsl.h}, {hsl.s}%, {hsl.l}%)</span>
             </div>
             <div className="flex justify-between py-1">
-              <span className="text-gray-400">CSS Variable:</span>
-              <span className="text-emerald-300">--color-brand: {hexColor};</span>
+              <span className="text-slate-500 dark:text-gray-400">CSS Variable:</span>
+              <span className="text-emerald-600 dark:text-emerald-300 font-semibold">--color-brand: {hexColor};</span>
             </div>
           </div>
         </div>
 
         {/* Right: WCAG Contrast Checker */}
-        <div className="p-5 rounded-2xl bg-gray-900/80 border border-gray-800 space-y-4">
-          <h2 className="text-xs font-semibold text-gray-300">WCAG Accessibility Contrast Checker</h2>
+        <div className="p-5 rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-slate-200/80 dark:border-gray-800 space-y-4 shadow-sm">
+          <h2 className="text-xs font-semibold text-slate-800 dark:text-gray-300">WCAG Accessibility Contrast Checker</h2>
 
           <div>
-            <label className="block text-xs text-gray-400 mb-1">Background Color</label>
+            <label className="block text-xs text-slate-500 dark:text-gray-400 mb-1">Background Color</label>
             <div className="flex items-center gap-3">
               <input
                 type="color"
@@ -168,7 +168,7 @@ export const ColorConverter: React.FC = () => {
 
           {/* Preview Box */}
           <div
-            className="p-6 rounded-2xl border border-gray-800 flex flex-col items-center justify-center text-center transition-all"
+            className="p-6 rounded-2xl border border-slate-200 dark:border-gray-800 flex flex-col items-center justify-center text-center transition-all shadow-inner"
             style={{ backgroundColor: bgColor, color: hexColor }}
           >
             <span className="text-lg font-bold">Sample Text Preview</span>
@@ -176,16 +176,16 @@ export const ColorConverter: React.FC = () => {
           </div>
 
           {/* Contrast Score */}
-          <div className="p-4 rounded-xl bg-gray-950 border border-gray-800 space-y-3">
+          <div className="p-4 rounded-xl bg-slate-50 dark:bg-gray-950 border border-slate-200 dark:border-gray-800 space-y-3">
             <div className="flex justify-between items-center text-xs">
-              <span className="text-gray-400">Contrast Ratio:</span>
-              <span className="text-base font-bold font-mono text-white">{contrastRatio.toFixed(2)}:1</span>
+              <span className="text-slate-500 dark:text-gray-400">Contrast Ratio:</span>
+              <span className="text-base font-bold font-mono text-slate-900 dark:text-white">{contrastRatio.toFixed(2)}:1</span>
             </div>
 
             <div className="grid grid-cols-2 gap-2 text-xs">
               <div
                 className={`p-2.5 rounded-xl border flex items-center justify-between ${
-                  passesAA ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' : 'bg-red-500/10 border-red-500/30 text-red-400'
+                  passesAA ? 'bg-emerald-50 dark:bg-emerald-500/10 border-emerald-200 dark:border-emerald-500/30 text-emerald-700 dark:text-emerald-400' : 'bg-red-50 dark:bg-red-500/10 border-red-200 dark:border-red-500/30 text-red-700 dark:text-red-400'
                 }`}
               >
                 <span>WCAG AA (4.5:1)</span>
@@ -194,7 +194,7 @@ export const ColorConverter: React.FC = () => {
 
               <div
                 className={`p-2.5 rounded-xl border flex items-center justify-between ${
-                  passesAAA ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' : 'bg-red-500/10 border-red-500/30 text-red-400'
+                  passesAAA ? 'bg-emerald-50 dark:bg-emerald-500/10 border-emerald-200 dark:border-emerald-500/30 text-emerald-700 dark:text-emerald-400' : 'bg-red-50 dark:bg-red-500/10 border-red-200 dark:border-red-500/30 text-red-700 dark:text-red-400'
                 }`}
               >
                 <span>WCAG AAA (7.0:1)</span>

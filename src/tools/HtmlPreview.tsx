@@ -71,8 +71,8 @@ export const HtmlPreview: React.FC = () => {
       {/* Grid Editor and Live Frame */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="space-y-2">
-          <label className="block text-xs font-semibold text-gray-300 flex items-center gap-2">
-            <Code className="w-4 h-4 text-indigo-400" /> HTML / CSS / JS Code Editor
+          <label className="block text-xs font-semibold text-slate-800 dark:text-gray-300 flex items-center gap-2">
+            <Code className="w-4 h-4 text-indigo-600 dark:text-indigo-400" /> HTML / CSS / JS Code Editor
           </label>
           <textarea
             ref={inputRef}
@@ -81,15 +81,15 @@ export const HtmlPreview: React.FC = () => {
             value={htmlCode}
             onChange={(e) => setHtmlCode(e.target.value)}
             placeholder="Write HTML & CSS code..."
-            className="w-full glass-input p-4 rounded-2xl text-xs font-mono leading-relaxed"
+            className="w-full glass-input p-4 rounded-2xl text-xs font-mono leading-relaxed shadow-sm"
           />
         </div>
 
         <div className="space-y-2">
-          <label className="block text-xs font-semibold text-gray-300 flex items-center gap-2">
-            <Eye className="w-4 h-4 text-emerald-400" /> Sandboxed Live Preview
+          <label className="block text-xs font-semibold text-slate-800 dark:text-gray-300 flex items-center gap-2">
+            <Eye className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> Sandboxed Live Preview
           </label>
-          <div className="w-full h-[400px] rounded-2xl border border-gray-800 bg-white overflow-hidden shadow-2xl">
+          <div className="w-full h-[400px] rounded-2xl border border-slate-200 dark:border-gray-800 bg-white overflow-hidden shadow-xl">
             <iframe
               srcDoc={htmlCode}
               title="HTML Sandbox Preview"
