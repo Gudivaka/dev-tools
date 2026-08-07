@@ -24,6 +24,15 @@ export const TOOLS: ToolDefinition[] = [
     keywords: ['epoch', 'timestamp', 'date', 'time', 'utc', 'iso', 'unix', 'clock']
   },
   {
+    id: 'world-clock-tool',
+    name: 'World Clock & Timezone Inspector',
+    category: 'Time & Formatters',
+    description: 'Analog & Digital clock visualizer with multi-timezone selection and time travel slider',
+    iconName: 'Globe',
+    badge: 'New',
+    keywords: ['clock', 'world clock', 'timezone', 'analog', 'digital', 'est', 'pst', 'ist', 'utc', 'gmt']
+  },
+  {
     id: 'base64-converter',
     name: 'Base64 & Data Converter',
     category: 'Time & Formatters',
@@ -104,7 +113,7 @@ export const TOOLS: ToolDefinition[] = [
     id: 'json-formatter',
     name: 'JSON Formatter & Validator',
     category: 'JSON Utilities',
-    description: 'Format, minify, validate JSON syntax and generate TypeScript/Go/Python types',
+    description: 'Format, minify, validate JSON syntax with line numbers and generate TypeScript/Go/Python types',
     iconName: 'FileJson',
     badge: 'Popular',
     keywords: ['json', 'format', 'beautify', 'minify', 'validate', 'syntax', 'typescript', 'go', 'python']
@@ -121,7 +130,7 @@ export const TOOLS: ToolDefinition[] = [
     id: 'json-diff',
     name: 'JSON Object Diff',
     category: 'JSON Utilities',
-    description: 'Semantic JSON object comparison highlighting added, removed & modified keys',
+    description: 'Semantic JSON object comparison with line numbers highlighting added, removed & modified keys',
     iconName: 'GitCompare',
     keywords: ['json', 'diff', 'compare', 'delta', 'object', 'match']
   },
@@ -131,7 +140,6 @@ export const TOOLS: ToolDefinition[] = [
     category: 'JSON Utilities',
     description: 'Interactively build Elasticsearch bool DSL queries, range filters, and aggregations',
     iconName: 'Layers',
-    badge: 'New',
     keywords: ['elasticsearch', 'es', 'query', 'dsl', 'search', 'bool', 'must', 'filter', 'aggs']
   },
 
@@ -142,7 +150,6 @@ export const TOOLS: ToolDefinition[] = [
     category: 'Diffs & Text',
     description: 'Side-by-side & unified split diff visualizer with line/char level highlighting',
     iconName: 'Split',
-    badge: 'Popular',
     keywords: ['diff', 'file diff', 'text diff', 'compare', 'side by side', 'unified', 'changes', 'patch']
   },
   {

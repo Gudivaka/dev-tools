@@ -6,6 +6,7 @@ import { TOOLS } from './types/tools';
 
 // Tool Components Import
 import { EpochConverter } from './tools/EpochConverter';
+import { WorldClockTool } from './tools/WorldClockTool';
 import { JwtDecoder } from './tools/JwtDecoder';
 import { Base64Converter } from './tools/Base64Converter';
 import { JsonFormatter } from './tools/JsonFormatter';
@@ -31,6 +32,7 @@ import { EsQueryGenerator } from './tools/EsQueryGenerator';
 
 const TOOL_COMPONENTS: Record<string, React.FC> = {
   'epoch-converter': EpochConverter,
+  'world-clock-tool': WorldClockTool,
   'jwt-decoder': JwtDecoder,
   'base64-converter': Base64Converter,
   'json-formatter': JsonFormatter,
@@ -61,9 +63,9 @@ export const App: React.FC = () => {
     try {
       const saved = localStorage.getItem('devtoolkit_theme');
       if (saved === 'light' || saved === 'dark') return saved;
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'dark';
     } catch (e) {
-      return 'light';
+      return 'dark';
     }
   });
 
@@ -94,9 +96,9 @@ export const App: React.FC = () => {
   const [favorites, setFavorites] = useState<string[]>(() => {
     try {
       const saved = localStorage.getItem('devtoolkit_favorites');
-      return saved ? JSON.parse(saved) : ['epoch-converter', 'jwt-decoder', 'json-formatter', 'es-query-generator'];
+      return saved ? JSON.parse(saved) : ['epoch-converter', 'world-clock-tool', 'jwt-decoder', 'json-formatter'];
     } catch (e) {
-      return ['epoch-converter', 'jwt-decoder', 'json-formatter', 'es-query-generator'];
+      return ['epoch-converter', 'world-clock-tool', 'jwt-decoder', 'json-formatter'];
     }
   });
 
@@ -129,7 +131,7 @@ export const App: React.FC = () => {
   const ActiveComponent = TOOL_COMPONENTS[activeToolId] || EpochConverter;
 
   return (
-    <div className="min-h-screen bg-slate-100/90 dark:bg-slate-950 dark:bg-gradient-to-br dark:from-gray-950 dark:via-gray-900 dark:to-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans selection:bg-indigo-500 selection:text-white transition-colors duration-200">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 flex flex-col font-sans selection:bg-indigo-500 selection:text-white transition-colors duration-200">
       {/* Top Navigation Bar */}
       <Header
         theme={theme}
