@@ -1,12 +1,28 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ToolHeader } from '../components/ToolHeader';
-import { CalendarClock, Calendar, Clock, AlertCircle, Sparkles, CheckCircle2 } from 'lucide-react';
+import { CalendarClock, Calendar, Clock, AlertCircle, Sparkles, Globe } from 'lucide-react';
 import cronstrue from 'cronstrue';
 import { CronExpressionParser } from 'cron-parser';
+
+const TIMEZONE_OPTIONS = [
+  { label: `Local Browser Timezone (${Intl.DateTimeFormat().resolvedOptions().timeZone})`, value: Intl.DateTimeFormat().resolvedOptions().timeZone },
+  { label: 'UTC / GMT (Coordinated Universal Time)', value: 'UTC' },
+  { label: 'US Pacific Time (PST / PDT - SF/LA)', value: 'America/Los_Angeles' },
+  { label: 'US Mountain Time (MST / MDT - Denver)', value: 'America/Denver' },
+  { label: 'US Central Time (CST / CDT - Chicago)', value: 'America/Chicago' },
+  { label: 'US Eastern Time (EST / EDT - New York/Toronto)', value: 'America/New_York' },
+  { label: 'UK & Ireland (GMT / BST - London)', value: 'Europe/London' },
+  { label: 'Central Europe (CET / CEST - Paris/Berlin/Amsterdam)', value: 'Europe/Paris' },
+  { label: 'India Standard Time (IST)', value: 'Asia/Kolkata' },
+  { label: 'Japan Standard Time (JST - Tokyo)', value: 'Asia/Tokyo' },
+  { label: 'Singapore & Hong Kong (SGT / HKT)', value: 'Asia/Singapore' },
+  { label: 'Australia Eastern (AEST / AEDT - Sydney)', value: 'Australia/Sydney' },
+];
 
 export const CronParser: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [cronExpr, setCronExpr] = useState('*/15 * * * *');
+  const [selectedTz, setSelectedTz] = useState<string>(Intl.DateTimeFormat().resolvedOptions().timeZone);
   const [use24Hour, setUse24Hour] = useState(false);
 
   useEffect(() => {
@@ -31,12 +47,12 @@ export const CronParser: React.FC = () => {
       parseError = err.message || 'Invalid cron expression format';
     }
 
-    // Parse Next Executions via cron-parser
+    // Parse Next Executions via cron-parser with selected timezone
     if (!parseError) {
       try {
         const interval = CronExpressionParser.parse(cleanExpr, {
           currentDate: new Date(),
-          tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
+          tz: selectedTz,
         });
 
         const getRelativeTimeString = (targetDate: Date, now = new Date()) => {
@@ -78,7 +94,7 @@ export const CronParser: React.FC = () => {
     <div className="space-y-6">
       <ToolHeader
         title="Cron Expression Parser & Visualizer"
-        description="Convert standard 5-part or 6-part cron syntax into plain English and preview accurate upcoming execution schedules."
+        description="Convert standard 5-part or 6-part cron syntax into plain English and preview accurate upcoming execution schedules in any timezone."
         onLoadSample={() => setCronExpr('0 9 * * 1-5')}
         onClear={() => setCronExpr('')}
       />
@@ -86,8 +102,8 @@ export const CronParser: React.FC = () => {
       {/* Input & Presets Section */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-2 space-y-4">
-          <div className="p-5 rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-slate-200/80 dark:border-gray-800 space-y-3 shadow-sm">
-            <div className="flex items-center justify-between">
+          <div className="p-5 rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-slate-200/80 dark:border-gray-800 space-y-4 shadow-sm">
+            <div className="flex flex-wrap items-center justify-between gap-2">
               <label className="block text-xs font-semibold text-slate-800 dark:text-gray-300 flex items-center gap-2">
                 <CalendarClock className="w-4 h-4 text-indigo-600 dark:text-indigo-400" /> Enter Cron Expression
               </label>
@@ -99,7 +115,7 @@ export const CronParser: React.FC = () => {
                   onChange={(e) => setUse24Hour(e.target.checked)}
                   className="w-4 h-4 rounded bg-slate-100 dark:bg-gray-950 border-slate-300 dark:border-gray-700 text-indigo-600 focus:ring-0"
                 />
-                <span>24-Hour Format</span>
+                <span>24-Hour Clock</span>
               </label>
             </div>
 
@@ -113,22 +129,42 @@ export const CronParser: React.FC = () => {
               className="w-full glass-input px-4 py-3 rounded-xl text-lg font-mono text-indigo-700 dark:text-indigo-300 font-bold tracking-wide"
             />
 
-            {/* Field-by-Field Breakdown Chips */}
-            <div className="pt-2">
-              <div className="text-[11px] font-semibold text-slate-500 dark:text-gray-400 mb-2">Expression Parts Breakdown:</div>
-              <div className="flex flex-wrap gap-2">
-                {fieldNames.map((name, idx) => {
-                  const val = fields[idx] || '-';
-                  return (
-                    <div
-                      key={idx}
-                      className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-gray-950 border border-slate-200 dark:border-gray-800 text-xs flex flex-col items-center min-w-[70px]"
-                    >
-                      <span className="text-[10px] text-slate-400 dark:text-gray-500 font-medium">{name}</span>
-                      <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400 mt-0.5">{val}</span>
-                    </div>
-                  );
-                })}
+            {/* Timezone Selection Control */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+              <div>
+                <label className="block text-[11px] font-semibold text-slate-500 dark:text-gray-400 mb-1 flex items-center gap-1.5">
+                  <Globe className="w-3.5 h-3.5 text-indigo-500" /> Schedule Timezone Evaluator:
+                </label>
+                <select
+                  value={selectedTz}
+                  onChange={(e) => setSelectedTz(e.target.value)}
+                  className="w-full glass-input px-3 py-2 rounded-xl text-xs font-medium text-slate-800 dark:text-gray-200"
+                >
+                  {TIMEZONE_OPTIONS.map((tz) => (
+                    <option key={tz.value} value={tz.value}>
+                      {tz.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Breakdown Summary */}
+              <div>
+                <div className="text-[11px] font-semibold text-slate-500 dark:text-gray-400 mb-1">Field Breakdown:</div>
+                <div className="flex flex-wrap gap-1.5">
+                  {fieldNames.map((name, idx) => {
+                    const val = fields[idx] || '-';
+                    return (
+                      <div
+                        key={idx}
+                        className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-gray-950 border border-slate-200 dark:border-gray-800 text-[11px] flex flex-col items-center flex-1 min-w-[50px]"
+                      >
+                        <span className="text-[9px] text-slate-400 dark:text-gray-500 font-medium">{name}</span>
+                        <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">{val}</span>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>
@@ -181,35 +217,47 @@ export const CronParser: React.FC = () => {
       {/* Forecasted Executions Schedule */}
       {!parseError && nextExecutions.length > 0 && (
         <div className="p-5 rounded-2xl bg-white/90 dark:bg-gray-900/80 border border-slate-200/80 dark:border-gray-800 space-y-4 shadow-sm">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200/80 dark:border-gray-800 pb-3">
             <h3 className="text-xs font-bold text-slate-800 dark:text-gray-200 flex items-center gap-2">
               <Clock className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> Upcoming 10 Forecasted Execution Schedule
             </h3>
-            <span className="text-[11px] text-slate-500 dark:text-gray-400 font-mono">
-              Timezone: {Intl.DateTimeFormat().resolvedOptions().timeZone}
-            </span>
+            <div className="text-xs font-semibold px-3 py-1 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800/60 flex items-center gap-1.5">
+              <Globe className="w-3.5 h-3.5" /> Evaluated in Timezone: <span className="font-mono font-bold text-indigo-900 dark:text-white">{selectedTz}</span>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 font-mono text-xs">
-            {nextExecutions.map((item, idx) => (
-              <div
-                key={idx}
-                className="p-3.5 rounded-xl bg-slate-50 dark:bg-gray-950 border border-slate-200 dark:border-gray-800/80 space-y-1 hover:border-emerald-500/40 transition-all"
-              >
-                <div className="flex items-center justify-between text-[10px] text-slate-400 dark:text-gray-500 font-sans font-semibold">
-                  <span>Run #{idx + 1}</span>
-                  <span className="text-indigo-600 dark:text-indigo-400">{item.relativeStr}</span>
+            {nextExecutions.map((item, idx) => {
+              const formattedTime = use24Hour
+                ? item.date.toLocaleTimeString('en-US', { timeZone: selectedTz, hour12: false })
+                : item.date.toLocaleTimeString('en-US', { timeZone: selectedTz, hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+
+              const formattedDate = item.date.toLocaleDateString('en-US', {
+                timeZone: selectedTz,
+                weekday: 'short',
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric',
+              });
+
+              return (
+                <div
+                  key={idx}
+                  className="p-3.5 rounded-xl bg-slate-50 dark:bg-gray-950 border border-slate-200 dark:border-gray-800/80 space-y-1 hover:border-emerald-500/40 transition-all shadow-sm"
+                >
+                  <div className="flex items-center justify-between text-[10px] text-slate-400 dark:text-gray-500 font-sans font-semibold">
+                    <span>Run #{idx + 1}</span>
+                    <span className="text-indigo-600 dark:text-indigo-400 font-medium">{item.relativeStr}</span>
+                  </div>
+                  <div className="text-sm font-bold text-emerald-700 dark:text-emerald-300 mt-1">
+                    {formattedTime}
+                  </div>
+                  <div className="text-[11px] text-slate-600 dark:text-gray-400 font-sans font-medium">
+                    {formattedDate}
+                  </div>
                 </div>
-                <div className="text-sm font-bold text-emerald-700 dark:text-emerald-300 mt-1">
-                  {use24Hour
-                    ? item.date.toLocaleTimeString('en-US', { hour12: false })
-                    : item.date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true })}
-                </div>
-                <div className="text-[11px] text-slate-600 dark:text-gray-400 font-sans font-medium">
-                  {item.date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       )}
