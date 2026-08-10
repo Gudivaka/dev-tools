@@ -13,6 +13,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "cron-parser": "^5.8.1",
     "cronstrue": "^2.50.0",
     "crypto-js": "^4.2.0",
     "diff": "^7.0.0",
