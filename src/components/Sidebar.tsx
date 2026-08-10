@@ -3,7 +3,7 @@ import {
   Clock, Binary, FileCode2, Database, Terminal, KeyRound, 
   ShieldCheck, Lock, FileJson, FolderTree, GitCompare, 
   Split, Regex, Type, Link, Fingerprint, CalendarClock, Palette, Star, Search,
-  Code, RefreshCcw, Eye, Layers
+  Code, RefreshCcw, Eye, Layers, Globe, Gauge
 } from 'lucide-react';
 import { TOOLS, ToolCategory, ToolDefinition } from '../types/tools';
 
@@ -20,7 +20,7 @@ const ICON_MAP: Record<string, React.FC<{ className?: string }>> = {
   Clock, Binary, FileCode2, Database, Terminal, KeyRound, 
   ShieldCheck, Lock, FileJson, FolderTree, GitCompare, 
   Split, Regex, Type, Link, Fingerprint, CalendarClock, Palette,
-  Code, RefreshCcw, Eye, Layers
+  Code, RefreshCcw, Eye, Layers, Globe, Gauge
 };
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -57,8 +57,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
         key={tool.id}
         className={`group relative flex items-center justify-between px-3 py-2 text-xs font-medium rounded-xl cursor-pointer transition-all ${
           isActive
-            ? 'bg-indigo-50 dark:bg-indigo-600/20 text-indigo-700 dark:text-white border border-indigo-200 dark:border-indigo-500/40 shadow-sm font-semibold'
-            : 'text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-gray-200 hover:bg-slate-100 dark:hover:bg-gray-900/60'
+            ? 'bg-indigo-600/10 dark:bg-indigo-600/20 text-indigo-600 dark:text-white border border-indigo-500/30 dark:border-indigo-500/40 shadow-sm'
+            : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-900/60'
         }`}
         onClick={() => {
           onSelectTool(tool.id);
@@ -66,7 +66,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         }}
       >
         <div className="flex items-center gap-2.5 min-w-0">
-          <IconComponent className={`w-4 h-4 flex-shrink-0 ${isActive ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-400 dark:text-gray-500 group-hover:text-slate-700 dark:group-hover:text-gray-300'}`} />
+          <IconComponent className={`w-4 h-4 flex-shrink-0 ${isActive ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-400 dark:text-gray-500 group-hover:text-gray-700 dark:group-hover:text-gray-300'}`} />
           <span className="truncate">{tool.name}</span>
         </div>
 
@@ -82,7 +82,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               onToggleFavorite(tool.id);
             }}
             className={`p-1 rounded opacity-0 group-hover:opacity-100 transition-opacity ${
-              isFav ? 'opacity-100 text-amber-500 dark:text-amber-400' : 'text-slate-400 dark:text-gray-600 hover:text-amber-500 dark:hover:text-amber-400'
+              isFav ? 'opacity-100 text-amber-500 dark:text-amber-400' : 'text-gray-400 dark:text-gray-600 hover:text-amber-500 dark:hover:text-amber-400'
             }`}
             title={isFav ? 'Remove from favorites' : 'Add to favorites'}
           >
@@ -106,20 +106,20 @@ export const Sidebar: React.FC<SidebarProps> = ({
       )}
 
       <aside
-        className={`fixed md:sticky top-0 md:top-16 left-0 z-40 w-64 h-[calc(100vh)] md:h-[calc(100vh-4rem)] bg-white/80 dark:bg-gray-950/80 backdrop-blur-xl border-r border-slate-200/80 dark:border-gray-800/80 flex flex-col transition-transform duration-300 ease-in-out ${
+        className={`fixed md:sticky top-0 md:top-16 left-0 z-40 w-64 h-[calc(100vh)] md:h-[calc(100vh-4rem)] bg-white dark:bg-gray-950 border-r border-gray-200 dark:border-gray-800/80 flex flex-col transition-transform duration-300 ease-in-out ${
           isOpenMobile ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
         }`}
       >
         {/* Search input inside sidebar */}
-        <div className="p-3 border-b border-slate-200/80 dark:border-gray-800/80">
+        <div className="p-3 border-b border-gray-200 dark:border-gray-800/80">
           <div className="relative">
-            <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-400 dark:text-gray-500" />
+            <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-gray-400 dark:text-gray-500" />
             <input
               type="text"
               placeholder="Filter tools..."
               value={filterQuery}
               onChange={(e) => setFilterQuery(e.target.value)}
-              className="w-full bg-slate-50 dark:bg-gray-900 border border-slate-200 dark:border-gray-800 text-xs text-slate-900 dark:text-gray-200 placeholder-slate-400 dark:placeholder-gray-500 pl-8 pr-3 py-1.5 rounded-lg focus:outline-none focus:border-indigo-500"
+              className="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-xs text-gray-900 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 pl-8 pr-3 py-1.5 rounded-lg focus:outline-none focus:border-indigo-500"
             />
           </div>
         </div>

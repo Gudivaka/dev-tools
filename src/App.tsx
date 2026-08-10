@@ -29,6 +29,7 @@ import { StringEscapeTool } from './tools/StringEscapeTool';
 import { HtmlPreview } from './tools/HtmlPreview';
 import { PhpSerializer } from './tools/PhpSerializer';
 import { EsQueryGenerator } from './tools/EsQueryGenerator';
+import { NetworkSpeedTest } from './tools/NetworkSpeedTest';
 
 const TOOL_COMPONENTS: Record<string, React.FC> = {
   'epoch-converter': EpochConverter,
@@ -55,6 +56,7 @@ const TOOL_COMPONENTS: Record<string, React.FC> = {
   'html-preview': HtmlPreview,
   'php-serializer': PhpSerializer,
   'es-query-generator': EsQueryGenerator,
+  'network-speed-test': NetworkSpeedTest,
 };
 
 export const App: React.FC = () => {
@@ -96,9 +98,9 @@ export const App: React.FC = () => {
   const [favorites, setFavorites] = useState<string[]>(() => {
     try {
       const saved = localStorage.getItem('devtoolkit_favorites');
-      return saved ? JSON.parse(saved) : ['epoch-converter', 'world-clock-tool', 'jwt-decoder', 'json-formatter'];
+      return saved ? JSON.parse(saved) : ['epoch-converter', 'world-clock-tool', 'jwt-decoder', 'network-speed-test'];
     } catch (e) {
-      return ['epoch-converter', 'world-clock-tool', 'jwt-decoder', 'json-formatter'];
+      return ['epoch-converter', 'world-clock-tool', 'jwt-decoder', 'network-speed-test'];
     }
   });
 

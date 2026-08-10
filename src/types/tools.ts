@@ -29,7 +29,6 @@ export const TOOLS: ToolDefinition[] = [
     category: 'Time & Formatters',
     description: 'Analog & Digital clock visualizer with multi-timezone selection and time travel slider',
     iconName: 'Globe',
-    badge: 'New',
     keywords: ['clock', 'world clock', 'timezone', 'analog', 'digital', 'est', 'pst', 'ist', 'utc', 'gmt']
   },
   {
@@ -179,6 +178,15 @@ export const TOOLS: ToolDefinition[] = [
 
   // Generators & Web
   {
+    id: 'network-speed-test',
+    name: 'Network Speed Test',
+    category: 'Generators & Web',
+    description: 'Measure download throughput (Mbps), upload speed, ping latency, and jitter variance',
+    iconName: 'Gauge',
+    badge: 'New',
+    keywords: ['speed', 'network', 'speedtest', 'download', 'upload', 'ping', 'latency', 'mbps', 'bandwidth']
+  },
+  {
     id: 'html-preview',
     name: 'HTML & CSS Live Preview',
     category: 'Generators & Web',
@@ -206,7 +214,7 @@ export const TOOLS: ToolDefinition[] = [
     id: 'cron-parser',
     name: 'Cron Expression Parser',
     category: 'Generators & Web',
-    description: 'Convert cron expressions to plain English and inspect future schedule execution dates',
+    description: 'Convert cron expressions to plain English and inspect future schedule execution dates in any timezone',
     iconName: 'CalendarClock',
     keywords: ['cron', 'schedule', 'parser', 'cronstrue', 'expression', 'job', 'timer']
   },

@@ -2,13 +2,13 @@
 
 > **Privacy-First, 100% Client-Side Developer Tools Suite**
 
-DevToolkit Studio is an open-source, ultra-fast, privacy-focused web application containing everyday developer utilities. All data conversions, cryptographic calculations, JSON parsing, diffs, Elasticsearch DSL generation, world clocks, and formatting happen **100% locally inside your browser**. Zero data is sent to external servers or telemetry trackers.
+DevToolkit Studio is an open-source, ultra-fast, privacy-focused web application containing everyday developer utilities. All data conversions, cryptographic calculations, JSON parsing, diffs, Elasticsearch DSL generation, world clocks, network speed tests, and formatting happen **100% locally inside your browser**. Zero data is sent to external servers or telemetry trackers.
 
 Live Web App: **[https://gudivaka.github.io/dev-tools/](https://gudivaka.github.io/dev-tools/)**
 
 ---
 
-## 🛠️ Included 24 Developer Tools
+## 🛠️ Included 25 Developer Tools
 
 ### 🕒 Time & Data Converters
 1. **Epoch / Timestamp Converter**: Human date ↔ Unix Epoch (s/ms/µs), timezone conversion, live clock, relative duration parser.
@@ -38,11 +38,12 @@ Live Web App: **[https://gudivaka.github.io/dev-tools/](https://gudivaka.github.
 19. **String Inspector & Case Converter**: camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE, text metrics & word count.
 
 ### 🌐 Web & Generators
-20. **HTML & CSS Live Sandbox Preview**: Write HTML, CSS, and JavaScript with live rendered sandbox preview in an isolated iframe.
-21. **URL Encoder & Query Parser**: URL encode/decode and interactive query string parameter editor table.
-22. **UUID / ULID Generator & Decoder**: Bulk generator for UUID v4, v1, NanoID, ULID + decode creation timestamps from ULIDs/UUIDs.
-23. **Cron Expression Parser**: Cron breakdown into human readable sentence, schedule visualization for next 10 executions.
-24. **Color Converter & WCAG**: HEX/RGB/HSL/CMYK conversion, visual color picker, WCAG AA/AAA contrast ratio validator.
+20. **Network Speed Test**: Real-time browser download speed (Mbps), upload throughput, ping latency, and jitter variance inspector.
+21. **HTML & CSS Live Sandbox Preview**: Write HTML, CSS, and JavaScript with live rendered sandbox preview in an isolated iframe.
+22. **URL Encoder & Query Parser**: URL encode/decode and interactive query string parameter editor table.
+23. **UUID / ULID Generator & Decoder**: Bulk generator for UUID v4, v1, NanoID, ULID + decode creation timestamps from ULIDs/UUIDs.
+24. **Cron Expression Parser**: Cron breakdown into human readable sentence, schedule visualization for next 10 executions in any timezone.
+25. **Color Converter & WCAG**: HEX/RGB/HSL/CMYK conversion, visual picker & WCAG AA/AAA contrast ratio validator.
 
 ---
 
