@@ -7,6 +7,7 @@ import { TOOLS } from './types/tools';
 // Tool Components Import
 import { EpochConverter } from './tools/EpochConverter';
 import { WorldClockTool } from './tools/WorldClockTool';
+import { CsvEditorTool } from './tools/CsvEditorTool';
 import { JwtDecoder } from './tools/JwtDecoder';
 import { Base64Converter } from './tools/Base64Converter';
 import { JsonFormatter } from './tools/JsonFormatter';
@@ -34,6 +35,7 @@ import { NetworkSpeedTest } from './tools/NetworkSpeedTest';
 const TOOL_COMPONENTS: Record<string, React.FC> = {
   'epoch-converter': EpochConverter,
   'world-clock-tool': WorldClockTool,
+  'csv-editor-tool': CsvEditorTool,
   'jwt-decoder': JwtDecoder,
   'base64-converter': Base64Converter,
   'json-formatter': JsonFormatter,
@@ -98,9 +100,9 @@ export const App: React.FC = () => {
   const [favorites, setFavorites] = useState<string[]>(() => {
     try {
       const saved = localStorage.getItem('devtoolkit_favorites');
-      return saved ? JSON.parse(saved) : ['epoch-converter', 'world-clock-tool', 'jwt-decoder', 'network-speed-test'];
+      return saved ? JSON.parse(saved) : ['epoch-converter', 'csv-editor-tool', 'jwt-decoder', 'json-formatter'];
     } catch (e) {
-      return ['epoch-converter', 'world-clock-tool', 'jwt-decoder', 'network-speed-test'];
+      return ['epoch-converter', 'csv-editor-tool', 'jwt-decoder', 'json-formatter'];
     }
   });
 

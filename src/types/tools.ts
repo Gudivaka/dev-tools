@@ -32,6 +32,15 @@ export const TOOLS: ToolDefinition[] = [
     keywords: ['clock', 'world clock', 'timezone', 'analog', 'digital', 'est', 'pst', 'ist', 'utc', 'gmt']
   },
   {
+    id: 'csv-editor-tool',
+    name: 'CSV Data Grid & Table Editor',
+    category: 'Time & Formatters',
+    description: 'Interactive CSV spreadsheet editor, upload CSV files, add/edit rows & columns, search, and download',
+    iconName: 'FileSpreadsheet',
+    badge: 'New',
+    keywords: ['csv', 'excel', 'table', 'editor', 'spreadsheet', 'grid', 'upload', 'download', 'export', 'rows']
+  },
+  {
     id: 'base64-converter',
     name: 'Base64 & Data Converter',
     category: 'Time & Formatters',
@@ -183,7 +192,6 @@ export const TOOLS: ToolDefinition[] = [
     category: 'Generators & Web',
     description: 'Measure download throughput (Mbps), upload speed, ping latency, and jitter variance',
     iconName: 'Gauge',
-    badge: 'New',
     keywords: ['speed', 'network', 'speedtest', 'download', 'upload', 'ping', 'latency', 'mbps', 'bandwidth']
   },
   {
