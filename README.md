@@ -93,7 +93,7 @@ firebase use --add          # pick your project (creates .firebaserc)
 npm run deploy:firebase     # builds and deploys dist/ to https://<project-id>.web.app
 ```
 
-`firebase.json` serves `dist/` as a static site; routing is hash-based so no rewrites are needed.
+`firebase.json` serves `dist/` as a static site; a `**` → `/index.html` rewrite enables deep links such as `/jwt-decoder` (refresh stays on the same tool).
 
 ---
 

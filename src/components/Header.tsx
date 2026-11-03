@@ -7,6 +7,7 @@ interface HeaderProps {
   onToggleTheme: () => void;
   onOpenCommandPalette: () => void;
   onToggleSidebar: () => void;
+  onGoHome: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -14,6 +15,7 @@ export const Header: React.FC<HeaderProps> = ({
   onToggleTheme,
   onOpenCommandPalette,
   onToggleSidebar,
+  onGoHome,
 }) => {
   return (
     <header className="sticky top-0 z-30 flex items-center justify-between h-16 px-4 md:px-6 bg-white/80 dark:bg-gray-950/80 backdrop-blur-xl border-b border-gray-200 dark:border-gray-800/80 transition-colors">
@@ -26,7 +28,7 @@ export const Header: React.FC<HeaderProps> = ({
           <Menu className="w-5 h-5" />
         </button>
 
-        <div className="flex items-center gap-2.5 cursor-pointer select-none">
+        <div className="flex items-center gap-2.5 cursor-pointer select-none" onClick={onGoHome} role="link" title="Home">
           <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/20">
             <Zap className="w-5 h-5 fill-current" />
           </div>

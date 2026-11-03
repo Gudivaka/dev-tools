@@ -23,7 +23,7 @@ graph TD
   JsonFormatter --> LNT[LineNumberedTextarea]
   JsonDiff --> LNT
   App -- localStorage --> LS[(devtoolkit_theme / devtoolkit_favorites)]
-  App -- location.hash --> URL[(#tool-id)]
+  App -- History API --> URL[(/tool-id path)]
   NetworkSpeedTest -- fetch --> httpbin[httpbin.org]
   GH[GitHub push to main] --> CI[deploy.yml: npm ci, build] --> Pages[gh-pages branch → GitHub Pages]
   Dev[npm run deploy:firebase] --> FB[Firebase Hosting dist/]
@@ -34,7 +34,7 @@ graph TD
 |---|---|---|---|
 | theme (`dark`/`light`) | App | `localStorage devtoolkit_theme`, `dark` class on `<html>` | default dark |
 | favorites (string[]) | App | `localStorage devtoolkit_favorites` | default: epoch, csv-editor, jwt, json-formatter |
-| activeToolId | App | `location.hash` | deep-linkable, fallback `epoch-converter` |
+| activeToolId | App | URL path `/tool-id` | deep-linkable, refresh-safe, fallback `epoch-converter` |
 | palette open | App | memory | Cmd/Ctrl+K toggles |
 | tool inputs/outputs | each tool | memory only | nothing persisted or sent |
 

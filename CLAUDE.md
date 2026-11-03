@@ -13,7 +13,7 @@ See [docs/KNOWLEDGE_GRAPH.md](docs/KNOWLEDGE_GRAPH.md) for the architecture grap
 - There are no tests.
 
 ## Architecture in one paragraph
-`src/main.tsx` → `App.tsx`. App owns theme, favorites, active tool id (synced to `location.hash`), and Cmd/Ctrl+K palette state. It renders `Header`, `Sidebar`, `CommandPalette` and one active tool component picked from `TOOL_COMPONENTS` (id → component). Tool metadata (name, category, icon, keywords, badge) lives in `TOOLS` in `src/types/tools.ts`. Each tool in `src/tools/*.tsx` is a self-contained component with local state and no shared store.
+`src/main.tsx` → `App.tsx`. App owns theme, favorites, active tool id (synced to the URL path via History API), and Cmd/Ctrl+K palette state. It renders `Header`, `Sidebar`, `CommandPalette` and one active tool component picked from `TOOL_COMPONENTS` (id → component). Tool metadata (name, category, icon, keywords, badge) lives in `TOOLS` in `src/types/tools.ts`. Each tool in `src/tools/*.tsx` is a self-contained component with local state and no shared store.
 
 ## Adding a new tool (3 places must agree on the `id`)
 1. Create `src/tools/MyTool.tsx` exporting a named component; start with `<ToolHeader .../>` from `../components/ToolHeader` (all tools do).
@@ -28,7 +28,7 @@ New category? Extend the `ToolCategory` union **and** the hard-coded `categories
 - Dependencies are minimal; prefer browser APIs (Web Crypto, `URL`, `Intl`, `FileReader`) over new packages.
 - TS is `strict`; unused locals/params are allowed.
 - Persistence is `localStorage` only: `devtoolkit_theme`, `devtoolkit_favorites`.
-- Routing is hash-only (`#tool-id`); unknown id falls back to Epoch Converter. Vite `base: './'` keeps it host-agnostic.
+- Routing is path-based (`/jwt-decoder`) using `history.pushState` (no router lib). `/`, `/home`, unknown paths and legacy `#tool-id` links normalise to `/epoch-converter`; clicking the logo goes there too. Needs host fallback to `index.html`: Firebase uses `rewrites` in `firebase.json`; GitHub Pages uses a `404.html` copy of `index.html`. Vite `base` is `/` by default; GitHub Pages builds set `VITE_BASE=/dev-tools/` (CI and `npm run deploy` do this). Don't run a plain `npm run build` and push it to gh-pages.
 - Keep the privacy promise: never send user input off-device.
 
 ## Known gotchas / inconsistencies

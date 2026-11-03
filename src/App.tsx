@@ -63,6 +63,24 @@ const TOOL_COMPONENTS: Record<string, React.FC> = {
   'network-speed-test': NetworkSpeedTest,
 };
 
+const DEFAULT_TOOL = 'epoch-converter';
+// BASE_URL is '/' on Firebase and '/dev-tools/' on GitHub Pages (set via VITE_BASE at build time)
+const BASE = ((import.meta as any).env?.BASE_URL as string) || '/';
+const BASE_PREFIX = BASE.replace(/\/$/, '');
+
+const toolIdFromLocation = (): string => {
+  let path = window.location.pathname;
+  if (BASE_PREFIX && path.startsWith(BASE_PREFIX)) path = path.slice(BASE_PREFIX.length);
+  const id = path.replace(/^\/+|\/+$/g, '');
+  if (TOOLS.some((t) => t.id === id)) return id;
+  // Legacy hash links (#tool-id)
+  const hash = window.location.hash.replace('#', '');
+  if (TOOLS.some((t) => t.id === hash)) return hash;
+  return DEFAULT_TOOL;
+};
+
+const pathForTool = (id: string) => `${BASE_PREFIX}/${id}`;
+
 export const App: React.FC = () => {
   // Theme state: dark or light
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
@@ -89,11 +107,18 @@ export const App: React.FC = () => {
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };
 
-  const [activeToolId, setActiveToolId] = useState<string>(() => {
-    const hash = window.location.hash.replace('#', '');
-    if (hash && TOOLS.some((t) => t.id === hash)) return hash;
-    return 'epoch-converter';
-  });
+  const [activeToolId, setActiveToolId] = useState<string>(toolIdFromLocation);
+
+  // Normalise URL on first load (/, /home, unknown paths, legacy #hash -> /tool-id) and handle back/forward
+  useEffect(() => {
+    const canonical = pathForTool(toolIdFromLocation());
+    if (window.location.pathname !== canonical || window.location.hash) {
+      window.history.replaceState(null, '', canonical);
+    }
+    const onPop = () => setActiveToolId(toolIdFromLocation());
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, []);
 
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [isSidebarOpenMobile, setIsSidebarOpenMobile] = useState(false);
@@ -131,8 +156,12 @@ export const App: React.FC = () => {
   // Update hash when switching tool
   const handleSelectTool = (toolId: string) => {
     setActiveToolId(toolId);
-    window.location.hash = toolId;
+    if (window.location.pathname !== pathForTool(toolId)) {
+      window.history.pushState(null, '', pathForTool(toolId));
+    }
   };
+
+  const handleGoHome = () => handleSelectTool(DEFAULT_TOOL);
 
   const ActiveComponent = TOOL_COMPONENTS[activeToolId] || EpochConverter;
 
@@ -144,6 +173,7 @@ export const App: React.FC = () => {
         onToggleTheme={toggleTheme}
         onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
         onToggleSidebar={() => setIsSidebarOpenMobile((prev) => !prev)}
+        onGoHome={handleGoHome}
       />
 
       {/* Main Layout Body */}

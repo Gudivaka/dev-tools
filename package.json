@@ -9,8 +9,7 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
+    "deploy": "VITE_BASE=/dev-tools/ npm run build && cp dist/index.html dist/404.html && gh-pages -d dist",
     "deploy:firebase": "npm run build && firebase deploy --only hosting"
   },
   "dependencies": {
