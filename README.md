@@ -8,7 +8,7 @@ Live Web App: **[https://gudivaka.github.io/dev-tools/](https://gudivaka.github.
 
 ---
 
-## 🛠️ Included 26 Developer Tools
+## 🛠️ Included 27 Developer Tools
 
 ### 🕒 Time & Data Converters
 1. **Epoch / Timestamp Converter**: Human date ↔ Unix Epoch (s/ms/µs), timezone conversion, live clock, relative duration parser.
@@ -30,7 +30,8 @@ Live Web App: **[https://gudivaka.github.io/dev-tools/](https://gudivaka.github.
 13. **JSON Formatter & Validator**: Beautify (2/4 spaces, tab, minified), syntax error highlighting with line-number gutter, auto-fixer, TypeScript/Go/Python interface generator.
 14. **JSON Interactive Tree**: Expandable/collapsible node tree view, key path copying, search & filter.
 15. **JSON Object Diff**: Compare 2 JSON objects with line-number gutter, highlight added/deleted/modified keys side-by-side.
-16. **Elasticsearch Query Generator**: Interactively build ES bool DSL queries (`must`, `filter`, `should`, `must_not`), range filters, aggregations, and cURL requests.
+16. **Swagger / OpenAPI Editor**: Edit OpenAPI 3.x / Swagger 2.0 specs (YAML or JSON), live structural validation, `$ref` checks, endpoint/schema docs preview, YAML⇄JSON.
+17. **Elasticsearch Query Generator**: Interactively build ES bool DSL queries (`must`, `filter`, `should`, `must_not`), range filters, aggregations, and cURL requests.
 
 ### 📝 Diffs & Text Utilities
 17. **Text & File Diff Visualizer**: Side-by-side & unified split view, char/line level diffing, file dropzone comparison.
@@ -81,6 +82,18 @@ npm run dev
 # Push latest code to main and deploy build to gh-pages branch
 npm run build && git add . && git commit -m "feat: updates" && git push origin main && npm run deploy
 ```
+
+---
+
+## 🔥 Hosting on Firebase
+
+```bash
+npm i -g firebase-tools && firebase login
+firebase use --add          # pick your project (creates .firebaserc)
+npm run deploy:firebase     # builds and deploys dist/ to https://<project-id>.web.app
+```
+
+`firebase.json` serves `dist/` as a static site; routing is hash-based so no rewrites are needed.
 
 ---
 

@@ -30,6 +30,7 @@ import { StringEscapeTool } from './tools/StringEscapeTool';
 import { HtmlPreview } from './tools/HtmlPreview';
 import { PhpSerializer } from './tools/PhpSerializer';
 import { EsQueryGenerator } from './tools/EsQueryGenerator';
+import { SwaggerEditor } from './tools/SwaggerEditor';
 import { NetworkSpeedTest } from './tools/NetworkSpeedTest';
 
 const TOOL_COMPONENTS: Record<string, React.FC> = {
@@ -58,6 +59,7 @@ const TOOL_COMPONENTS: Record<string, React.FC> = {
   'html-preview': HtmlPreview,
   'php-serializer': PhpSerializer,
   'es-query-generator': EsQueryGenerator,
+  'swagger-editor': SwaggerEditor,
   'network-speed-test': NetworkSpeedTest,
 };
 

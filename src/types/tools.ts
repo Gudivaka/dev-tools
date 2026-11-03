@@ -151,6 +151,16 @@ export const TOOLS: ToolDefinition[] = [
     keywords: ['elasticsearch', 'es', 'query', 'dsl', 'search', 'bool', 'must', 'filter', 'aggs']
   },
 
+  {
+    id: 'swagger-editor',
+    name: 'Swagger / OpenAPI Editor',
+    category: 'JSON Utilities',
+    description: 'Edit OpenAPI 3.x / Swagger 2.0 specs in YAML or JSON with live validation and docs preview',
+    iconName: 'BookOpen',
+    badge: 'New',
+    keywords: ['swagger', 'openapi', 'api', 'spec', 'yaml', 'editor', 'rest', 'docs', 'oas']
+  },
+
   // Diffs & Text
   {
     id: 'file-text-diff',

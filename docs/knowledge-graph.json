@@ -1,0 +1,730 @@
+{
+ "nodes": [
+  {
+   "id": "App",
+   "type": "component",
+   "file": "src/App.tsx"
+  },
+  {
+   "id": "Header",
+   "type": "component",
+   "file": "src/components/Header.tsx"
+  },
+  {
+   "id": "Sidebar",
+   "type": "component",
+   "file": "src/components/Sidebar.tsx"
+  },
+  {
+   "id": "CommandPalette",
+   "type": "component",
+   "file": "src/components/CommandPalette.tsx"
+  },
+  {
+   "id": "ToolHeader",
+   "type": "component",
+   "file": "src/components/ToolHeader.tsx"
+  },
+  {
+   "id": "PrivacyBadge",
+   "type": "component",
+   "file": "src/components/PrivacyBadge.tsx"
+  },
+  {
+   "id": "LineNumberedTextarea",
+   "type": "component",
+   "file": "src/components/LineNumberedTextarea.tsx"
+  },
+  {
+   "id": "Diffs & Text",
+   "type": "category"
+  },
+  {
+   "id": "Generators & Web",
+   "type": "category"
+  },
+  {
+   "id": "JSON Utilities",
+   "type": "category"
+  },
+  {
+   "id": "Time & Formatters",
+   "type": "category"
+  },
+  {
+   "id": "Tokens & Security",
+   "type": "category"
+  },
+  {
+   "id": "epoch-converter",
+   "type": "tool",
+   "name": "Epoch Converter",
+   "icon": "Clock"
+  },
+  {
+   "id": "world-clock-tool",
+   "type": "tool",
+   "name": "World Clock & Timezone Inspector",
+   "icon": "Globe"
+  },
+  {
+   "id": "csv-editor-tool",
+   "type": "tool",
+   "name": "CSV Data Grid & Table Editor",
+   "icon": "FileSpreadsheet"
+  },
+  {
+   "id": "base64-converter",
+   "type": "tool",
+   "name": "Base64 & Data Converter",
+   "icon": "Binary"
+  },
+  {
+   "id": "html-entity-converter",
+   "type": "tool",
+   "name": "HTML Entity Converter",
+   "icon": "Code"
+  },
+  {
+   "id": "yaml-converter",
+   "type": "tool",
+   "name": "YAML \u2194 JSON \u2194 CSV",
+   "icon": "FileCode2"
+  },
+  {
+   "id": "yaml",
+   "type": "dependency"
+  },
+  {
+   "id": "php-serializer",
+   "type": "tool",
+   "name": "PHP Serializer / Unserializer",
+   "icon": "RefreshCcw"
+  },
+  {
+   "id": "sql-formatter",
+   "type": "tool",
+   "name": "SQL Formatter",
+   "icon": "Database"
+  },
+  {
+   "id": "sql-formatter",
+   "type": "dependency"
+  },
+  {
+   "id": "curl-converter",
+   "type": "tool",
+   "name": "cURL to Code",
+   "icon": "Terminal"
+  },
+  {
+   "id": "jwt-decoder",
+   "type": "tool",
+   "name": "JWT Decoder",
+   "icon": "KeyRound"
+  },
+  {
+   "id": "crypto-js",
+   "type": "dependency"
+  },
+  {
+   "id": "hash-generator",
+   "type": "tool",
+   "name": "Hash & Checksum Generator",
+   "icon": "ShieldCheck"
+  },
+  {
+   "id": "password-generator",
+   "type": "tool",
+   "name": "Password & Key Generator",
+   "icon": "Lock"
+  },
+  {
+   "id": "json-formatter",
+   "type": "tool",
+   "name": "JSON Formatter & Validator",
+   "icon": "FileJson"
+  },
+  {
+   "id": "json-viewer",
+   "type": "tool",
+   "name": "JSON Interactive Tree",
+   "icon": "FolderTree"
+  },
+  {
+   "id": "json-diff",
+   "type": "tool",
+   "name": "JSON Object Diff",
+   "icon": "GitCompare"
+  },
+  {
+   "id": "es-query-generator",
+   "type": "tool",
+   "name": "ES Query Generator",
+   "icon": "Layers"
+  },
+  {
+   "id": "file-text-diff",
+   "type": "tool",
+   "name": "Text & File Diff Visualizer",
+   "icon": "Split"
+  },
+  {
+   "id": "diff",
+   "type": "dependency"
+  },
+  {
+   "id": "string-escape",
+   "type": "tool",
+   "name": "Backslash Escape / Unescape",
+   "icon": "FileCode2"
+  },
+  {
+   "id": "regex-tester",
+   "type": "tool",
+   "name": "Regex Tester & Visualizer",
+   "icon": "Regex"
+  },
+  {
+   "id": "string-converter",
+   "type": "tool",
+   "name": "String Inspector & Case Converter",
+   "icon": "Type"
+  },
+  {
+   "id": "network-speed-test",
+   "type": "tool",
+   "name": "Network Speed Test",
+   "icon": "Gauge"
+  },
+  {
+   "id": "httpbin.org",
+   "type": "dependency"
+  },
+  {
+   "id": "html-preview",
+   "type": "tool",
+   "name": "HTML & CSS Live Preview",
+   "icon": "Eye"
+  },
+  {
+   "id": "url-encoder",
+   "type": "tool",
+   "name": "URL Encoder & Query Parser",
+   "icon": "Link"
+  },
+  {
+   "id": "uuid-generator",
+   "type": "tool",
+   "name": "UUID / ULID Generate & Decode",
+   "icon": "Fingerprint"
+  },
+  {
+   "id": "cron-parser",
+   "type": "tool",
+   "name": "Cron Expression Parser",
+   "icon": "CalendarClock"
+  },
+  {
+   "id": "cron-parser",
+   "type": "dependency"
+  },
+  {
+   "id": "cronstrue",
+   "type": "dependency"
+  },
+  {
+   "id": "color-converter",
+   "type": "tool",
+   "name": "Color Converter & WCAG Checker",
+   "icon": "Palette"
+  },
+  {
+   "id": "swagger-editor",
+   "type": "tool",
+   "name": "Swagger / OpenAPI Editor",
+   "icon": "BookOpen"
+  },
+  {
+   "id": "Firebase Hosting",
+   "type": "deployment"
+  }
+ ],
+ "edges": [
+  {
+   "from": "App",
+   "to": "Header",
+   "rel": "renders"
+  },
+  {
+   "from": "App",
+   "to": "Sidebar",
+   "rel": "renders"
+  },
+  {
+   "from": "App",
+   "to": "CommandPalette",
+   "rel": "renders"
+  },
+  {
+   "from": "epoch-converter",
+   "to": "Time & Formatters",
+   "rel": "in_category"
+  },
+  {
+   "from": "App",
+   "to": "epoch-converter",
+   "rel": "renders_via_TOOL_COMPONENTS"
+  },
+  {
+   "from": "epoch-converter",
+   "to": "ToolHeader",
+   "rel": "uses"
+  },
+  {
+   "from": "world-clock-tool",
+   "to": "Time & Formatters",
+   "rel": "in_category"
+  },
+  {
+   "from": "App",
+   "to": "world-clock-tool",
+   "rel": "renders_via_TOOL_COMPONENTS"
+  },
+  {
+   "from": "world-clock-tool",
+   "to": "ToolHeader",
+   "rel": "uses"
+  },
+  {
+   "from": "csv-editor-tool",
+   "to": "Time & Formatters",
+   "rel": "in_category"
+  },
+  {
+   "from": "App",
+   "to": "csv-editor-tool",
+   "rel": "renders_via_TOOL_COMPONENTS"
+  },
+  {
+   "from": "csv-editor-tool",
+   "to": "ToolHeader",
+   "rel": "uses"
+  },
+  {
+   "from": "base64-converter",
+   "to": "Time & Formatters",
+   "rel": "in_category"
+  },
+  {
+   "from": "App",
+   "to": "base64-converter",
+   "rel": "renders_via_TOOL_COMPONENTS"
+  },
+  {
+   "from": "base64-converter",
+   "to": "ToolHeader",
+   "rel": "uses"
+  },
+  {
+   "from": "html-entity-converter",
+   "to": "Time & Formatters",
+   "rel": "in_category"
+  },
+  {
+   "from": "App",
+   "to": "html-entity-converter",
+   "rel": "renders_via_TOOL_COMPONENTS"
+  },
+  {
+   "from": "html-entity-converter",
+   "to": "ToolHeader",
+   "rel": "uses"
+  },
+  {
+   "from": "yaml-converter",
+   "to": "Time & Formatters",
+   "rel": "in_category"
+  },
+  {
+   "from": "App",
+   "to": "yaml-converter",
+   "rel": "renders_via_TOOL_COMPONENTS"
+  },
+  {
+   "from": "yaml-converter",
+   "to": "ToolHeader",
+   "rel": "uses"
+  },
+  {
+   "from": "yaml-converter",
+   "to": "yaml",
+   "rel": "depends_on"
+  },
+  {
+   "from": "php-serializer",
+   "to": "Time & Formatters",
+   "rel": "in_category"
+  },
+  {
+   "from": "App",
+   "to": "php-serializer",
+   "rel": "renders_via_TOOL_COMPONENTS"
+  },
+  {
+   "from": "php-serializer",
+   "to": "ToolHeader",
+   "rel": "uses"
+  },
+  {
+   "from": "sql-formatter",
+   "to": "Time & Formatters",
+   "rel": "in_category"
+  },
+  {
+   "from": "App",
+   "to": "sql-formatter",
+   "rel": "renders_via_TOOL_COMPONENTS"
+  },
+  {
+   "from": "sql-formatter",
+   "to": "ToolHeader",
+   "rel": "uses"
+  },
+  {
+   "from": "sql-formatter",
+   "to": "sql-formatter",
+   "rel": "depends_on"
+  },
+  {
+   "from": "curl-converter",
+   "to": "Time & Formatters",
+   "rel": "in_category"
+  },
+  {
+   "from": "App",
+   "to": "curl-converter",
+   "rel": "renders_via_TOOL_COMPONENTS"
+  },
+  {
+   "from": "curl-converter",
+   "to": "ToolHeader",
+   "rel": "uses"
+  },
+  {
+   "from": "jwt-decoder",
+   "to": "Tokens & Security",
+   "rel": "in_category"
+  },
+  {
+   "from": "App",
+   "to": "jwt-decoder",
+   "rel": "renders_via_TOOL_COMPONENTS"
+  },
+  {
+   "from": "jwt-decoder",
+   "to": "ToolHeader",
+   "rel": "uses"
+  },
+  {
+   "from": "jwt-decoder",
+   "to": "crypto-js",
+   "rel": "depends_on"
+  },
+  {
+   "from": "hash-generator",
+   "to": "Tokens & Security",
+   "rel": "in_category"
+  },
+  {
+   "from": "App",
+   "to": "hash-generator",
+   "rel": "renders_via_TOOL_COMPONENTS"
+  },
+  {
+   "from": "hash-generator",
+   "to": "ToolHeader",
+   "rel": "uses"
+  },
+  {
+   "from": "hash-generator",
+   "to": "crypto-js",
+   "rel": "depends_on"
+  },
+  {
+   "from": "password-generator",
+   "to": "Tokens & Security",
+   "rel": "in_category"
+  },
+  {
+   "from": "App",
+   "to": "password-generator",
+   "rel": "renders_via_TOOL_COMPONENTS"
+  },
+  {
+   "from": "password-generator",
+   "to": "ToolHeader",
+   "rel": "uses"
+  },
+  {
+   "from": "json-formatter",
+   "to": "JSON Utilities",
+   "rel": "in_category"
+  },
+  {
+   "from": "App",
+   "to": "json-formatter",
+   "rel": "renders_via_TOOL_COMPONENTS"
+  },
+  {
+   "from": "json-formatter",
+   "to": "ToolHeader",
+   "rel": "uses"
+  },
+  {
+   "from": "json-viewer",
+   "to": "JSON Utilities",
+   "rel": "in_category"
+  },
+  {
+   "from": "App",
+   "to": "json-viewer",
+   "rel": "renders_via_TOOL_COMPONENTS"
+  },
+  {
+   "from": "json-viewer",
+   "to": "ToolHeader",
+   "rel": "uses"
+  },
+  {
+   "from": "json-diff",
+   "to": "JSON Utilities",
+   "rel": "in_category"
+  },
+  {
+   "from": "App",
+   "to": "json-diff",
+   "rel": "renders_via_TOOL_COMPONENTS"
+  },
+  {
+   "from": "json-diff",
+   "to": "ToolHeader",
+   "rel": "uses"
+  },
+  {
+   "from": "es-query-generator",
+   "to": "JSON Utilities",
+   "rel": "in_category"
+  },
+  {
+   "from": "App",
+   "to": "es-query-generator",
+   "rel": "renders_via_TOOL_COMPONENTS"
+  },
+  {
+   "from": "es-query-generator",
+   "to": "ToolHeader",
+   "rel": "uses"
+  },
+  {
+   "from": "file-text-diff",
+   "to": "Diffs & Text",
+   "rel": "in_category"
+  },
+  {
+   "from": "App",
+   "to": "file-text-diff",
+   "rel": "renders_via_TOOL_COMPONENTS"
+  },
+  {
+   "from": "file-text-diff",
+   "to": "ToolHeader",
+   "rel": "uses"
+  },
+  {
+   "from": "file-text-diff",
+   "to": "diff",
+   "rel": "depends_on"
+  },
+  {
+   "from": "string-escape",
+   "to": "Diffs & Text",
+   "rel": "in_category"
+  },
+  {
+   "from": "App",
+   "to": "string-escape",
+   "rel": "renders_via_TOOL_COMPONENTS"
+  },
+  {
+   "from": "string-escape",
+   "to": "ToolHeader",
+   "rel": "uses"
+  },
+  {
+   "from": "regex-tester",
+   "to": "Diffs & Text",
+   "rel": "in_category"
+  },
+  {
+   "from": "App",
+   "to": "regex-tester",
+   "rel": "renders_via_TOOL_COMPONENTS"
+  },
+  {
+   "from": "regex-tester",
+   "to": "ToolHeader",
+   "rel": "uses"
+  },
+  {
+   "from": "string-converter",
+   "to": "Diffs & Text",
+   "rel": "in_category"
+  },
+  {
+   "from": "App",
+   "to": "string-converter",
+   "rel": "renders_via_TOOL_COMPONENTS"
+  },
+  {
+   "from": "string-converter",
+   "to": "ToolHeader",
+   "rel": "uses"
+  },
+  {
+   "from": "network-speed-test",
+   "to": "Generators & Web",
+   "rel": "in_category"
+  },
+  {
+   "from": "App",
+   "to": "network-speed-test",
+   "rel": "renders_via_TOOL_COMPONENTS"
+  },
+  {
+   "from": "network-speed-test",
+   "to": "ToolHeader",
+   "rel": "uses"
+  },
+  {
+   "from": "network-speed-test",
+   "to": "httpbin.org",
+   "rel": "depends_on"
+  },
+  {
+   "from": "html-preview",
+   "to": "Generators & Web",
+   "rel": "in_category"
+  },
+  {
+   "from": "App",
+   "to": "html-preview",
+   "rel": "renders_via_TOOL_COMPONENTS"
+  },
+  {
+   "from": "html-preview",
+   "to": "ToolHeader",
+   "rel": "uses"
+  },
+  {
+   "from": "url-encoder",
+   "to": "Generators & Web",
+   "rel": "in_category"
+  },
+  {
+   "from": "App",
+   "to": "url-encoder",
+   "rel": "renders_via_TOOL_COMPONENTS"
+  },
+  {
+   "from": "url-encoder",
+   "to": "ToolHeader",
+   "rel": "uses"
+  },
+  {
+   "from": "uuid-generator",
+   "to": "Generators & Web",
+   "rel": "in_category"
+  },
+  {
+   "from": "App",
+   "to": "uuid-generator",
+   "rel": "renders_via_TOOL_COMPONENTS"
+  },
+  {
+   "from": "uuid-generator",
+   "to": "ToolHeader",
+   "rel": "uses"
+  },
+  {
+   "from": "cron-parser",
+   "to": "Generators & Web",
+   "rel": "in_category"
+  },
+  {
+   "from": "App",
+   "to": "cron-parser",
+   "rel": "renders_via_TOOL_COMPONENTS"
+  },
+  {
+   "from": "cron-parser",
+   "to": "ToolHeader",
+   "rel": "uses"
+  },
+  {
+   "from": "cron-parser",
+   "to": "cron-parser",
+   "rel": "depends_on"
+  },
+  {
+   "from": "cron-parser",
+   "to": "cronstrue",
+   "rel": "depends_on"
+  },
+  {
+   "from": "color-converter",
+   "to": "Generators & Web",
+   "rel": "in_category"
+  },
+  {
+   "from": "App",
+   "to": "color-converter",
+   "rel": "renders_via_TOOL_COMPONENTS"
+  },
+  {
+   "from": "color-converter",
+   "to": "ToolHeader",
+   "rel": "uses"
+  },
+  {
+   "from": "json-formatter",
+   "to": "LineNumberedTextarea",
+   "rel": "uses"
+  },
+  {
+   "from": "json-diff",
+   "to": "LineNumberedTextarea",
+   "rel": "uses"
+  },
+  {
+   "from": "swagger-editor",
+   "to": "JSON Utilities",
+   "rel": "in_category"
+  },
+  {
+   "from": "App",
+   "to": "swagger-editor",
+   "rel": "renders_via_TOOL_COMPONENTS"
+  },
+  {
+   "from": "swagger-editor",
+   "to": "ToolHeader",
+   "rel": "uses"
+  },
+  {
+   "from": "swagger-editor",
+   "to": "yaml",
+   "rel": "depends_on"
+  }
+ ]
+}
